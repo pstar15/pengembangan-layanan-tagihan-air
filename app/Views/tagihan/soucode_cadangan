@@ -1,0 +1,85 @@
+<style>
+    .btn-keloladata {
+            width: 60px;
+            justify-content: flex-end;
+            align-items: flex-end;
+            margin: 0 auto;
+            margin-right: 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease; 
+        }
+</style>
+<div class="main-content" id="mainContent">
+    <div class="container">
+        <h2>Riwayat Tagihan Air</h2>
+
+        <!-- Alert Notifikasi -->
+        <?php if(session()->getFlashdata('success')): ?>
+            <div class="alert alert-success custom-alert" id="alertBox">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if(session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger custom-alert" id="alertBox">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="dropdown mb-3">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Pilih Data
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="selectAll(true)">Pilih Semua</a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectAll(false)">Jangan Semua</a></li>
+            </ul>
+        </div>
+        <form id="kelolaForm" method="post">
+
+            <div class="table-container">
+                <table border="1" cellpadding="10" cellspacing="0" width="100%" class="styled-table table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkAll" onclick="toggleCheckbox(this.checked)"></th>
+                            <th>Nama Pelanggan</th>
+                            <th>Nomor Meter</th>
+                            <th>Periode</th>
+                            <th>Jumlah Tagihan</th>
+                            <th>Status</th>
+                            <th>Waktu Simpan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($riwayat as $r): ?>
+                            <tr>
+                                <td><input type="checkbox" class="check-item" name="id[]" value="<?= $r['id'] ?>"></td>
+                                <td><?= esc($r['nama_pelanggan']) ?></td>
+                                <td><?= esc($r['nomor_meter']) ?></td>
+                                <td><?= esc($r['periode']) ?></td>
+                                <td><?= esc($r['jumlah_tagihan']) ?></td>
+                                <td><?= esc($r['status']) ?></td>
+                                <td><?= esc($r['created_at']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" formaction="<?= site_url('riwayat-tagihan/kembalikan') ?>" onclick="return confirm('Kembalikan data terpilih?')">Kembalikan</button>
+                <button type="submit" class="btn btn-danger" formaction="<?= site_url('riwayat-tagihan/hapus-permanen') ?>" onclick="return confirm('Hapus permanen data terpilih?')">Hapus Permanen</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            </div>
+        </form>
+        <div class="modal fade" id="modalKelolaData" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+</script>

@@ -123,19 +123,15 @@
             <!--Chart-->
             <div class="chart-container">
                 <div class="chart-grafik">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
-                            <canvas id="barChart"></canvas>
-                        </div>
+                    <div class="card-body">
+                        <canvas id="barChart"></canvas>
+                        <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
                     </div>
                 </div>
                 <div class="chart-curva">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>
-                            <canvas id="lineChart"></canvas>
-                        </div>
+                    <div class="card-body">
+                        <canvas id="lineChart"></canvas>
+                        <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>
                     </div>
                 </div>
             </div>

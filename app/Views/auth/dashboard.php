@@ -124,13 +124,13 @@
             <div class="chart-container">
                 <div class="chart-grafik">
                     <div class="card-body">
-                        <canvas id="barChart"></canvas>
+                        <canvas id="barChart" class="chart-bar"></canvas>
                         <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
                     </div>
                 </div>
                 <div class="chart-curva">
                     <div class="card-body">
-                        <canvas id="lineChart"></canvas>
+                        <canvas id="lineChart" class="chart-line"></canvas>
                         <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>
                     </div>
                 </div>

@@ -72,19 +72,22 @@
         <ul>
             <li>
                 <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
-                    Dashboard
+                    <i class="bi bi-columns-gap"></i>
+                    <span style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('tagihan') ?>" class="sidebar-link">
-                    Tagihan
+                    <i class="bi bi-droplet-half"></i>
+                    <span style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
                 <a href="/riwayat-tagihan" class="<?= uri_string() == 'riwayat-tagihan' ? 'active' : '' ?>">
-                    Riwayat
+                    <i class="bi bi-journal"></i>
+                    <span style="margin-left: 10px;">Riwayat</span>
                 </a>
             </li>
         </ul>

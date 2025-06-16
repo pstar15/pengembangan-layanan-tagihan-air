@@ -75,19 +75,22 @@
         <ul>
             <li>
                 <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
-                    Dashboard
+                    <i class="bi bi-columns-gap"></i>
+                    <span style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
                 <a href="/tagihan" class="<?= uri_string() == 'tagihan' ? 'active' : '' ?>">
-                    Tagihan
+                    <i class="bi bi-droplet-half"></i>
+                    <span style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
-                    Riwayat
+                    <i class="bi bi-journal"></i>
+                    <span style="margin-left: 10px;">Riwayat</span>
                 </a>
             </li>
         </ul>
@@ -127,16 +130,16 @@
                 <div>
                     <button class="btn-addtagihan">
                         <a href="<?= base_url('/tagihan/create') ?>">
-                            <i class="bi bi-calendar2-plus"></i>
+                            <i class="bi bi-folder-plus"></i>
                         </a>
                     </button>
-                    <h5 style="position: absolute;margin-top: 1px;margin-left: 6px;">add</h5>
+                    <h5 style="position: absolute;margin-top: -3px;margin-left: 6px;">add</h5>
                 </div>
 
                 <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form">
                     <select name="status" class="form-select" onchange="this.form.submit()">
                         <option value="">
-                            Menu
+                            Opsi
                         </option>
                         <option value="Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Lunas') ? 'selected' : '' ?>>
                             Lunas

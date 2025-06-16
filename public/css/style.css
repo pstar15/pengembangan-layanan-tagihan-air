@@ -869,3 +869,30 @@ canvas:hover {
 .export:hover {
     color: #1f5e8e;
 }
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
+
+.chart-bar,
+.chart-line {
+    height: 215px; /* Tinggi default, bisa diubah sesuai kebutuhan */
+}
+
+@media (max-width: 768px) {
+    .chart-bar,
+    .chart-line {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-bar,
+    .chart-line {
+        height: 250px;
+    }
+}

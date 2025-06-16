@@ -45,34 +45,6 @@
             position: sticky;
             top: 0;
             z-index: 2;
-
-        }
-        .chart-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            width: 100%;
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .chart-bar,
-        .chart-line {
-            height: 215px; /* Tinggi default, bisa diubah sesuai kebutuhan */
-        }
-
-        @media (max-width: 768px) {
-            .chart-bar,
-            .chart-line {
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .chart-bar,
-            .chart-line {
-                height: 250px;
-            }
         }
 
     </style>
@@ -166,8 +138,7 @@
                 </div>
             </div>
 
-
-            <div class="table-container">
+            <div class="table-title-container">
                 <div class="table-responsive" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
                     <table class="table table-bordered table-striped styled-table">
                         <thead class="table-dark">
@@ -180,34 +151,37 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                    </div>
+                    </table>
+                </div>
             </div>
-            <div class="tabel-body-scroll">
-                <table class="table">
-                    <tbody>
-                        <?php if (!empty($tagihan)) : ?>
-                            <?php foreach ($tagihan as $i => $row) : ?>
+            <div class="table-container">
+                <div class="table-responsive" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
+                    <table class="table table-bordered table-striped styled-table">
+                        
+                        <tbody>
+                            <?php if (!empty($tagihan)) : ?>
+                                <?php foreach ($tagihan as $i => $row) : ?>
+                                    <tr>
+                                        <td><?= $i + 1 ?></td>
+                                        <td><?= esc($row['nama_pelanggan']) ?></td>
+                                        <td><?= esc($row['nomor_meter']) ?></td>
+                                        <td><?= esc($row['periode']) ?></td>
+                                        <td>Rp <?= number_format($row['jumlah_tagihan'], 0, ',', '.') ?></td>
+                                        <td>
+                                            <span class="badge <?= $row['status'] == 'Lunas' ? 'badge-success' : 'badge-warning' ?>">
+                                                <?= $row['status'] ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            <?php else : ?>
                                 <tr>
-                                    <td><?= $i + 1 ?></td>
-                                    <td><?= esc($row['nama_pelanggan']) ?></td>
-                                    <td><?= esc($row['nomor_meter']) ?></td>
-                                    <td><?= esc($row['periode']) ?></td>
-                                    <td>Rp <?= number_format($row['jumlah_tagihan'], 0, ',', '.') ?></td>
-                                    <td>
-                                        <span class="badge <?= $row['status'] == 'Lunas' ? 'badge-success' : 'badge-warning' ?>">
-                                            <?= $row['status'] ?>
-                                        </span>
-                                    </td>
+                                    <td colspan="6" class="text-center">Belum ada data tagihan</td>
                                 </tr>
-                            <?php endforeach ?>
-                        <?php else : ?>
-                            <tr>
-                                <td colspan="6" class="text-center">Belum ada data tagihan</td>
-                            </tr>
-                        <?php endif ?>
-                    </tbody>
-                </table>
-                </table>
+                            <?php endif ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <h5>Data Tagihan Air</h5>
         </div>

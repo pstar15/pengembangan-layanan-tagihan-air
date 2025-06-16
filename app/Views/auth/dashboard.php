@@ -112,19 +112,24 @@
                 </div>
             </div>
 
-            <!-- Chart Grafik (Bar) -->
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
-                    <canvas id="barChart"></canvas>
+            <div class="chart-container">
+                <div class="chart-grafik">
+                    <!-- Chart Grafik (Bar) -->
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Chart Kurva (Line) -->
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>
-                    <canvas id="lineChart"></canvas>
+                <div class="chart-curva">
+                    <!-- Chart Kurva (Line) -->
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
 

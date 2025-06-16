@@ -41,10 +41,11 @@
         .table-container:hover {
             transform: scale(1.1);
         }
-        .table thead th {
-            position: sticky;
-            top: 0;
-            z-index: 2;
+        .table-title-container {
+            width: 65%;
+            position: absolute;
+            margin: 0 auto;
+            margin-top: 80px;
         }
 
     </style>

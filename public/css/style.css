@@ -333,6 +333,11 @@ body.sidebar-collapsed .main-content {
 .styled-table td:nth-child(1) {
     width: 50px;
 }
+.table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
 
 /* Tombol Edit dan Hapus */
 .btn-edit, .btn-delete {

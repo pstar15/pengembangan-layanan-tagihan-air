@@ -137,7 +137,7 @@
 
             <li>
                 <a href="<?= base_url('tagihan') ?>" class="sidebar-link">
-                    <i class="fas fa-water"></i> Tagihan
+                    Tagihan
                 </a>
             </li>
 

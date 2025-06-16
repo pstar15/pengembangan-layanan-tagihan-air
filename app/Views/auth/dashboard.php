@@ -192,7 +192,6 @@
         const labels = <?= $periode ?>;
         const data = <?= $total ?>;
 
-        // Chart Bar
         const barCtx = document.getElementById('barChart').getContext('2d');
         new Chart(barCtx, {
             type: 'bar',
@@ -224,7 +223,6 @@
             }
         });
 
-        // Chart Line
         const lineCtx = document.getElementById('lineChart').getContext('2d');
         new Chart(lineCtx, {
             type: 'line',

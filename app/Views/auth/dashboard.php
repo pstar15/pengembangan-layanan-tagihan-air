@@ -27,6 +27,10 @@
             text-align: center;
         }
         .table-container {
+            width: 100%;
+            margin-top: 30px;
+        }
+        .table-data-container {
             max-height: 400px; /* Tinggi maksimal area tabel */
             overflow-y: auto;  /* Scroll vertikal */
             overflow-x: auto;  /* Scroll horizontal jika kolom banyak */
@@ -38,14 +42,12 @@
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
-        .table-container:hover {
-            transform: scale(1.1);
-        }
         .table-title-container {
-            width: 65%;
+            width: 62%;
             position: absolute;
             margin: 0 auto;
-            margin-top: 80px;
+            margin-top: 30px;
+            margin-left: 10px;
         }
 
     </style>
@@ -139,49 +141,51 @@
                 </div>
             </div>
 
-            <div class="table-title-container">
-                <div class="table-responsive" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
-                    <table class="table table-bordered table-striped styled-table">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Pelanggan</th>
-                                <th>Nomor Meter</th>
-                                <th>Periode</th>
-                                <th>Jumlah Tagihan</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
             <div class="table-container">
-                <div class="table-responsive" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
-                    <table class="table table-bordered table-striped styled-table">
-                        
-                        <tbody>
-                            <?php if (!empty($tagihan)) : ?>
-                                <?php foreach ($tagihan as $i => $row) : ?>
-                                    <tr>
-                                        <td><?= $i + 1 ?></td>
-                                        <td><?= esc($row['nama_pelanggan']) ?></td>
-                                        <td><?= esc($row['nomor_meter']) ?></td>
-                                        <td><?= esc($row['periode']) ?></td>
-                                        <td>Rp <?= number_format($row['jumlah_tagihan'], 0, ',', '.') ?></td>
-                                        <td>
-                                            <span class="badge <?= $row['status'] == 'Lunas' ? 'badge-success' : 'badge-warning' ?>">
-                                                <?= $row['status'] ?>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                <?php endforeach ?>
-                            <?php else : ?>
+                <div class="table-title-container">
+                    <div class="table-responsive" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
+                        <table class="table table-bordered table-striped styled-table">
+                            <thead class="table-dark">
                                 <tr>
-                                    <td colspan="6" class="text-center">Belum ada data tagihan</td>
+                                    <th>No</th>
+                                    <th>Nama Pelanggan</th>
+                                    <th>Nomor Meter</th>
+                                    <th>Periode</th>
+                                    <th>Jumlah Tagihan</th>
+                                    <th>Status</th>
                                 </tr>
-                            <?php endif ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-data-container">
+                    <div class="table-responsive" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
+                        <table class="table table-bordered table-striped styled-table">
+                            
+                            <tbody>
+                                <?php if (!empty($tagihan)) : ?>
+                                    <?php foreach ($tagihan as $i => $row) : ?>
+                                        <tr>
+                                            <td><?= $i + 1 ?></td>
+                                            <td><?= esc($row['nama_pelanggan']) ?></td>
+                                            <td><?= esc($row['nomor_meter']) ?></td>
+                                            <td><?= esc($row['periode']) ?></td>
+                                            <td>Rp <?= number_format($row['jumlah_tagihan'], 0, ',', '.') ?></td>
+                                            <td>
+                                                <span class="badge <?= $row['status'] == 'Lunas' ? 'badge-success' : 'badge-warning' ?>">
+                                                    <?= $row['status'] ?>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum ada data tagihan</td>
+                                    </tr>
+                                <?php endif ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <h5>Data Tagihan Air</h5>

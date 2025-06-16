@@ -120,9 +120,9 @@
                 </div>
             </div>
 
+            <!--Chart-->
             <div class="chart-container">
                 <div class="chart-grafik">
-                    <!-- Chart Grafik (Bar) -->
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
@@ -131,7 +131,6 @@
                     </div>
                 </div>
                 <div class="chart-curva">
-                    <!-- Chart Kurva (Line) -->
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>

@@ -28,13 +28,21 @@
         }
         .table-container {
             margin: 0 auto;
-            margin-top: 20px;
+            margin-top: 80px;
             width: 100%;
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
         .table-container:hover {
             transform: scale(1.1);
+        }
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
     </style>

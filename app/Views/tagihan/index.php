@@ -50,7 +50,7 @@
 
         PR css button search data,add, Pilih Status, and simpan data
         (PR button simpan konfirmasi data tagihan ke riwayat tagihan
-        Tombol Kirim ke Android and dropdown notifikasi pesan tagihan lunas dari pengguna),
+        Tombol Kirim ke aplikasi and dropdown notifikasi pesan tagihan dari pengguna),
         di dalam halaman add data tagihan, form data tagihan harus terisi sebelum klik simpan
         (tambahkan autentikasi agar tidak terjadi kesalahan),
 

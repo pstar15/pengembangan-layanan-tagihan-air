@@ -45,6 +45,25 @@
             animation: fadeIn 0.5s ease;
         }
 
+        .chart-bar,
+        .chart-line {
+            height: 215px; /* Tinggi default, bisa diubah sesuai kebutuhan */
+        }
+
+        @media (max-width: 768px) {
+            .chart-bar,
+            .chart-line {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-bar,
+            .chart-line {
+                height: 250px;
+            }
+        }
+
     </style>
 </head>
 <body class="animated">

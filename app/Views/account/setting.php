@@ -19,7 +19,7 @@
         max-width: 800px;
         width: 100%;
         margin: 0 auto;
-        margin-top: 150px;
+        margin-top: 90px;
         background: #fff;
         padding: 30px;
         border-radius: 12px;
@@ -110,6 +110,7 @@
 </style>
 </head>
 <body>
+
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
         <h1 class="navbar-title">My App</h1>

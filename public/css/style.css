@@ -139,12 +139,12 @@ a {
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: none;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     opacity: 0;
     visibility: hidden;
     padding: 2px;
+    border-radius: 2px;
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
     min-width: 150px;
@@ -160,13 +160,14 @@ a {
 .dropdown-menu a {
     display: block;
     padding: 10px 16px;
+    border-radius: 2px;
     color: #333;
     text-decoration: none;
     transition: background-color 0.3s;
 }
 
 .dropdown-menu a:hover {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }
 
 .dropdown-menu a.logout {
@@ -655,7 +656,7 @@ body.sidebar-collapsed .main-content {
     align-items: right;
     margin: 0 auto;
     margin-right: 10px;
-    margin-top: 100px;
+    margin-top: 80px;
     width: 265px;
     margin-bottom: 10px;
     transition: transform 0.3s ease;
@@ -746,9 +747,12 @@ canvas:hover {
 }
 .pilih {
     color: #fff;
-    background: #1f5e8e;
+    background: #2878b6;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
+}
+.pilih:hover {
+    background: #1f5e8e;
 }
 .semua-data {
     position: absolute;
@@ -789,9 +793,12 @@ canvas:hover {
 }
 .batal {
     color: #fff;
-    background: rgb(184, 40, 40);
+    background: rgb(214, 47, 47);
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
+}
+.batal:hover {
+    background: rgb(150, 30, 30);
 }
 .kembalikan-data {
     position: absolute;
@@ -859,7 +866,7 @@ canvas:hover {
     font-size: 20px;
     padding: 6px 7px;
     margin: 0 auto;
-    margin-top: 12px;
+    margin-top: 10px;
     margin-left: 185px;
     background: none;
     color: #2980b9;

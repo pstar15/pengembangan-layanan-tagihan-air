@@ -10,7 +10,7 @@
     <style>
         .container {
             width: 865px;
-            margin-top: 110px;
+            margin-top: 90px;
         }
         .table-container {
             margin: 0 auto;
@@ -66,7 +66,6 @@
             </div>
         </div>
     </div>
-
     <!-- sidebar -->
     <div class="sidebar" id="sidebar">
         <ul>

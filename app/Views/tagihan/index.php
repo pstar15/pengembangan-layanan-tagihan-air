@@ -15,7 +15,7 @@
         }
         .table-container {
             margin: 0 auto;
-            margin-top: 10px;
+            margin-top: 25px;
             width: 100%;
             text-align: center;
             box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
@@ -55,6 +55,7 @@
         (tambahkan autentikasi agar tidak terjadi kesalahan),
 
     -->
+
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
         <h1 class="navbar-title">My App</h1>

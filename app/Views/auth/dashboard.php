@@ -60,8 +60,14 @@
                 <i class="bi bi-gear"></i>
             </button>
             <div class="dropdown-menu">
-                <a href="/account/setting">Setting</a>
-                <a href="/logout" class="logout">Logout</a>
+                <a href="/account/setting">
+                    <i class="bi bi-person-fill"></i>
+                    <span style="margin-left: 10px;">Account</span>
+                </a>
+                <a href="/logout" class="logout">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    <span style="margin-left: 10px;">Logout</span>
+                </a>
             </div>
         </div>
     </div>

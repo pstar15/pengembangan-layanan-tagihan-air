@@ -224,193 +224,193 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const btnPilih = document.getElementById("btnPilih");
-        const btnSemua = document.getElementById("btnSemua");
-        const btnBatal = document.getElementById("btnBatal");
-        const btnKembalikan = document.getElementById("btnKembalikan");
-        const btnHapus = document.getElementById("btnHapus");
-        const checkboxCols = document.querySelectorAll(".checkbox-col");
-        const checkboxItems = document.querySelectorAll(".checkbox-data");
+document.addEventListener("DOMContentLoaded", function () {
+    const btnPilih = document.getElementById("btnPilih");
+    const btnSemua = document.getElementById("btnSemua");
+    const btnBatal = document.getElementById("btnBatal");
+    const btnKembalikan = document.getElementById("btnKembalikan");
+    const btnHapus = document.getElementById("btnHapus");
+    const checkboxCols = document.querySelectorAll(".checkbox-col");
+    const checkboxItems = document.querySelectorAll(".checkbox-data");
 
+    btnSemua.style.display = "none";
+    btnBatal.style.display = "none";
+    btnKembalikan.style.display = "none";
+    btnHapus.style.display = "none";
+    checkboxCols.forEach(col => col.style.display = "none");
+
+    btnPilih.addEventListener("click", function () {
+        checkboxCols.forEach(col => col.style.display = "table-cell");
+        btnSemua.style.display = "inline-block";
+        btnBatal.style.display = "inline-block";
+        btnKembalikan.style.display = "inline-block";
+        btnHapus.style.display = "inline-block";
+        btnPilih.style.display = "none";
+    });
+
+    btnSemua.addEventListener("click", function () {
+        checkboxItems.forEach(cb => cb.checked = true);
+    });
+
+    btnBatal.addEventListener("click", function () {
+        checkboxCols.forEach(col => col.style.display = "none");
+        checkboxItems.forEach(cb => cb.checked = false);
         btnSemua.style.display = "none";
         btnBatal.style.display = "none";
         btnKembalikan.style.display = "none";
         btnHapus.style.display = "none";
-        checkboxCols.forEach(col => col.style.display = "none");
-
-        btnPilih.addEventListener("click", function () {
-            checkboxCols.forEach(col => col.style.display = "table-cell");
-            btnSemua.style.display = "inline-block";
-            btnBatal.style.display = "inline-block";
-            btnKembalikan.style.display = "inline-block";
-            btnHapus.style.display = "inline-block";
-            btnPilih.style.display = "none";
-        });
-
-        btnSemua.addEventListener("click", function () {
-            checkboxItems.forEach(cb => cb.checked = true);
-        });
-
-        btnBatal.addEventListener("click", function () {
-            checkboxCols.forEach(col => col.style.display = "none");
-            checkboxItems.forEach(cb => cb.checked = false);
-            btnSemua.style.display = "none";
-            btnBatal.style.display = "none";
-            btnKembalikan.style.display = "none";
-            btnHapus.style.display = "none";
-            btnPilih.style.display = "inline-block";
-        });
-
-
-        btnKembalikan.addEventListener("click", function () {
-
-            const selectedIds = Array.from(document.querySelectorAll(".checkbox-data:checked"))
-                                    .map(cb => cb.value);
-
-            if (selectedIds.length === 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Oops!',
-                    text: 'Pilih minimal satu data untuk dikembalikan.',
-                });
-                return;
-            }
-
-            // Tampilkan konfirmasi SweetAlert
-            Swal.fire({
-                title: 'Yakin ingin mengembalikan data ini?',
-                text: "Data akan dikembalikan ke tabel tagihan!",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, kembalikan!',
-                cancelButtonText: 'Batal',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch("<?= site_url('riwayat/kembalikan') ?>", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": "<?= csrf_hash() ?>"
-                        },
-                        body: JSON.stringify({ ids: selectedIds })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: 'Data berhasil dikembalikan.',
-                                timer: 2000,
-                                showConfirmButton: false
-                            }).then(() => {
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal',
-                                text: data.message || 'Terjadi kesalahan saat mengembalikan data.'
-                            });
-                        }
-                    });
-                }
-            });
-        });
-        btnHapus.addEventListener("click", function () {
-            const selectedIds = Array.from(document.querySelectorAll(".checkbox-data:checked"))
-                            .map(cb => cb.value);
-
-            if (selectedIds.length === 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Tidak ada data terpilih!',
-                    text: 'Pilih minimal satu data untuk dihapus.',
-                });
-                return;
-            }
-
-            Swal.fire({
-                title: 'Yakin ingin menghapus data ini?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#e74c3c',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch("<?= site_url('riwayat/hapus') ?>", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": "<?= csrf_hash() ?>"
-                        },
-                        body: JSON.stringify({ ids: selectedIds })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: 'Data berhasil dihapus.',
-                                timer: 2000,
-                                showConfirmButton: false
-                            }).then(() => {
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal',
-                                text: data.message || 'Gagal menghapus data.'
-                            });
-                        }
-                    });
-                }
-            });
-        });
-        btnExport.addEventListener("click", function () {
-            const tanggal = document.getElementById("tanggal")?.value || "";
-            const bulan = document.getElementById("bulan")?.value || "";
-
-            Swal.fire({
-                title: 'Export Data?',
-                text: tanggal || bulan ? 
-                    `Data akan difilter berdasarkan ${tanggal ? 'tanggal ' + tanggal : 'bulan ' + bulan}` : 
-                    'Semua data akan di-export.',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Export Sekarang',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById("inputTanggal").value = tanggal;
-                    document.getElementById("inputBulan").value = bulan;
-                    document.getElementById("exportForm").submit();
-                }
-            });
-        });
-        btnExportExcel.addEventListener("click", function () {
-            Swal.fire({
-                title: 'Export ke Excel?',
-                text: 'Data riwayat akan di-export sebagai Excel.',
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: 'Export',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const periode = document.getElementById('filterPeriode')?.value || '';
-                    window.location.href = "<?= site_url('riwayat/export/excel') ?>?periode=" + encodeURIComponent(periode);
-                }
-            });
-        })
+        btnPilih.style.display = "inline-block";
     });
+
+
+    btnKembalikan.addEventListener("click", function () {
+
+        const selectedIds = Array.from(document.querySelectorAll(".checkbox-data:checked"))
+                                .map(cb => cb.value);
+
+        if (selectedIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops!',
+                text: 'Pilih minimal satu data untuk dikembalikan.',
+            });
+            return;
+        }
+
+        // Tampilkan konfirmasi SweetAlert
+        Swal.fire({
+            title: 'Yakin ingin mengembalikan data ini?',
+            text: "Data akan dikembalikan ke tabel tagihan!",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, kembalikan!',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("<?= site_url('riwayat/kembalikan') ?>", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "<?= csrf_hash() ?>"
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data berhasil dikembalikan.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: data.message || 'Terjadi kesalahan saat mengembalikan data.'
+                        });
+                    }
+                });
+            }
+        });
+    });
+    btnHapus.addEventListener("click", function () {
+        const selectedIds = Array.from(document.querySelectorAll(".checkbox-data:checked"))
+                        .map(cb => cb.value);
+
+        if (selectedIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Tidak ada data terpilih!',
+                text: 'Pilih minimal satu data untuk dihapus.',
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Yakin ingin menghapus data ini?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e74c3c',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("<?= site_url('riwayat/hapus') ?>", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "<?= csrf_hash() ?>"
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data berhasil dihapus.',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: data.message || 'Gagal menghapus data.'
+                        });
+                    }
+                });
+            }
+        });
+    });
+    btnExport.addEventListener("click", function () {
+        const tanggal = document.getElementById("tanggal")?.value || "";
+        const bulan = document.getElementById("bulan")?.value || "";
+
+        Swal.fire({
+            title: 'Export Data?',
+            text: tanggal || bulan ? 
+                `Data akan difilter berdasarkan ${tanggal ? 'tanggal ' + tanggal : 'bulan ' + bulan}` : 
+                'Semua data akan di-export.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Export Sekarang',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("inputTanggal").value = tanggal;
+                document.getElementById("inputBulan").value = bulan;
+                document.getElementById("exportForm").submit();
+            }
+        });
+    });
+    btnExportExcel.addEventListener("click", function () {
+        Swal.fire({
+            title: 'Export ke Excel?',
+            text: 'Data riwayat akan di-export sebagai Excel.',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Export',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const periode = document.getElementById('filterPeriode')?.value || '';
+                window.location.href = "<?= site_url('riwayat/export/excel') ?>?periode=" + encodeURIComponent(periode);
+            }
+        });
+    })
+});
 </script>
 
 </body>

@@ -104,6 +104,7 @@
                     <div class="card total">
                         <h3>Total Tagihan</h3>
                         <p class="card-text"><?= $total_tagihan ?></p>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card total tagihan</h5>
                 </div>
@@ -111,6 +112,7 @@
                     <div class="card lunas">
                         <h3>Tagihan Lunas</h3>
                         <p class="card-text"><?= $total_lunas ?></p>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card total tagihan lunas</h5>
                 </div>
@@ -118,6 +120,7 @@
                     <div class="card belum-lunas">
                         <h3>Total Belum Lunas</h3>
                         <p class="card-text"><?= $total_belum_lunas ?></p>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card total tagihan belum lunas</h5>
                 </div>
@@ -181,80 +184,80 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/js/script.js"></script>
-    <script src="/js/curva.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const labels = <?= $periode ?>;
-        const data = <?= $total ?>;
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/curva.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const labels = <?= $periode ?>;
+const data = <?= $total ?>;
 
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Jumlah Tagihan',
-                    data: data,
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
+const barCtx = document.getElementById('barChart').getContext('2d');
+new Chart(barCtx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Jumlah Tagihan',
+            data: data,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Bar Chart: Jumlah Tagihan' }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Total Tagihan' }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { display: false },
-                    title: { display: true, text: 'Bar Chart: Jumlah Tagihan' }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Total Tagihan' }
-                    },
-                    x: {
-                        title: { display: true, text: 'Periode' }
-                    }
-                }
+            x: {
+                title: { display: true, text: 'Periode' }
             }
-        });
+        }
+    }
+});
 
-        const lineCtx = document.getElementById('lineChart').getContext('2d');
-        new Chart(lineCtx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Jumlah Tagihan',
-                    data: data,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 4,
-                    pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                }]
+const lineCtx = document.getElementById('lineChart').getContext('2d');
+new Chart(lineCtx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Jumlah Tagihan',
+            data: data,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Line Chart: Kurva Jumlah Tagihan' }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Total Tagihan' }
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: 'Line Chart: Kurva Jumlah Tagihan' }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Total Tagihan' }
-                    },
-                    x: {
-                        title: { display: true, text: 'Periode' }
-                    }
-                }
+            x: {
+                title: { display: true, text: 'Periode' }
             }
-        });
-    </script>
+        }
+    }
+});
+</script>
 
 </body>
 </html>

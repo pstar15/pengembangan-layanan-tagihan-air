@@ -324,6 +324,26 @@ body.sidebar-collapsed .main-content {
     color: white;
 }
 
+.detail-card {
+    position: absolute;
+    flex: 1;
+    min-width: 40px;
+    background-color: #f4f4f4d3;
+    color: #808080;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 6px;
+    margin-top: -5px;
+    margin-left: 78px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
+
+.detail-card:hover {
+    color: #000;
+}
+
 /* Animasi masuk */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }

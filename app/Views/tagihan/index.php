@@ -15,7 +15,7 @@
         }
         .table-container {
             margin: 0 auto;
-            margin-top: 25px;
+            margin-top: 20px;
             width: 100%;
             text-align: center;
             box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
@@ -43,6 +43,12 @@
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
+        .button-add-group {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -128,13 +134,13 @@
             </form>
 
             <div class="toolbar-wrapper">
-                <div>
-                    <button class="btn-addtagihan">
+                <div class="button-add-group">
+                    <button class="btn-addtagihan btn-add-hover">
                         <a href="<?= base_url('/tagihan/create') ?>">
                             <i class="bi bi-folder-plus"></i>
                         </a>
                     </button>
-                    <h5 style="position: absolute;margin-top: -3px;margin-left: 6px;">add</h5>
+                    <h5 class="label-add-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">add</h5>
                 </div>
 
                 <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form">

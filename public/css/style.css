@@ -644,7 +644,7 @@ body.sidebar-collapsed .main-content {
 .filter-form select.form-select:hover {
     background-color: #1f5e8e;
 }
-
+/* button Add **/
 .btn-addtagihan {
     width: 35px;
     padding: 1px 4px;
@@ -663,6 +663,37 @@ body.sidebar-collapsed .main-content {
 .btn-addtagihan a:hover {
     color: #1f5e8e;
 }
+.label-add-hover {
+    position: absolute;
+    top: 100%;
+    left: 30%;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+
+.button-add-group:hover .label-add-hover {
+    opacity: 1;
+}
+.label-add-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.button-add-group:hover .label-add-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/*End Css button Add**/
 .form-select option {
     background-color: #fff;
     color: #000;

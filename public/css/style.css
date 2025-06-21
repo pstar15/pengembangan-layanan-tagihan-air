@@ -176,7 +176,7 @@ a {
 
 /* Sidebar */
 .sidebar {
-    width: 200px;
+    width: 190px;
     height: 100%;
     z-index: 90;
     position: fixed;
@@ -341,9 +341,9 @@ body.sidebar-collapsed .main-content {
 }
 
 .detail-card:hover {
-    color: #000;
+    color: #4e4e4e;
 }
-
+/* End Card **/
 /* Animasi masuk */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
@@ -622,12 +622,16 @@ body.sidebar-collapsed .main-content {
     to { opacity: 1; }
 }
 
-/*CSS tombol filter data*/
+/*CSS tombol filter Status*/
 .filter-form select.form-select {
     width: 65px;
     display: flex;
+    position: inherit;
+    justify-content: flex-end;
+    align-items: flex-end;
     margin: 0 auto;
     margin-right: 0;
+    margin-top: 0;
     color: #ffffff;
     background-color:rgb(64, 135, 241);
     padding: 5px 7px;
@@ -644,13 +648,53 @@ body.sidebar-collapsed .main-content {
 .filter-form select.form-select:hover {
     background-color: #1f5e8e;
 }
+.Filter-Status {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+.label-Fstatus-hover {
+    position: absolute;
+    top: 38px;
+    left: 27px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.Filter-Status:hover .label-Fstatus-hover {
+    opacity: 1;
+}
+.label-Fstatus-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.Filter-Status:hover .label-Fstatus-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End Css Filter Status **/
 /* button Add **/
 .btn-addtagihan {
     width: 35px;
+    display: flex;
+    position: absolute;
+    justify-content: right;
+    align-items: right;
+    margin: 0 auto;
+    margin-left: 220px;
+    margin-top: 32px;
     padding: 1px 4px;
     border-radius: 6px;
     text-decoration: none;
-    margin-top: 12px;
     border: none;
     cursor: pointer;
     background: none;
@@ -663,17 +707,24 @@ body.sidebar-collapsed .main-content {
 .btn-addtagihan a:hover {
     color: #1f5e8e;
 }
+
+.button-add-group {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
 .label-add-hover {
     position: absolute;
-    top: 100%;
-    left: 30%;
+    top: 67px;
+    left: 235px;
     transform: translateX(-50%);
     margin-top: 6px;
-    background-color: #333;
+    background-color: #a8a8a8;
     color: #fff;
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 10px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -699,19 +750,9 @@ body.sidebar-collapsed .main-content {
     color: #000;
     padding: 9px 20px;
 }
-/* kolom pencarian data */
+/* Css menu search */
 .search-form {
-    display: flex;
-    position: inherit;
-    justify-content: right;
-    align-items: right;
-    margin: 0 auto;
-    margin-right: 10px;
-    margin-top: 80px;
-    width: 265px;
-    margin-bottom: 10px;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
+    margin-top: 85px;
 }
 
 .search-form .search-input {
@@ -757,7 +798,71 @@ body.sidebar-collapsed .main-content {
     border: 1px solid #ccc;
     outline: none;
 }
-/* end css button search*/
+.form-search {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+.button-search {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+.label-FSearch-hover {
+    position: absolute;
+    top: 50px;
+    left: 49%;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.label-search-hover {
+    position: absolute;
+    top: 50px;
+    left: 40%;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.form-search:hover .label-FSearch-hover {
+    opacity: 1;
+}
+.label-FSearch-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.form-search:hover .label-FSearch-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+.button-search:hover .label-search-hover {
+    opacity: 1;
+}
+.label-search-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.button-search:hover .label-search-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* end css menu search*/
 canvas {
     background: #fff;
     padding: 10px;
@@ -770,16 +875,19 @@ canvas:hover {
     transform: scale(1.1);
 }
 .btn-simpandata {
+    width: 200px;
+    justify-content: right;
+    align-items: right;
+    align-content: right;
+    margin: 0 auto;
+    margin-right: 0;
+    margin-top: 85px;
     padding: 6px 8px;
     background-color: #007BFF;
-    color: #fff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 12px;
-}
-.btn-keloladata {
-    margin-left: 250px;
 }
 .pilih-data {
     position: absolute;

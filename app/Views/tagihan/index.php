@@ -15,7 +15,7 @@
         }
         .table-container {
             margin: 0 auto;
-            margin-top: 20px;
+            margin-top: 0;
             width: 100%;
             text-align: center;
             box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
@@ -25,13 +25,9 @@
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 75px;
+            margin-top: 107px;
             margin-left: 0;
             color: #000;
-        }
-        h5 {
-            color: #a3a3a3;
-            text-align: center;
         }
         .toolbar-wrapper {
             display: flex;
@@ -43,10 +39,29 @@
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
-        .button-add-group {
-            position: relative;
-            display: inline-block;
-            margin: 10px;
+        form .search-form {
+            display: flex;
+            position: inherit;
+            justify-content: right;
+            align-items: right;
+            margin: 0 auto;
+            margin-right: 0px;
+            width: 265px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+        .filter-form {
+            display: flex;
+            position: inherit;
+            justify-content: right;
+            align-items: right;
+            margin: 0 auto;
+            margin-left: 240px;
+            margin-bottom: 10px;
+            margin-top: 97px;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
     </style>
@@ -128,42 +143,53 @@
             </form>
             -->
 
-            <form method="get" action="<?= base_url('tagihan') ?>" class="search-form">
-                <input type="text" name="keyword" placeholder="Cari nama / nomor meter..." />
-                <button type="submit"><i class="bi bi-search"></i></button>
-            </form>
-
+            
             <div class="toolbar-wrapper">
                 <div class="button-add-group">
-                    <button class="btn-addtagihan btn-add-hover">
+                    <button class="btn-addtagihan">
                         <a href="<?= base_url('/tagihan/create') ?>">
                             <i class="bi bi-folder-plus"></i>
                         </a>
                     </button>
-                    <h5 class="label-add-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">add</h5>
+                    <h5 class="label-add-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Tambah Data Tagihan</h5>
+                </div>
+                
+                <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form ">
+                    <div class="Filter-Status">
+                        <select name="status" class="form-select" onchange="this.form.submit()">
+                            <option value="">
+                                Opsi
+                            </option>
+                            <option value="Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Lunas') ? 'selected' : '' ?>>
+                                Lunas
+                            </option>
+                            <option value="Belum Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Belum Lunas') ? 'selected' : '' ?>>
+                                Belum Lunas
+                            </option>
+                        </select>
+                        <h5 class="label-Fstatus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Filter Status</h5>
+                    </div>
+                </form>
+                
+                <!-- cadangan-->
+                <div class="btn-simpandata">
+                    <a href="<?= site_url('tagihan/simpan-semua') ?>"
+                        onclick="return confirm('Yakin ingin menyimpan semua tagihan ke riwayat?')"
+                        class="btn btn-primary" style="color: #fff;">
+                        Simpan Semua ke Riwayat
+                    </a>
                 </div>
 
-                <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form">
-                    <select name="status" class="form-select" onchange="this.form.submit()">
-                        <option value="">
-                            Opsi
-                        </option>
-                        <option value="Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Lunas') ? 'selected' : '' ?>>
-                            Lunas
-                        </option>
-                        <option value="Belum Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Belum Lunas') ? 'selected' : '' ?>>
-                            Belum Lunas
-                        </option>
-                    </select>
+                <form method="get" action="<?= base_url('tagihan') ?>" class="search-form">
+                    <div class="form-search">
+                        <input type="text" name="keyword" placeholder="Cari nama / nomor meter..." />
+                        <h5 class="label-FSearch-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Ketik Nama/Nomor Meter</h5>
+                    </div>
+                    <div class="button-search">
+                        <button type="submit"><i class="bi bi-search"></i></button>
+                        <h5 class="label-search-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Cari Data Tagihan</h5>
+                    </div>
                 </form>
-
-                <!-- cadangan
-                -->
-                <a href="<?= site_url('tagihan/simpan-semua') ?>" class="btn-simpandata" 
-                    onclick="return confirm('Yakin ingin menyimpan semua tagihan ke riwayat?')"
-                    class="btn btn-primary">
-                    Simpan Semua ke Riwayat
-                </a>
             </div>
 
             <!-- Tabel data tagihan -->

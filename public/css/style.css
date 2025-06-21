@@ -691,7 +691,7 @@ body.sidebar-collapsed .main-content {
     align-items: right;
     margin: 0 auto;
     margin-left: 220px;
-    margin-top: 32px;
+    margin-top: 23px;
     padding: 1px 4px;
     border-radius: 6px;
     text-decoration: none;
@@ -716,7 +716,7 @@ body.sidebar-collapsed .main-content {
 
 .label-add-hover {
     position: absolute;
-    top: 67px;
+    top: 60px;
     left: 235px;
     transform: translateX(-50%);
     margin-top: 6px;
@@ -752,7 +752,7 @@ body.sidebar-collapsed .main-content {
 }
 /* Css menu search */
 .search-form {
-    margin-top: 85px;
+    margin-top: 70px;
 }
 
 .search-form .search-input {
@@ -881,7 +881,7 @@ canvas:hover {
     align-content: right;
     margin: 0 auto;
     margin-right: 0;
-    margin-top: 85px;
+    margin-top: 70px;
     padding: 6px 8px;
     background-color: #007BFF;
     border: none;
@@ -892,8 +892,6 @@ canvas:hover {
 .pilih-data {
     position: absolute;
     display: flex;
-    justify-content: left;
-    align-items: left;
     width: 60px;
     margin: 0 auto;
     margin-top: 20px;

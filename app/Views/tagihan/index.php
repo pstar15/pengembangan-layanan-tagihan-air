@@ -25,7 +25,7 @@
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 107px;
+            margin-top: 95px;
             margin-left: 0;
             color: #000;
         }
@@ -39,18 +39,7 @@
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
-        form .search-form {
-            display: flex;
-            position: inherit;
-            justify-content: right;
-            align-items: right;
-            margin: 0 auto;
-            margin-right: 0px;
-            width: 265px;
-            margin-bottom: 10px;
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
-        }
+        
         .filter-form {
             display: flex;
             position: inherit;
@@ -59,7 +48,7 @@
             margin: 0 auto;
             margin-left: 240px;
             margin-bottom: 10px;
-            margin-top: 97px;
+            margin-top: 80px;
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }

@@ -810,7 +810,7 @@ body.sidebar-collapsed .main-content {
 }
 .label-FSearch-hover {
     position: absolute;
-    top: 50px;
+    top: 49px;
     left: 49%;
     transform: translateX(-50%);
     background-color: #a8a8a8;

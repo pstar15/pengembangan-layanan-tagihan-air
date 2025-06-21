@@ -118,7 +118,10 @@
             <!-- Filter data tagihan -->
             <div class="btns-riwayat">
                 <form action="<?= site_url('riwayat/filter') ?>" method="get" >
-                    <input type="month" name="periode" class="form-control input-riwayat" value="<?= esc($periode ?? '') ?>">
+                    <div class="from-input-riwayat">
+                        <input type="month" name="periode" class="input-riwayat" value="<?= esc($periode ?? '') ?>">
+                        <h5 class="label-Finput-hover">Pilih Periode Tagihan</h5>
+                    </div>
                     <div class="btn-filter-riwayat">
                         <button type="submit" class="filter-datariwayat btn btn-primary">
                             <a href="#">
@@ -133,7 +136,7 @@
                                 <i class="bi bi-arrow-clockwise"></i>
                             </a>
                         </div>
-                        <h5 class="label-reset-hover" style="position: absolute;margin-left: 130px;margin-top: 50px;">resets</h5>
+                        <h5 class="label-reset-hover">Resets</h5>
                     </div>
                 </form>
                 <div class="btn-export-riwayat">

@@ -1013,7 +1013,44 @@ canvas:hover {
 .input-riwayat {
     margin: 0 auto;
     margin-top: 0;
+    margin-left: 17px;
+    width: 100%;
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
 }
+.from-input-riwayat {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+.label-Finput-hover {
+    position: absolute;
+    top: 45px;
+    left: 115px;
+    transform: translateX(-50%);
+    margin-top: 0;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.from-input-riwayat:hover .label-Finput-hover {
+    opacity: 1;
+}
+.label-Finput-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}.from-input-riwayat:hover .label-Finput-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* Css Button Filter Riwayat **/
 .filter-datariwayat {
     display: flex;
     position: absolute;
@@ -1031,6 +1068,7 @@ canvas:hover {
 .filter-datariwayat:hover {
     color: #1f5e8e;
 }
+/* Css button Reset Filter Riwayat **/
 .reset-riwayat {
     position: absolute;
     margin: 0 auto;
@@ -1049,6 +1087,41 @@ canvas:hover {
 .reset-datariwayat:hover {
     color: #1f5e8e;
 }
+
+.btn-reset-riwayat {
+    position: absolute;
+    display: flex;
+}
+.label-reset-hover {
+    position: absolute;
+    top: 45px;
+    left: 147px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-reset-riwayat:hover .label-reset-hover {
+    opacity: 1;
+}
+.label-reset-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-reset-riwayat:hover .label-reset-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End Css button Reset Filter Riwayat **/
+/* Css button Export riwayat **/
 .export-riwayat {
     align-items: center;
     justify-content: center;
@@ -1071,6 +1144,7 @@ canvas:hover {
 .export:hover {
     color: #1f5e8e;
 }
+
 /* Chart */
 .chart-container {
     display: flex;

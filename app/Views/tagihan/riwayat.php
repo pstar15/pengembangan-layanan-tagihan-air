@@ -37,6 +37,12 @@
             color: #fff;
             text-align: center;
         }
+        .btn-keloladata {
+            display: flex;
+            position: inherit;
+            margin: 0 auto;
+            margin-left:250px;
+        }
     </style>
 </head>
 <body class="animated">
@@ -113,66 +119,80 @@
             <div class="btns-riwayat">
                 <form action="<?= site_url('riwayat/filter') ?>" method="get" >
                     <input type="month" name="periode" class="form-control input-riwayat" value="<?= esc($periode ?? '') ?>">
-                    <div>
+                    <div class="btn-filter-riwayat">
                         <button type="submit" class="filter-datariwayat btn btn-primary">
                             <a href="#">
                                 <i class="bi bi-funnel"></i>
                             </a>
                         </button>
-                        <h5 style="position: absolute;margin-left: 190px;margin-top: 50px;">filter</h5>
+                        <h5 class="label-filter-hover" style="position: absolute;margin-left: 190px;margin-top: 50px;">filter</h5>
                     </div>
-                    <div>
+                    <div class="btn-reset-riwayat">
                         <div class="reset-riwayat">
                             <a href="<?= site_url('riwayat') ?>" class="reset-datariwayat btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise"></i>
                             </a>
                         </div>
-                        <h5 style="position: absolute;margin-left: 130px;margin-top: 50px;">resets</h5>
+                        <h5 class="label-reset-hover" style="position: absolute;margin-left: 130px;margin-top: 50px;">resets</h5>
                     </div>
                 </form>
-                <div>
+                <div class="btn-export-riwayat">
                     <div class="export-riwayat">
                         <a href="<?= site_url('riwayat/export/excel?periode=' . ($periode ?? '')) ?>" id="btnExportExcel" class="export btn btn-success">
                             <i class="bi bi-filetype-exe"></i>
                         </a>
                     </div>
-                    <h5 style="position: absolute;margin-left: 65px;margin-top: 50px;">export</h5>
+                    <h5 class="label-export-hover" style="position: absolute;margin-left: 65px;margin-top: 50px;">export</h5>
                 </div>
             </div>
 
             <!-- button menu keloladata -->
             <div id="kontrol-aksi" class="btn-keloladata mb-3">
-                <div class="pilih-data">
-                    <button id="btnPilih" class="pilih btn btn-primary">
-                        <a href="#" style="color: #fff;">Pilih</a>
-                    </button>
+                <div class="btn-pilih-riwayat">
+                    <div class="pilih-data">
+                        <button id="btnPilih" class="pilih btn btn-primary">
+                            <a href="#" style="color: #fff;">Pilih</a>
+                        </button>
+                    </div>
+                    <h5 class="label-pilih-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Pilih Data</h5>
                 </div>
-                <div class="semua-data">
-                    <button id="btnSemua" class="semua btn btn-success d-none">
-                        <a href="#">
-                            <i class="bi bi-check-all"></i>
-                        </a>
-                    </button>
+                <div class="btn-batal-riwayat">
+                    <div class="batal-data">
+                        <button id="btnBatal" class="batal btn btn-danger d-none">
+                            <a href="#" style="color: #fff;">Batal</a>
+                        </button>
+                    </div>
+                    <h5 class="label-batal-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Batal</h5>
                 </div>
-                <div class="kembalikan-data">
-                    <button id="btnKembalikan" class="kembalikan btn btn-warning" style="display: none;">
-                        <a href="#" style="color: #1f5e8e;">
-                            <i class="bi bi-folder-symlink"></i>
-                        </a>
-                    </button>
+                <div class="btn-kembalikan-riwayat">
+                    <div class="kembalikan-data">
+                        <button id="btnKembalikan" class="kembalikan btn btn-warning" style="display: none;">
+                            <a href="#" style="color: #1f5e8e;">
+                                <i class="bi bi-folder-symlink"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <h5 class="label-kembalikan-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Return</h5>
                 </div>
-                <div class="hapus-data">
-                    <button id="btnHapus" class="hapus btn btn-danger d-none">
-                        <a href="#" style="color: rgb(184, 40, 40);">
-                            <i class="bi bi-trash3"></i>
-                        </a>
-                    </button>
+                <div class="btn-hapus-riwayat">
+                    <div class="hapus-data">
+                        <button id="btnHapus" class="hapus btn btn-danger d-none">
+                            <a href="#" style="color: rgb(184, 40, 40);">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <h5 class="label-hapus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Hapus</h5>
                 </div>
-
-                <div class="batal-data">
-                    <button id="btnBatal" class="batal btn btn-danger d-none">
-                        <a href="#" style="color: #fff;">Batal</a>
-                    </button>
+                <div class="btn-smeua-riwayat">
+                    <div class="semua-data">
+                        <button id="btnSemua" class="semua btn btn-success d-none">
+                            <a href="#">
+                                <i class="bi bi-check-all"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <h5 class="label-semua-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Pilih Semua</h5>
                 </div>
             </div>
 

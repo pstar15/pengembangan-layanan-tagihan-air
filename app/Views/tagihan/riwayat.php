@@ -43,6 +43,7 @@
             margin: 0 auto;
             margin-left:250px;
         }
+
     </style>
 </head>
 <body class="animated">
@@ -117,7 +118,7 @@
 
             <!-- Filter data tagihan -->
             <div class="btns-riwayat">
-                <form action="<?= site_url('riwayat/filter') ?>" method="get" >
+                <form action="<?= site_url('riwayat/filter') ?>" method="get">
                     <div class="from-input-riwayat">
                         <input type="month" name="periode" class="input-riwayat" value="<?= esc($periode ?? '') ?>">
                         <h5 class="label-Finput-hover">Pilih Periode Tagihan</h5>
@@ -128,7 +129,7 @@
                                 <i class="bi bi-funnel"></i>
                             </a>
                         </button>
-                        <h5 class="label-filter-hover" style="position: absolute;margin-left: 190px;margin-top: 50px;">filter</h5>
+                        <h5 class="label-filter-hover">Filter</h5>
                     </div>
                     <div class="btn-reset-riwayat">
                         <div class="reset-riwayat">
@@ -145,7 +146,7 @@
                             <i class="bi bi-filetype-exe"></i>
                         </a>
                     </div>
-                    <h5 class="label-export-hover" style="position: absolute;margin-left: 65px;margin-top: 50px;">export</h5>
+                    <h5 class="label-export-hover">export</h5>
                 </div>
             </div>
 

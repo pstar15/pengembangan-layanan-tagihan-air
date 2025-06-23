@@ -889,15 +889,14 @@ canvas:hover {
     cursor: pointer;
     font-size: 12px;
 }
+/* CSS Button Pilih Data Riwayat **/
 .pilih-data {
     position: absolute;
-    display: flex;
-    width: 60px;
     margin: 0 auto;
-    margin-top: 18px;
-    cursor: pointer;
+    margin-top: -10px;
+    position: absolute;
+    width: 60px;
     background: none;
-    padding: 5px 6px;
     font-size: 20px;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
@@ -905,20 +904,52 @@ canvas:hover {
 .pilih {
     color: #fff;
     background: #2878b6;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
 }
 .pilih:hover {
     background: #1f5e8e;
 }
+.btn-pilih-riwayat {
+    position: absolute;
+	display: flex;
+}
+.label-pilih-hover {
+    position: absolute;
+    top: 31px;
+    left: 27px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-pilih-riwayat:hover .label-pilih-hover {
+    opacity: 1;
+}
+.label-pilih-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-pilih-riwayat:hover .label-pilih-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End CSS Button Pilih Data Riwayat */
+/* CSS Button Pilih Semua Data Riwayat */
 .semua-data {
     position: absolute;
     display: flex;
     justify-content: left;
     align-items: left;
     margin: 0 auto;
-    margin-left: 190px;
-    margin-top: 20px;
+    margin-left: 180px;
+    margin-top: -12px;
     cursor: pointer;
     background: none;
     border-radius: 5px;
@@ -936,15 +967,44 @@ canvas:hover {
 .semua:hover {
     color: #000;
 }
+.btn-smeua-riwayat {
+    position: absolute;
+	display: flex;
+}
+.label-semua-hover {
+    position: absolute;
+    top: 31px;
+    left: 190px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-smeua-riwayat:hover .label-semua-hover {
+    opacity: 1;
+}
+.label-semua-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-smeua-riwayat:hover .label-semua-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End CSS Button Pilih Semua Data */
+/* CSS Button Batal Pilih Data Riwayat */
 .batal-data {
     position: absolute;
-    display: flex;
-    justify-content: left;
-    align-items: left;
     margin: 0 auto;
-    margin-top: 18px;
-    cursor: pointer;
-    padding: 5px 6px;
+    margin-top: -10px;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
 }
@@ -957,6 +1017,40 @@ canvas:hover {
 .batal:hover {
     background: rgb(150, 30, 30);
 }
+.btn-batal-riwayat {
+    position: absolute;
+	display: flex;
+}
+.label-batal-hover {
+    position: absolute;
+    top: 31px;
+    left: 27px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-batal-riwayat:hover .label-batal-hover {
+    opacity: 1;
+}
+.label-batal-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-batal-riwayat:hover .label-batal-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End CSS Button Batal Pilih Data */
+/* CSS Button Kembalikan Data Riwayat */
 .kembalikan-data {
     position: absolute;
     display: flex;
@@ -964,9 +1058,8 @@ canvas:hover {
     align-items: left;
     margin: 0 auto;
     margin-left: 120px;
-    margin-top: 14px;
+    margin-top: -13px;
     cursor: pointer;
-    padding: 5px 6px;
     background: none;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
@@ -977,6 +1070,40 @@ canvas:hover {
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
 }
+.btn-kembalikan-riwayat {
+    position: absolute;
+	display: flex;
+}
+.label-kembalikan-hover {
+    position: absolute;
+    top: 31px;
+    left: 140px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-kembalikan-riwayat:hover .label-kembalikan-hover {
+    opacity: 1;
+}
+.label-kembalikan-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-kembalikan-riwayat:hover .label-kembalikan-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End CSS Button Kembalikan Data Riwayat */
+/* CSS Hapus Data Riwayat */
 .hapus-data {
     position: absolute;
     display: flex;
@@ -984,10 +1111,9 @@ canvas:hover {
     align-items: left;
     margin: 0 auto;
     margin-left: 70px;
-    margin-top: 14px;
+    margin-top: -11px;
     cursor: pointer;
     background: none;
-    padding: 5px 6px;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
 }
@@ -997,7 +1123,39 @@ canvas:hover {
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
 }
-
+.btn-hapus-riwayat {
+    position: absolute;
+	display: flex;
+}
+.label-hapus-hover {
+    position: absolute;
+    top: 31px;
+    left: 90px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-hapus-riwayat:hover .label-hapus-hover {
+    opacity: 1;
+}
+.label-hapus-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-hapus-riwayat:hover .label-hapus-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End CSS Hapus Data Riwayat */
 .checkbox-col {
     display: none;
 }

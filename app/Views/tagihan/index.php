@@ -15,7 +15,7 @@
         }
         .table-container {
             margin: 0 auto;
-            margin-top: -10px;
+            margin-top: -25px;
             width: 100%;
             text-align: center;
             box-shadow: 2px 4px 10px rgba(0,0,0,0.1);

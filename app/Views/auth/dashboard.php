@@ -185,10 +185,10 @@
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="/js/sidebar.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/curva.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const labels = <?= $periode ?>;
 const data = <?= $total ?>;

@@ -14,7 +14,7 @@
         }
         .table-container {
             margin: 0 auto;
-            margin-top: 50px;
+            margin-top: 40px;
             width: 100%;
             text-align: center;
             box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
@@ -24,7 +24,7 @@
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 20px;
+            margin-top: 18px;
             margin-left: 0;
             color: #000;
         }
@@ -77,21 +77,21 @@
     <div class="sidebar" id="sidebar">
         <ul>
             <li>
-                <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
+                <a href="<?= base_url('auth/dashboard') ?>" id="sidebar-dashboard" class="sidebar-link">
                     <i class="bi bi-columns-gap"></i>
                     <span style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a href="<?= base_url('tagihan') ?>" class="sidebar-link">
+                <a href="<?= base_url('tagihan') ?>" id="sidebar-tagihan" class="sidebar-link">
                     <i class="bi bi-droplet-half"></i>
                     <span style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
-                <a href="/riwayat-tagihan" class="<?= uri_string() == 'riwayat-tagihan' ? 'active' : '' ?>">
+                <a href="<?= base_url('riwayat-tagihan') ?>" id="sidebar-riwayat" class="sidebar-link">
                     <i class="bi bi-journal"></i>
                     <span style="margin-left: 10px;">Riwayat</span>
                 </a>
@@ -144,7 +144,7 @@
                 </form>
             </div>
             <div class="btn-export-riwayat">
-                <div class="export-riwayat">
+                <div id="exportBtn" class="export-riwayat">
                     <a href="<?= site_url('riwayat/export/excel?periode=' . ($periode ?? '')) ?>" id="btnExportExcel" class="export btn btn-success">
                         <i class="bi bi-filetype-exe"></i>
                     </a>
@@ -244,6 +244,7 @@
 
 <script src="<?= base_url('js/script.js') ?>" defer></script>
 <script src="<?= base_url('js/riwayat.js') ?>"></script>
+<script src="<?= base_url('js/sidebar.js') ?>"></script>
 <!-- Script Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- SweetAlert2 CDN -->
@@ -442,23 +443,26 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("DOMContentLoaded", function () {
         const filterInput = document.getElementById("filterInput");
         const resetBtn = document.getElementById("resetBtn");
+        const exportBtn = document.getElementById("exportBtn");
 
-        // Pantau perubahan pada input filter
-        filterInput.addEventListener("input", function () {
-            if (filterInput.value !== "") {
-                resetBtn.style.display = "inline-block";
-            } else {
-                resetBtn.style.display = "none";
-            }
-        });
+        function toggleButtons() {
+            const show = filterInput.value !== "";
+            resetBtn.style.display = show ? "inline-block" : "none";
+            exportBtn.style.display = show ? "inline-block" : "none";
+        }
 
-        // Jika tombol reset diklik, kosongkan input dan sembunyikan tombol
+        filterInput.addEventListener("input", toggleButtons);
+
         resetBtn.addEventListener("click", function () {
             filterInput.value = "";
-            resetBtn.style.display = "none";
+            toggleButtons();
         });
+
+        // Sembunyikan tombol di awal
+        toggleButtons();
     });
 </script>
+
 
 </body>
 </html>

@@ -10,11 +10,11 @@
     <style>
         .container {
             width: 865px;
-            margin-top: 90px;
+            margin-top: 80px;
         }
         .table-container {
             margin: 0 auto;
-            margin-top: 80px;
+            margin-top: 50px;
             width: 100%;
             text-align: center;
             box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
@@ -24,7 +24,7 @@
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 65px;
+            margin-top: 20px;
             margin-left: 0;
             color: #000;
         }
@@ -119,10 +119,6 @@
             <!-- Filter data tagihan -->
             <div class="btns-riwayat">
                 <form action="<?= site_url('riwayat/filter') ?>" method="get">
-                    <div class="from-input-riwayat">
-                        <input type="month" name="periode" class="input-riwayat" value="<?= esc($periode ?? '') ?>">
-                        <h5 class="label-Finput-hover">Pilih Periode Tagihan</h5>
-                    </div>
                     <div class="btn-filter-riwayat">
                         <button type="submit" class="filter-datariwayat btn btn-primary">
                             <a href="#">
@@ -132,24 +128,30 @@
                         <h5 class="label-filter-hover">Filter</h5>
                     </div>
                     <div class="btn-reset-riwayat">
-                        <div class="reset-riwayat">
+                        <button id="resetBtn" class="reset-riwayat" style="display: none;">
                             <a href="<?= site_url('riwayat') ?>" class="reset-datariwayat btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise"></i>
                             </a>
-                        </div>
+                        </button>
                         <h5 class="label-reset-hover">Resets</h5>
                     </div>
-                </form>
-                <div class="btn-export-riwayat">
-                    <div class="export-riwayat">
-                        <a href="<?= site_url('riwayat/export/excel?periode=' . ($periode ?? '')) ?>" id="btnExportExcel" class="export btn btn-success">
-                            <i class="bi bi-filetype-exe"></i>
-                        </a>
+                    <div class="from-input-riwayat">
+                        <div class="form-filter-riwayat">
+                            <input type="month" id="filterInput" name="periode" class="input-riwayat" value="<?= esc($periode ?? '') ?>">
+                        </div>
+                        <h5 class="label-Finput-hover">Pilih Periode Tagihan</h5>
                     </div>
-                    <h5 class="label-export-hover">export</h5>
-                </div>
+                </form>
             </div>
-
+            <div class="btn-export-riwayat">
+                <div class="export-riwayat">
+                    <a href="<?= site_url('riwayat/export/excel?periode=' . ($periode ?? '')) ?>" id="btnExportExcel" class="export btn btn-success">
+                        <i class="bi bi-filetype-exe"></i>
+                    </a>
+                </div>
+                <h5 class="label-export-hover">export</h5>
+            </div>
+            
             <!-- button menu keloladata -->
             <div id="kontrol-aksi" class="btn-keloladata mb-3">
                 <div class="btn-pilih-riwayat">
@@ -435,6 +437,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     })
 });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterInput = document.getElementById("filterInput");
+        const resetBtn = document.getElementById("resetBtn");
+
+        // Pantau perubahan pada input filter
+        filterInput.addEventListener("input", function () {
+            if (filterInput.value !== "") {
+                resetBtn.style.display = "inline-block";
+            } else {
+                resetBtn.style.display = "none";
+            }
+        });
+
+        // Jika tombol reset diklik, kosongkan input dan sembunyikan tombol
+        resetBtn.addEventListener("click", function () {
+            filterInput.value = "";
+            resetBtn.style.display = "none";
+        });
+    });
 </script>
 
 </body>

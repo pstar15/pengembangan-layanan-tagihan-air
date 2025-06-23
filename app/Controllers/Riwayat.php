@@ -95,7 +95,7 @@ class Riwayat extends BaseController
     }
     public function filter()
     {
-        $periode = $this->request->getGet('periode');
+        $periode = $this->request->getGet('periode'); // Format: YYYY-MM
         $RiwayatTagihanModel = new \App\Models\RiwayatTagihanModel();
 
         if ($periode) {
@@ -108,7 +108,7 @@ class Riwayat extends BaseController
 
         $data['periode'] = $periode;
 
-        return view('/riwayat-tagihan', $data);
+        return view('tagihan/riwayat', $data);
     }
     public function export($type)
     {

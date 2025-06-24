@@ -687,6 +687,21 @@ body.sidebar-collapsed .main-content {
     opacity: 1;
 }
 /* End Css Filter Status **/
+.toolbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+.toolbar-left,
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 /* button Add **/
 .btn-addtagihan {
     width: 35px;
@@ -858,7 +873,7 @@ body.sidebar-collapsed .main-content {
     color: #fff;
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 11px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -916,7 +931,7 @@ canvas:hover {
     transform: scale(1.1);
 }
 .btn-simpandata {
-    width: 200px;
+    width: 218px;
     justify-content: right;
     align-items: right;
     align-content: right;

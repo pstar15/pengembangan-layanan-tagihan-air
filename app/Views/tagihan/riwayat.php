@@ -77,21 +77,21 @@
     <div class="sidebar" id="sidebar">
         <ul>
             <li>
-                <a href="<?= base_url('auth/dashboard') ?>" id="sidebar-dashboard" class="sidebar-link">
+                <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
                     <i class="bi bi-columns-gap"></i>
                     <span style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a href="<?= base_url('tagihan') ?>" id="sidebar-tagihan" class="sidebar-link">
+                <a href="<?= base_url('/tagihan') ?>" class="sidebar-link">
                     <i class="bi bi-droplet-half"></i>
                     <span style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
-                <a href="<?= base_url('riwayat-tagihan') ?>" id="sidebar-riwayat" class="sidebar-link">
+                <a href="/riwayat-tagihan" class="<?= uri_string() == 'riwayat-tagihan' ? 'active' : '' ?>">
                     <i class="bi bi-journal"></i>
                     <span style="margin-left: 10px;">Riwayat</span>
                 </a>
@@ -118,20 +118,16 @@
 
             <!-- Filter data tagihan -->
             <div class="btns-riwayat">
-                <form action="<?= site_url('riwayat/filter') ?>" method="get">
+                <form action="<?= site_url('/riwayat-tagihan') ?>" method="get">
                     <div class="btn-filter-riwayat">
                         <button type="submit" class="filter-datariwayat btn btn-primary">
-                            <a href="#">
-                                <i class="bi bi-funnel"></i>
-                            </a>
+                            <i class="bi bi-funnel"></i>
                         </button>
                         <h5 class="label-filter-hover">Filter</h5>
                     </div>
-                    <div class="btn-reset-riwayat">
-                        <button id="resetBtn" class="reset-riwayat" style="display: none;">
-                            <a href="<?= site_url('riwayat') ?>" class="reset-datariwayat btn btn-secondary">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </a>
+                    <div class="btn-reset-riwayat" id="resetBtn" style="display: none;">
+                        <button  class="reset-riwayat" >
+                            <i class="bi bi-arrow-clockwise reset-riwayat"></i>
                         </button>
                         <h5 class="label-reset-hover">Resets</h5>
                     </div>
@@ -244,12 +240,21 @@
 
 <script src="<?= base_url('js/script.js') ?>" defer></script>
 <script src="<?= base_url('js/riwayat.js') ?>"></script>
-<script src="<?= base_url('js/sidebar.js') ?>"></script>
 <!-- Script Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterInput = document.getElementById('filterInput');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if (filterInput.value !== '') {
+            resetBtn.style.display = 'inline-block';
+        }
+    });
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const btnPilih = document.getElementById("btnPilih");

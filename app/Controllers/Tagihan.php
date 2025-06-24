@@ -148,9 +148,18 @@ class Tagihan extends BaseController
     }
     public function riwayat()
     {
+        $periode = $this->request->getGet('periode');
         $model = new RiwayatTagihanModel();
-        $data['riwayat'] = $model->findAll();
+            $periode = $this->request->getGet('periode');
 
-        return view('tagihan/riwayat', $data);
+            if ($periode && preg_match('/^\d{4}-\d{2}$/', $periode)) {
+                $data['riwayat'] = $model->like('periode', $periode)->findAll();
+            } else {
+                $data['riwayat'] = $model->findAll();
+            }
+
+            $data['periode'] = $periode;
+
+            return view('tagihan/riwayat', $data);
     }
 }

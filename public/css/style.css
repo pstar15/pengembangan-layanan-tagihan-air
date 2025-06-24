@@ -663,7 +663,7 @@ body.sidebar-collapsed .main-content {
     color: #fff;
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 11px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -724,7 +724,7 @@ body.sidebar-collapsed .main-content {
     color: #fff;
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 11px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -754,24 +754,20 @@ body.sidebar-collapsed .main-content {
 .search-form {
     margin-top: 70px;
 }
-
 .search-form .search-input {
     padding-left: 2.5rem;
     border-radius: 25px;
 }
-
 .search-form {
     display: flex;
     align-items: center;
     gap: 5px;
 }
-
 .search-form input {
     padding: 6px 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
-
 .search-form button {
     padding: 6px 10px;
     width: 40px;
@@ -781,11 +777,51 @@ body.sidebar-collapsed .main-content {
     border-radius: 5px;
     cursor: pointer;
 }
-
 .search-form button i {
     font-size: 16px;
 }
-
+/* END CSS MENU FORM SEARCH**/
+/* Css Button Reset **/
+#filterBtn {
+    transition: all 0.3s ease;
+}
+.button-reset {
+    position: absolute;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    margin: 0 auto;
+    margin-left: 240px;
+}
+.label-resetTagihan-hover {
+    position: absolute;
+    top: 38px;
+    left: 15px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.button-reset:hover .label-resetTagihan-hover {
+    opacity: 1;
+}
+.label-resetTagihan-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.button-reset:hover .label-resetTagihan-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End Css button Reset **/
 .input-with-icon {
     position: relative;
     max-width: 200px;
@@ -802,11 +838,14 @@ body.sidebar-collapsed .main-content {
     position: relative;
     display: inline-block;
     margin: 10px;
+    margin-right: 70px;
 }
 .button-search {
-    position: relative;
-    display: inline-block;
+    position: absolute;
+    display: flex;
     margin: 10px;
+    margin-top: 12px;
+    margin-left: 210px;
 }
 .label-FSearch-hover {
     position: absolute;
@@ -893,7 +932,7 @@ canvas:hover {
 .pilih-data {
     position: absolute;
     margin: 0 auto;
-    margin-top: -10px;
+    margin-top: -5px;
     position: absolute;
     width: 60px;
     background: none;
@@ -941,6 +980,56 @@ canvas:hover {
     opacity: 1;
 }
 /* End CSS Button Pilih Data Riwayat */
+/* CSS Button Batal Pilih Data Riwayat */
+.batal-data {
+    position: absolute;
+    margin: 0 auto;
+    margin-top: -5px;
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
+.batal {
+    color: #fff;
+    background: rgb(214, 47, 47);
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
+.batal:hover {
+    background: rgb(150, 30, 30);
+}
+.btn-batal-riwayat {
+    position: absolute;
+	display: flex;
+}
+.label-batal-hover {
+    position: absolute;
+    top: 31px;
+    left: 27px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+.btn-batal-riwayat:hover .label-batal-hover {
+    opacity: 1;
+}
+.label-batal-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.btn-batal-riwayat:hover .label-batal-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* End CSS Button Batal Pilih Data */
 /* CSS Button Pilih Semua Data Riwayat */
 .semua-data {
     position: absolute;
@@ -949,7 +1038,7 @@ canvas:hover {
     align-items: left;
     margin: 0 auto;
     margin-left: 180px;
-    margin-top: -12px;
+    margin-top: -7px;
     cursor: pointer;
     background: none;
     border-radius: 5px;
@@ -1000,56 +1089,6 @@ canvas:hover {
     opacity: 1;
 }
 /* End CSS Button Pilih Semua Data */
-/* CSS Button Batal Pilih Data Riwayat */
-.batal-data {
-    position: absolute;
-    margin: 0 auto;
-    margin-top: -10px;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-.batal {
-    color: #fff;
-    background: rgb(214, 47, 47);
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-.batal:hover {
-    background: rgb(150, 30, 30);
-}
-.btn-batal-riwayat {
-    position: absolute;
-	display: flex;
-}
-.label-batal-hover {
-    position: absolute;
-    top: 31px;
-    left: 27px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.btn-batal-riwayat:hover .label-batal-hover {
-    opacity: 1;
-}
-.label-batal-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.btn-batal-riwayat:hover .label-batal-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* End CSS Button Batal Pilih Data */
 /* CSS Button Kembalikan Data Riwayat */
 .kembalikan-data {
     position: absolute;
@@ -1058,7 +1097,7 @@ canvas:hover {
     align-items: left;
     margin: 0 auto;
     margin-left: 120px;
-    margin-top: -13px;
+    margin-top: -8px;
     cursor: pointer;
     background: none;
     transition: transform 0.3s ease;
@@ -1111,7 +1150,7 @@ canvas:hover {
     align-items: left;
     margin: 0 auto;
     margin-left: 70px;
-    margin-top: -11px;
+    margin-top: -6px;
     cursor: pointer;
     background: none;
     transition: transform 0.3s ease;

@@ -89,11 +89,35 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 //script loading pencarian data tagihan
-const form = document.querySelector('.search-form');
-form.addEventListener('submit', function() {
-    const button = form.querySelector('button');
-    button.disabled = true;
-    button.innerHTML = '⏳';
-    button.style.display = 'none';
-    button.style="margin-top: 10px;";
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('filterForm');
+    const input = document.getElementById('keywordInput');
+    const filterBtn = document.getElementById('filterBtn');
+    const filterIcon = document.getElementById('filterIcon');
+
+    if (input.value.trim() !== "") {
+        filterBtn.classList.remove("btn-outline-primary");
+        filterBtn.classList.add("btn-outline-danger");
+        filterIcon.classList.remove("bi-search");
+        filterIcon.classList.add("bi-x-lg");
+        filterBtn.type = "button";
+    }
+
+    filterBtn.addEventListener('click', function () {
+        if (filterBtn.type === "button") {
+            window.location.href = "/tagihan";
+        } else {
+            form.submit();
+        }
+    });
+
+    input.addEventListener('input', function () {
+        if (input.value.trim() === "") {
+            filterBtn.classList.remove("btn-outline-danger");
+            filterBtn.classList.add("btn-outline-primary");
+            filterIcon.classList.remove("bi-x-lg");
+            filterIcon.classList.add("bi-search");
+            filterBtn.type = "submit";
+        }
+    });
 });

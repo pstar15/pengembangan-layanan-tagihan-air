@@ -169,20 +169,21 @@
                     </a>
                 </div>
 
-                <form method="get" action="<?= base_url('tagihan') ?>" class="search-form">
+                <form method="get" action="<?= base_url('tagihan') ?>" id="filterForm" class="search-form">
                     <div class="form-search">
-                        <input type="text" name="keyword" placeholder="Cari nama / nomor meter..." />
+                        <input type="text" id="keywordInput" name="keyword" placeholder="Cari nama / nomor meter..." value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
                         <h5 class="label-FSearch-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Ketik Nama/Nomor Meter</h5>
                     </div>
                     <div class="button-search">
-                        <button type="submit"><i class="bi bi-search"></i></button>
-                        <h5 class="label-search-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Cari Data Tagihan</h5>
+                        <button type="submit" id="filterBtn">
+                            <i class="bi bi-search" id="filterIcon"></i>
+                        </button>
                     </div>
                 </form>
             </div>
 
             <!-- Tabel data tagihan -->
-            <div class="table-container">
+            <div id="resultContainer" class="table-container">
                 <table border="1" cellpadding="10" cellspacing="0" width="100%" class="styled-table">
                     <thead>
                         <tr>

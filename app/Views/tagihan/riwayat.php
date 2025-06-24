@@ -24,7 +24,7 @@
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 18px;
+            margin-top: 22px;
             margin-left: 0;
             color: #000;
         }

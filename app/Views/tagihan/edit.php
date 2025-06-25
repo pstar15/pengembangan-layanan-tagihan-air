@@ -8,6 +8,7 @@
     <style>
         body {
             background: #2A7B9B;
+            height: 100vh;
             background: radial-gradient(circle,rgba(42, 123, 155, 1) 0%, rgba(87, 147, 199, 1) 50%, rgba(127, 83, 237, 1) 100%);
         }
         .form-tagihan {

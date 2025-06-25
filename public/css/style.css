@@ -366,7 +366,7 @@ body.sidebar-collapsed .main-content {
     flex: 1;
     min-width: 220px;
     height: 215px;
-    background-color: #f4f4f4;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
@@ -733,7 +733,7 @@ body.sidebar-collapsed .main-content {
     align-items: right;
     margin: 0 auto;
     margin-left: 220px;
-    margin-top: 23px;
+    margin-top: 25px;
     padding: 1px 4px;
     text-decoration: none;
     border: none;

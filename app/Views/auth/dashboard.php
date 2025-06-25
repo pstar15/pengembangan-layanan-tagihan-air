@@ -39,6 +39,13 @@
             top: 0;
             z-index: 5;
         }
+        .no-copy {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
     </style>
 </head>
 <body class="animated">
@@ -51,8 +58,8 @@
 
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 class="navbar-title">My App</h1>
-        <div class="navbar-spacer">
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">My App</h1>
+        <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
@@ -72,26 +79,26 @@
         </div>
     </div>
 
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar active" id="sidebar">
         <ul>
             <li>
                 <a href="/auth/dashboard" class="<?= uri_string() == 'auth/dashboard' ? 'active' : '' ?>">
-                    <i class="bi bi-columns-gap"></i>
-                    <span style="margin-left: 10px;">Dashboard</span>
+                    <i class="bi bi-columns-gap" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-droplet-half"></i>
-                    <span style="margin-left: 10px;">Tagihan</span>
+                    <i class="bi bi-droplet-half" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-journal"></i>
-                    <span style="margin-left: 10px;">Riwayat</span>
+                    <i class="bi bi-graph-up" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Riwayat</span>
                 </a>
             </li>
         </ul>
@@ -100,44 +107,34 @@
     <div class="main-content" id="mainContent">
         <div class="container">
             <div class="card-container">
-                <div>
+                <div class="cardTSemua">
                     <div class="card total">
-                        <h3>Total Tagihan</h3>
+                        <h3>Total Semua Tagihan</h3>
                         <p class="card-text"><?= $total_tagihan ?></p>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card total tagihan</h5>
                 </div>
-                <div>
-                    <div class="card lunas">
-                        <h3>Tagihan Lunas</h3>
-                        <p class="card-text"><?= $total_lunas ?></p>
-                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
+                <div class="chart-pie">
+                    <div class="text-center">
+                        <canvas id="pieChartTagihan" width="300" height="300"></canvas>
                     </div>
-                    <h5>card total tagihan lunas</h5>
-                </div>
-                <div>
-                    <div class="card belum-lunas">
-                        <h3>Total Belum Lunas</h3>
-                        <p class="card-text"><?= $total_belum_lunas ?></p>
-                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
-                    </div>
-                    <h5>card total tagihan belum lunas</h5>
                 </div>
             </div>
+
 
             <!--Chart-->
             <div class="chart-container">
                 <div class="chart-grafik">
                     <div class="card-body">
                         <canvas id="barChart" class="chart-bar"></canvas>
-                        <h5 class="card-title">Grafik Jumlah Tagihan per Periode (Bar)</h5>
+                        <h5 class="card-title">Chart Grafik</h5>
                     </div>
                 </div>
                 <div class="chart-curva">
                     <div class="card-body">
                         <canvas id="lineChart" class="chart-line"></canvas>
-                        <h5 class="card-title">Grafik Kurva Jumlah Tagihan per Periode</h5>
+                        <h5 class="card-title">Chart Kurva</h5>
                     </div>
                 </div>
             </div>
@@ -192,7 +189,7 @@
 <script>
 const labels = <?= $periode ?>;
 const data = <?= $total ?>;
-
+//chart grafik
 const barCtx = document.getElementById('barChart').getContext('2d');
 new Chart(barCtx, {
     type: 'bar',
@@ -223,7 +220,7 @@ new Chart(barCtx, {
         }
     }
 });
-
+//chart curva
 const lineCtx = document.getElementById('lineChart').getContext('2d');
 new Chart(lineCtx, {
     type: 'line',
@@ -257,6 +254,40 @@ new Chart(lineCtx, {
         }
     }
 });
+//chart pie
+const ctx = document.getElementById('pieChartTagihan');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Lunas', 'Total Belum Lunas'],
+            datasets: [{
+                label: 'Jumlah Tagihan',
+                data: [<?= $total_lunas ?>, <?= $total_belum_lunas ?>],
+                backgroundColor: [
+                    'rgba(40, 167, 69, 0.7)',   // Hijau untuk Lunas
+                    'rgba(220, 53, 69, 0.7)'    // Merah untuk Belum Lunas
+                ],
+                borderColor: [
+                    'rgba(40, 167, 69, 1)',
+                    'rgba(220, 53, 69, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Lunas dan Belum Lunas'
+                }
+            }
+        }
+    });
 </script>
 
 </body>

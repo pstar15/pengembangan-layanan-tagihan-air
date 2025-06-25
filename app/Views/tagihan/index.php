@@ -53,6 +53,13 @@
             animation: fadeIn 0.5s ease;
         }
 
+        .no-copy {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
     </style>
 </head>
 <body>
@@ -68,8 +75,8 @@
 
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 class="navbar-title">My App</h1>
-        <div class="navbar-spacer">
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">My App</h1>
+        <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
@@ -100,7 +107,7 @@
 
             <li>
                 <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-journal"></i>
+                    <i class="bi bi-graph-up"></i>
                     <span style="margin-left: 10px;">Riwayat</span>
                 </a>
             </li>
@@ -109,19 +116,6 @@
 
     <div class="main-content" id="mainContent">
         <div class="container">
-
-            <!-- aleerts -->
-            <?php if(session()->getFlashdata('success')): ?>
-                <div class="alert alert-success custom-alert" id="alertBox">
-                    <?= session()->getFlashdata('success') ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if(session()->getFlashdata('error')): ?>
-                <div class="alert alert-danger custom-alert" id="alertBox">
-                    <?= session()->getFlashdata('error') ?>
-                </div>
-            <?php endif; ?>
 
             <h2>Daftar Tagihan Air</h2>
 
@@ -229,6 +223,7 @@
     </div>
 
 <script src="<?= base_url('js/script.js') ?>" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php if (session()->getFlashdata('success')): ?>
 <script>
     Swal.fire({

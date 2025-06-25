@@ -44,6 +44,13 @@
             margin-left:250px;
         }
 
+        .no-copy {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
     </style>
 </head>
 <body class="animated">
@@ -59,8 +66,8 @@
     <!-- navbar -->
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 class="navbar-title">My App</h1>
-        <div class="navbar-spacer">
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">My App</h1>
+        <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
@@ -92,7 +99,7 @@
 
             <li>
                 <a href="/riwayat-tagihan" class="<?= uri_string() == 'riwayat-tagihan' ? 'active' : '' ?>">
-                    <i class="bi bi-journal"></i>
+                    <i class="bi bi-graph-up"></i>
                     <span style="margin-left: 10px;">Riwayat</span>
                 </a>
             </li>
@@ -194,7 +201,7 @@
                             </a>
                         </button>
                     </div>
-                    <h5 class="label-semua-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Pilih Semua</h5>
+                    <h5 class="label-semua-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Semua</h5>
                 </div>
             </div>
 

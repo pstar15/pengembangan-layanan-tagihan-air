@@ -6,6 +6,9 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+//Route Api
+$routes->post('AuthUsers/register', 'Api\AuthUsers::register');
+$routes->post('AuthUsers/login', 'Api\AuthUsers::login');
 //Route Login, Register, Dashboard
 $routes->get('/', 'Auth::login');
 $routes->get('/login', 'Auth::login');
@@ -41,9 +44,3 @@ $routes->post('riwayat/hapus', 'Riwayat::hapus');
 $routes->get('riwayat/filter', 'Riwayat::filter');
 //export data
 $routes->get('riwayat/export/(:any)', 'Riwayat::export/$1');
-//Route Api
-$routes->group('api', function($routes) {
-    $routes->post('register', 'Api\UserAuth::register');
-    $routes->post('login', 'Api\UserAuth::login');
-    $routes->get('userphone', 'Api\UserAuth::list');
-});

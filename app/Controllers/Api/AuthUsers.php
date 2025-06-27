@@ -16,33 +16,20 @@ class AuthUsers extends ResourceController
 
     public function register()
     {
-        $request = $this->request->getJSON();
+        $json = $this->request->getJSON();
+        $model = new PhoneUser();
 
-        $username = $request->username;
-        $email = $request->email;
-        $password = password_hash($request->password, PASSWORD_BCRYPT);
+        $data = [
+            'username' => $json->username,
+            'email'    => $json->email,
+            'password' => password_hash($json->password, PASSWORD_DEFAULT)
+        ];
 
-        $PhoneUser = new \App\Models\PhoneUser();
+        $model->insert($data);
 
-        // Cek jika email sudah terdaftar
-        if ($PhoneUser->where('email', $email)->first()) {
-            return $this->response->setJSON([
-                'status' => false,
-                'message' => 'Email sudah terdaftar'
-            ]);
-        }
-
-        $PhoneUser->insert([
-            'username' => $username,
-            'email'    => $email,
-            'password' => $password
-        ]);
-
-        return $this->response->setJSON([
-            'status' => true,
-            'message' => 'Registrasi berhasil'
-        ]);
+        return $this->respond(['status' => true, 'message' => 'Register success'], 200);
     }
+
 
     public function login()
     {

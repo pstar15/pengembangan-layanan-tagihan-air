@@ -7,8 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 //Route Api
-$routes->post('AuthUsers/register', 'Api\AuthUsers::register');
-$routes->post('AuthUsers/login', 'Api\AuthUsers::login');
+$routes->post('AuthUsers/register', 'Api\AuthUsers::registerPhone');
+$routes->post('AuthUsers/login', 'Api\AuthUsers::loginPhone');
 //Route Login, Register, Dashboard
 $routes->get('/', 'Auth::login');
 $routes->get('/login', 'Auth::login');

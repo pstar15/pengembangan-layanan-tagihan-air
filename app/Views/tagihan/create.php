@@ -43,13 +43,23 @@
             <form id="formAddTagihan" action="<?= base_url('/tagihan/store') ?>" method="post">
                 <?= csrf_field() ?>
                 <div class="form-group">
-                    <label>Nama Pelanggan</label>
+                    <label>Nama</label>
                     <input type="text" name="nama_pelanggan" value="<?= old('nama_pelanggan', $data['nama_pelanggan'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Nomor Meter</label>
+                    <label>Alamat</label>
+                    <input type="text" name="alamat" value="<?= old('alamat', $data['alamat'] ?? '') ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>No.Meter</label>
                     <input type="text" name="nomor_meter" value="<?= old('nomor_meter', $data['nomor_meter'] ?? '') ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Jumlah Meter</label>
+                    <input type="text" name="jumlah_meter" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">

@@ -145,8 +145,10 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Pelanggan</th>
-                                <th>Nomor Meter</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>No.Meter</th>
+                                <th>Jumlah Meter</th>
                                 <th>Periode</th>
                                 <th>Jumlah</th>
                                 <th>Status</th>
@@ -158,7 +160,9 @@
                                     <tr>
                                         <td><?= $i + 1 ?></td>
                                         <td><?= esc($row['nama_pelanggan']) ?></td>
+                                        <td><?= esc($row['alamat']) ?></td>
                                         <td><?= esc($row['nomor_meter']) ?></td>
+                                        <td><?= esc($row['jumlah_meter']) ?></td>
                                         <td><?= esc($row['periode']) ?></td>
                                         <td>Rp <?= number_format($row['jumlah_tagihan'], 0, ',', '.') ?></td>
                                         <td>

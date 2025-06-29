@@ -211,7 +211,9 @@
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Meter</th>
+                                <th>Alamat</th>
+                                <th>No.Meter</th>
+                                <th>Jumlah Meter</th>
                                 <th>Periode</th>
                                 <th>Tagihan</th>
                                 <th>Status</th>
@@ -223,7 +225,9 @@
                             <?php foreach ($riwayat as $r): ?>
                             <tr>
                                 <td><?= esc($r['nama_pelanggan']) ?></td>
+                                <td><?= esc($r['alamat']) ?></td>
                                 <td><?= esc($r['nomor_meter']) ?></td>
+                                <td><?= esc($r['jumlah_meter']) ?></td>
                                 <td><?= esc($r['periode']) ?></td>
                                 <td><?= esc($r['jumlah_tagihan']) ?></td>
                                 <td>

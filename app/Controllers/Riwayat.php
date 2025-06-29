@@ -127,13 +127,15 @@ class Riwayat extends BaseController
             $sheet->setTitle('Data Tagihan');
 
             // Header
-            $sheet->fromArray(['No', 'Nama Pelanggan', 'Nomor Meter', 'Periode', 'Jumlah Tagihan', 'Status'], NULL, 'A1');
+            $sheet->fromArray(['No', 'Nama Pelanggan', 'alamat', 'Nomor Meter', 'jumlah Meter', 'Periode', 'Jumlah Tagihan', 'Status'], NULL, 'A1');
 
             $rowIndex = 2;
             foreach ($data as $key => $row) {
                 $sheet->setCellValue('A' . $rowIndex, $key + 1);
                 $sheet->setCellValue('B' . $rowIndex, $row['nama_pelanggan']);
+                $sheet->setCellValue('B' . $rowIndex, $row['alamat']);
                 $sheet->setCellValue('C' . $rowIndex, $row['nomor_meter']);
+                $sheet->setCellValue('C' . $rowIndex, $row['jumlah_meter']);
                 $sheet->setCellValue('D' . $rowIndex, $row['periode']);
                 $sheet->setCellValue('E' . $rowIndex, $row['jumlah_tagihan']);
                 $sheet->setCellValue('F' . $rowIndex, $row['status']);

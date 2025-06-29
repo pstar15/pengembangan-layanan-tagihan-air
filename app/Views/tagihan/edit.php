@@ -52,13 +52,23 @@
                 <?= csrf_field() ?>
 
                 <div class="form-group">
-                    <label>Nama Pelanggan</label>
+                    <label>Nama</label>
                     <input type="text" name="nama_pelanggan" value="<?= esc($tagihan['nama_pelanggan']) ?>" required><br>
                 </div>
 
                 <div class="form-group">
-                    <label>Nomor Meter</label>
+                    <label>Alamat</label>
+                    <input type="text" name="alamat" value="<?= esc($tagihan['alamat']) ?>" required><br>
+                </div>
+
+                <div class="form-group">
+                    <label>No.Meter</label>
                     <input type="text" name="nomor_meter" value="<?= esc($tagihan['nomor_meter']) ?>" required><br>
+                </div>
+
+                <div class="form-group">
+                    <label>Jumlah Meter</label>
+                    <input type="text" name="Jumlah_meter" value="<?= esc($tagihan['Jumlah_meter']) ?>" required><br>
                 </div>
 
                 <div class="form-group">

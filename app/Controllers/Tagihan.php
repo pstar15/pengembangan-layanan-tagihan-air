@@ -49,7 +49,9 @@ class Tagihan extends BaseController
         $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_pelanggan' => 'required',
+            'alamat'         => 'required',
             'nomor_meter'    => 'required',
+            'jumlah_meter'   => 'required',
             'periode'        => 'required',
             'jumlah_tagihan' => 'required|numeric',
             'status'         => 'required|in_list[Lunas,Belum Lunas]',
@@ -65,7 +67,9 @@ class Tagihan extends BaseController
         $model = new \App\Models\TagihanModel();
         $model->save([
             'nama_pelanggan' => $this->request->getPost('nama_pelanggan'),
+            'alamat'         => $this->request->getPost('alamat'),
             'nomor_meter'    => $this->request->getPost('nomor_meter'),
+            'jumlah_meter'   => $this->request->getPost('jumlah_meter'),
             'periode'        => $this->request->getPost('periode'),
             'jumlah_tagihan' => $this->request->getPost('jumlah_tagihan'),
             'status'         => $this->request->getPost('status'),
@@ -88,7 +92,9 @@ class Tagihan extends BaseController
 
         $data = [
             'nama_pelanggan' => $this->request->getPost('nama_pelanggan'),
+            'alamat'         => $this->request->getPost('alamat'),
             'nomor_meter'    => $this->request->getPost('nomor_meter'),
+            'jumlah_meter'   => $this->request->getPost('jumlah_meter'),
             'periode'        => $this->request->getPost('periode'),
             'jumlah_tagihan' => $this->request->getPost('jumlah_tagihan'),
             'status'         => $this->request->getPost('status'),
@@ -134,11 +140,13 @@ class Tagihan extends BaseController
         foreach ($semuaTagihan as $row) {
             $riwayatModel->save([
                 'nama_pelanggan' => $row['nama_pelanggan'],
-                'nomor_meter' => $row['nomor_meter'],
-                'periode' => $row['periode'],
+                'alamat'         => $row['alamat'],
+                'nomor_meter'    => $row['nomor_meter'],
+                'jumlah_meter'   => $row['jumlah_meter'],
+                'periode'        => $row['periode'],
                 'jumlah_tagihan' => $row['jumlah_tagihan'],
-                'status' => $row['status'],
-                'created_at' => date('Y-m-d H:i:s')
+                'status'         => $row['status'],
+                'created_at'     => date('Y-m-d H:i:s')
             ]);
         }
 

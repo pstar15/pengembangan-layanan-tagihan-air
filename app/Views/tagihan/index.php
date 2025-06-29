@@ -185,8 +185,10 @@
                 <table border="1" cellpadding="10" cellspacing="0" width="100%" class="styled-table">
                     <thead>
                         <tr>
-                            <th>Nama Pelanggan</th>
-                            <th>Nomor Meter</th>
+                            <th>Nama</th>
+                            <th>Alamat</th>
+                            <th>No.Meter</th>
+                            <th>Jumlah Meter</th>
                             <th>Periode</th>
                             <th>Jumlah Tagihan</th>
                             <th>Status</th>
@@ -198,7 +200,9 @@
                             <?php foreach ($tagihan as $row): ?>
                                 <tr>
                                     <td><?= esc($row['nama_pelanggan']) ?></td>
+                                    <td><?= esc($row['alamat']) ?></td>
                                     <td><?= esc($row['nomor_meter']) ?></td>
+                                    <td><?= esc($row['jumlah_meter']) ?></td>
                                     <td><?= esc($row['periode']) ?></td>
                                     <td><?= esc($row['jumlah_tagihan']) ?></td>
                                     <td>

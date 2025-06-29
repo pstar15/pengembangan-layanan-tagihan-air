@@ -12,7 +12,7 @@ class TagihanModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama_pelanggan', 'nomor_meter', 'periode', 'jumlah_tagihan', 'status'];
+    protected $allowedFields    = ['nama_pelanggan', 'alamat', 'nomor_meter', 'jumlah_meter', 'periode', 'jumlah_tagihan', 'status'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

@@ -133,12 +133,12 @@ class Riwayat extends BaseController
             foreach ($data as $key => $row) {
                 $sheet->setCellValue('A' . $rowIndex, $key + 1);
                 $sheet->setCellValue('B' . $rowIndex, $row['nama_pelanggan']);
-                $sheet->setCellValue('B' . $rowIndex, $row['alamat']);
-                $sheet->setCellValue('C' . $rowIndex, $row['nomor_meter']);
-                $sheet->setCellValue('C' . $rowIndex, $row['jumlah_meter']);
-                $sheet->setCellValue('D' . $rowIndex, $row['periode']);
-                $sheet->setCellValue('E' . $rowIndex, $row['jumlah_tagihan']);
-                $sheet->setCellValue('F' . $rowIndex, $row['status']);
+                $sheet->setCellValue('C' . $rowIndex, $row['alamat']);
+                $sheet->setCellValue('D' . $rowIndex, $row['nomor_meter']);
+                $sheet->setCellValue('E' . $rowIndex, $row['jumlah_meter']);
+                $sheet->setCellValue('F' . $rowIndex, $row['periode']);
+                $sheet->setCellValue('G' . $rowIndex, $row['jumlah_tagihan']);
+                $sheet->setCellValue('H' . $rowIndex, $row['status']);
                 $rowIndex++;
             }
 

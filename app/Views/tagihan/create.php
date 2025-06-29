@@ -59,7 +59,7 @@
 
                 <div class="form-group">
                     <label>Jumlah Meter</label>
-                    <input type="text" name="jumlah_meter" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
+                    <input type="number" name="jumlah_meter" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">

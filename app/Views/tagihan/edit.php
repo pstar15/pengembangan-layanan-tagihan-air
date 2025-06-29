@@ -68,7 +68,7 @@
 
                 <div class="form-group">
                     <label>Jumlah Meter</label>
-                    <input type="text" name="Jumlah_meter" value="<?= esc($tagihan['Jumlah_meter']) ?>" required><br>
+                    <input type="number" name="jumlah_meter" value="<?= esc($tagihan['jumlah_meter']) ?>" required><br>
                 </div>
 
                 <div class="form-group">

@@ -107,7 +107,7 @@
     <div class="main-content" id="mainContent">
         <div class="container">
             <div class="card-container">
-                <div class="cardTSemua">
+                <div class="">
                     <div class="card total">
                         <h3>Total Semua Tagihan</h3>
                         <p class="card-text"><?= $total_tagihan ?></p>
@@ -115,25 +115,30 @@
                     </div>
                     <h5>card total tagihan</h5>
                 </div>
-                <div class="chart-pie">
-                    <div class="text-center">
-                        <canvas id="pieChartTagihan" width="300" height="300"></canvas>
+                <div class="">
+                    <div class="card lunas">
+                        <h3 class="card-title">Tagihan Lunas</h3>
+                        <p class="card-text"><?= $total_lunas ?></p>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
+                    <h5>card tagihan lunas</h5>
+                </div>
+                <div class="">
+                    <div class="card belum-lunas">
+                        <h3 class="card-title">Belum Lunas</h3>
+                        <p class="card-text"><?= $total_belum_lunas ?></p>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
+                    </div>
+                    <h5>card tagihan belum lunas</h5>
                 </div>
             </div>
 
 
             <!--Chart-->
             <div class="chart-container">
-                <div class="chart-grafik">
-                    <div class="card-body">
-                        <canvas id="barChart" class="chart-bar"></canvas>
-                        <h5 class="card-title">Chart Grafik</h5>
-                    </div>
-                </div>
                 <div class="chart-curva">
                     <div class="card-body">
-                        <canvas id="lineChart" class="chart-line"></canvas>
+                        <canvas id="chartKurva" class="chart-line"></canvas>
                         <h5 class="card-title">Chart Kurva</h5>
                     </div>
                 </div>
@@ -191,107 +196,51 @@
 <script src="/js/script.js"></script>
 <script src="/js/curva.js"></script>
 <script>
-const labels = <?= $periode ?>;
-const data = <?= $total ?>;
-//chart grafik
-const barCtx = document.getElementById('barChart').getContext('2d');
-new Chart(barCtx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Jumlah Tagihan',
-            data: data,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { display: false },
-            title: { display: true, text: 'Bar Chart: Jumlah Tagihan' }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: 'Total Tagihan' }
-            },
-            x: {
-                title: { display: true, text: 'Periode' }
-            }
-        }
-    }
-});
-//chart curva
-const lineCtx = document.getElementById('lineChart').getContext('2d');
-new Chart(lineCtx, {
+const ctxKurva = document.getElementById('chartKurva').getContext('2d');
+
+const chartKurva = new Chart(ctxKurva, {
     type: 'line',
     data: {
-        labels: labels,
+        labels: <?= $periode ?>, // Pastikan variabel ini tersedia dari controller
         datasets: [{
             label: 'Jumlah Tagihan',
-            data: data,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            data: <?= $total ?>,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
             fill: true,
-            tension: 0.4,
+            tension: 0.3,
             pointRadius: 4,
-            pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
         }]
     },
     options: {
         responsive: true,
         plugins: {
-            legend: { position: 'top' },
-            title: { display: true, text: 'Line Chart: Kurva Jumlah Tagihan' }
+            legend: {
+                position: 'top'
+            },
+            title: {
+                display: true,
+                text: 'Kurva Tagihan per Periode'
+            }
         },
         scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: 'Total Tagihan' }
-            },
             x: {
-                title: { display: true, text: 'Periode' }
-            }
-        }
-    }
-});
-//chart pie
-const ctx = document.getElementById('pieChartTagihan');
-
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Total Lunas', 'Total Belum Lunas'],
-            datasets: [{
-                label: 'Jumlah Tagihan',
-                data: [<?= $total_lunas ?>, <?= $total_belum_lunas ?>],
-                backgroundColor: [
-                    'rgba(40, 167, 69, 0.7)',   // Hijau untuk Lunas
-                    'rgba(220, 53, 69, 0.7)'    // Merah untuk Belum Lunas
-                ],
-                borderColor: [
-                    'rgba(40, 167, 69, 1)',
-                    'rgba(220, 53, 69, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
                 title: {
                     display: true,
-                    text: 'Lunas dan Belum Lunas'
+                    text: 'Periode'
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Jumlah Tagihan'
                 }
             }
         }
-    });
+    }
+});
 </script>
 
 </body>

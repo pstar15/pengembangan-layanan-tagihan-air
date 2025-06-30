@@ -292,17 +292,6 @@ body.sidebar-collapsed .main-content {
     height: 250px;
 }
 
-.cardTSemua {
-    flex: 1;
-    min-width: 220px;
-    height: 170px;
-    background: none;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
 
 .card {
     flex: 1;
@@ -310,7 +299,6 @@ body.sidebar-collapsed .main-content {
     background: none;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
 }
@@ -335,6 +323,15 @@ body.sidebar-collapsed .main-content {
     background-color: #3498db;
     color: #fff;
 }
+.card.lunas {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.card.belum-lunas {
+    background-color: #e74c3c;
+    color: white;
+}
 
 .detail-card {
     position: absolute;
@@ -356,21 +353,6 @@ body.sidebar-collapsed .main-content {
     color: #4e4e4e;
 }
 /* End Card **/
-.chart-pie {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    animation: fadeIn 0.5s ease;
-}
-.chart-pie canvas {
-    flex: 1;
-    min-width: 220px;
-    height: 215px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
 /* Animasi masuk */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
@@ -1450,13 +1432,11 @@ canvas:hover {
     animation: fadeIn 0.5s ease;
 }
 
-.chart-bar,
 .chart-line {
-    height: 195px; /* Tinggi default, bisa diubah sesuai kebutuhan */
+    height: 300px; /* Tinggi default, bisa diubah sesuai kebutuhan */
 }
 
 @media (max-width: 768px) {
-    .chart-bar,
     .chart-line {
         height: 300px;
     }

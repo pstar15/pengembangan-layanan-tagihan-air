@@ -265,6 +265,7 @@ body.sidebar-collapsed .main-content {
 
 /* Content */
 .main-content {
+    width: 100%;
     padding: 20px;
     margin-left: 200px;
     margin-right: 0;
@@ -292,10 +293,9 @@ body.sidebar-collapsed .main-content {
     height: 250px;
 }
 
-
 .card {
     flex: 1;
-    min-width: 220px;
+    min-width: 307px;
     background: none;
     padding: 25px;
     border-radius: 10px;
@@ -922,17 +922,6 @@ body.sidebar-collapsed .main-content {
     opacity: 1;
 }
 /* end css menu search*/
-canvas {
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-canvas:hover {
-    transform: scale(1.1);
-}
 .btn-simpandata {
     width: 216px;
     justify-content: right;
@@ -1423,9 +1412,17 @@ canvas:hover {
 }
 /* END CSS button Export riwayat **/
 /* Chart */
+canvas {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
 .chart-container {
     display: flex;
-    margin-top: -30px;
+    margin-top: -80px;
     justify-content: space-between;
     width: 100%;
     transition: transform 0.3s ease;
@@ -1433,7 +1430,7 @@ canvas:hover {
 }
 
 .chart-line {
-    height: 300px; /* Tinggi default, bisa diubah sesuai kebutuhan */
+    height: 410px; /* Tinggi default, bisa diubah sesuai kebutuhan */
 }
 
 @media (max-width: 768px) {
@@ -1447,4 +1444,72 @@ canvas:hover {
     .chart-line {
         height: 250px;
     }
+}
+/* CSS Tabel Daftar Akun */
+.tabel-daftar-akun {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.table-da-akun {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    margin-left: 30px;
+    border: none;
+    border-collapse: collapse;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.thead-da {
+    background-color: #007bff;
+}
+.tbody-da {
+    color: #000;
+}
+
+.table-tr-daftar-akun {
+    margin-right: 0;
+    background: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.table-tr-row-daftar-akun {
+    color: #000;
+    border: none;
+}
+
+.table-tr-daftar-akun .th-da {
+    width: 200px;
+}
+
+.table-da-akun .th-da .td-da {
+    padding: 14px 18px;
+    border-bottom: 1px solid #ddd;
+    border: none;
+    vertical-align: middle;
+}
+
+.table-da-akun .tbody-da .table-tr-row-daftar-akun {
+    background-color: #eceff3;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.table-da-akun .td-da:nth-child(1) {
+    width: 50px;
+}
+
+.table-da-akun .thead-da .th-da {
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }

@@ -99,6 +99,7 @@ class Auth extends BaseController
 
         $TagihanModel = new TagihanModel();
         $RiwayatTagihanModel = new RiwayatTagihanModel();
+        $userModel    = new \App\Models\PhoneUser();
 
         // Ambil data tagihan dari kedua tabel, lalu gabungkan dan hitung per periode
         $tagihan = $TagihanModel->select('periode, SUM(jumlah_tagihan) as total')
@@ -141,6 +142,7 @@ class Auth extends BaseController
                                     $RiwayatTagihanModel->where('status', 'Belum Lunas')->countAllResults();
         $data['username'] = session()->get('username');
         $data['tagihan'] = $RiwayatTagihanModel->findAll();
+        $data['akun_android'] = $userModel->findAll();
 
         return view('auth/dashboard', $data);
     }

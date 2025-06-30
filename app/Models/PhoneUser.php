@@ -12,7 +12,7 @@ class PhoneUser extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'email', 'password', 'created_at'];
+    protected $allowedFields    = ['username', 'email', 'password', 'created_at', 'is_online', 'last_online'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

@@ -133,7 +133,6 @@
                 </div>
             </div>
 
-
             <!--Chart-->
             <div class="chart-container">
                 <div class="chart-curva">
@@ -141,6 +140,33 @@
                         <canvas id="chartKurva" class="chart-line"></canvas>
                         <h5 class="card-title">Chart Kurva</h5>
                     </div>
+                </div>
+                <div class="tabel-daftar-akun">
+                    <table class="table-da-akun" cellpadding="8" cellspacing="0">
+                        <div class="thead-da">
+                            <tr class="table-tr-daftar-akun">
+                                <th class="th-da">Username</th>
+                                <th  class="th-da">Status</th>
+                                <th  class="th-da">Terakhir Online</th>
+                            </tr>
+                        </div>
+                        <div class="tbody-da">
+                            <?php foreach ($akun_android as $akun): ?>
+                                <tr class="table-tr-row-daftar-akun">
+                                    <td  class="td-da"><?= esc($akun['username']) ?></td>
+                                    <td  class="td-da">
+                                        <?php if ($akun['is_online']): ?>
+                                            <span style="color:green;">Online</span>
+                                        <?php else: ?>
+                                            <span style="color:red;">Offline</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td  class="td-da"><?= $akun['last_online'] ?? 'Belum Pernah Login' ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </div>
+                    </table>
+                    <h5 style="position: absolute;margin-top: 420px;margin-left: 140px;">Daftar Akun</h5>
                 </div>
             </div>
 

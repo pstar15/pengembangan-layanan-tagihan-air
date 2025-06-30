@@ -11,7 +11,7 @@
     <title>Daftar Tagihan Air</title>
     <style>
         .container {
-            width: 870px;
+            width: 100%;
         }
         .table-container {
             margin: 0 auto;

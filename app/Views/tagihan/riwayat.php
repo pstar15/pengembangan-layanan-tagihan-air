@@ -9,7 +9,7 @@
     <title>Riwayat Tagihan</title>
     <style>
         .container {
-            width: 865px;
+            width: 100%;
             margin-top: 80px;
         }
         .table-container {

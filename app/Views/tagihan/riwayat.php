@@ -110,19 +110,6 @@
         <div class="container">
             <h2>Riwayat Tagihan Air</h2>
 
-            <!-- Alert Notifikasi -->
-            <?php if(session()->getFlashdata('success')): ?>
-                <div class="alert alert-success custom-alert" id="alertBox">
-                    <?= session()->getFlashdata('success') ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if(session()->getFlashdata('error')): ?>
-                <div class="alert alert-danger custom-alert" id="alertBox">
-                    <?= session()->getFlashdata('error') ?>
-                </div>
-            <?php endif; ?>
-
             <!-- Filter data tagihan -->
             <div class="btns-riwayat">
                 <form action="<?= site_url('/riwayat-tagihan') ?>" method="get">

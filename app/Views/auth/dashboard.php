@@ -190,8 +190,8 @@
                                 <?php foreach ($tagihan as $i => $row) : ?>
                                     <tr>
                                         <td><?= $i + 1 ?></td>
-                                        <td><?= esc($row['nama_pelanggan']) ?></td>
-                                        <td><?= esc($row['alamat']) ?></td>
+                                        <td class="nama-col"><?= esc($row['nama_pelanggan']) ?></td>
+                                        <td class="alamat-col"><?= esc($row['alamat']) ?></td>
                                         <td><?= esc($row['nomor_meter']) ?></td>
                                         <td><?= esc($row['jumlah_meter']) ?></td>
                                         <td><?= esc($row['periode']) ?></td>

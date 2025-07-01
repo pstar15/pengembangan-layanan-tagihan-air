@@ -57,13 +57,6 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
-        .table td.nama-col,
-        .table td.alamat-col {
-            white-space: nowrap;        /* Mencegah pemisahan baris */
-            overflow: hidden;           /* Potong teks yang kepanjangan */
-            text-overflow: ellipsis;    /* Tambahkan "..." di akhir */
-            max-width: 100px;           /* Batasi lebar kolom */
-        }
 
     </style>
 </head>

@@ -211,8 +211,8 @@
                         <tbody>
                             <?php foreach ($riwayat as $r): ?>
                             <tr>
-                                <td><?= esc($r['nama_pelanggan']) ?></td>
-                                <td><?= esc($r['alamat']) ?></td>
+                                <td class="nama-col"><?= esc($r['nama_pelanggan']) ?></td>
+                                <td class="alamat-col"><?= esc($r['alamat']) ?></td>
                                 <td><?= esc($r['nomor_meter']) ?></td>
                                 <td><?= esc($r['jumlah_meter']) ?></td>
                                 <td><?= esc($r['periode']) ?></td>

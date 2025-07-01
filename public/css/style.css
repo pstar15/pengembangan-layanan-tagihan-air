@@ -401,6 +401,13 @@ body.sidebar-collapsed .main-content {
     top: 0;
     z-index: 2;
 }
+.table td.nama-col,
+.table td.alamat-col {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
 
 /* Tombol Edit dan Hapus */
 .btn-edit, .btn-delete {

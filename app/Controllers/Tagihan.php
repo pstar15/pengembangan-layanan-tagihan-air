@@ -2,11 +2,9 @@
 
 namespace App\Controllers;
 
-use Dompdf\Dompdf;
 use App\Models\TagihanModel;
 use App\Controllers\BaseController;
 use App\Models\RiwayatTagihanModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class Tagihan extends BaseController
 {
@@ -54,7 +52,7 @@ class Tagihan extends BaseController
             'jumlah_meter'   => 'required',
             'periode'        => 'required',
             'jumlah_tagihan' => 'required|numeric',
-            'status'         => 'required|in_list[Lunas,Belum Lunas]',
+            'status'         => 'required|in_list[Lunas,Belum Lunas, Tidak Ada]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -63,7 +61,6 @@ class Tagihan extends BaseController
                 ->with('error', 'Silakan isi semua data dengan benar.');
         }
 
-        // Simpan data jika valid
         $model = new \App\Models\TagihanModel();
         $model->save([
             'nama_pelanggan' => $this->request->getPost('nama_pelanggan'),
@@ -100,7 +97,6 @@ class Tagihan extends BaseController
             'status'         => $this->request->getPost('status'),
         ];
 
-        // Optional: validasi sederhana
         if (empty($data['nama_pelanggan']) || empty($data['nomor_meter'])) {
             return redirect()->back()->withInput()->with('error', 'Data tidak boleh kosong.');
         }
@@ -127,32 +123,44 @@ class Tagihan extends BaseController
     public function belumLunas()
     {
         $model = new TagihanModel();
-        $data['tagihan'] = $model->where('status', 'Belum Lunas')->findAll();
+        $data['tagihan'] = $model->where('status', 'Belum Lunas', 'Tidak Ada')->findAll();
         return view('tagihan/index', $data);
     }
     public function simpanSemua()
     {
-        $tagihanModel = new TagihanModel();
-        $riwayatModel = new RiwayatTagihanModel();
+        $tagihanModel = new \App\Models\TagihanModel();
+        $riwayatModel = new \App\Models\RiwayatTagihanModel();
 
-        $semuaTagihan = $tagihanModel->findAll();
+        $dataTagihan = $tagihanModel
+            ->where('periode IS NOT NULL')
+            ->where('jumlah_tagihan IS NOT NULL')
+            ->findAll();
 
-        foreach ($semuaTagihan as $row) {
+        if (empty($dataTagihan)) {
+            return redirect()->back()->with('error', 'Tidak ada data tagihan yang bisa dipindahkan.');
+        }
+
+        foreach ($dataTagihan as $tagihan) {
+            $status = !empty($tagihan['status']) ? $tagihan['status'] : 'Tidak Ada';
+
             $riwayatModel->save([
-                'nama_pelanggan' => $row['nama_pelanggan'],
-                'alamat'         => $row['alamat'],
-                'nomor_meter'    => $row['nomor_meter'],
-                'jumlah_meter'   => $row['jumlah_meter'],
-                'periode'        => $row['periode'],
-                'jumlah_tagihan' => $row['jumlah_tagihan'],
-                'status'         => $row['status'],
-                'created_at'     => date('Y-m-d H:i:s')
+                'nama_pelanggan' => $tagihan['nama_pelanggan'],
+                'alamat'         => $tagihan['alamat'],
+                'nomor_meter'    => $tagihan['nomor_meter'],
+                'jumlah_meter'   => $tagihan['jumlah_meter'],
+                'periode'        => $tagihan['periode'],
+                'jumlah_tagihan' => $tagihan['jumlah_tagihan'],
+                'status'         => $status,
+            ]);
+
+            $tagihanModel->update($tagihan['id'], [
+                'periode'        => null,
+                'jumlah_tagihan' => null,
+                'status'         => null,
             ]);
         }
 
-        $tagihanModel->truncate();
-
-        return redirect()->to('/tagihan')->with('success', 'Semua tagihan berhasil dipindahkan ke riwayat.');
+        return redirect()->to('/tagihan')->with('success', 'Semua data berhasil dipindahkan ke riwayat.');
     }
     public function riwayat()
     {

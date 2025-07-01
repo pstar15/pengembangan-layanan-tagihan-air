@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
     <title>Tambah Data Tagihan</title>
     <style>
-        body {
-            background: #2A7B9B;
-            background: radial-gradient(circle,rgba(42, 123, 155, 1) 0%, rgba(87, 147, 199, 1) 50%, rgba(127, 83, 237, 1) 100%);
+        .container-create {
+            width: 100%;
         }
         .form-tagihan {
             width: 100%;
+            margin-top: 80px;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
     </style>
 </head>
@@ -36,53 +42,99 @@
         </div>
     <?php endif; ?>
 
-    <div class="container">
-        <div class="form-tagihan">
-            <!-- app/Views/tagihan/create.php -->
-            <h2>Tambah Data Tagihan</h2>
-            <form id="formAddTagihan" action="<?= base_url('/tagihan/store') ?>" method="post">
-                <?= csrf_field() ?>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" name="nama_pelanggan" value="<?= old('nama_pelanggan', $data['nama_pelanggan'] ?? '') ?>" required>
-                </div>
+    <!-- navbar -->
+    <div class="navbar">
+        <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">My App</h1>
+        <div oncontextmenu="return false;" class="navbar-spacer no-copy">
+            <?= session()->get('username'); ?>
+        </div>
+        <div class="profile-dropdown">
+            <button class="profile-button">
+                <i class="bi bi-gear"></i>
+            </button>
+            <div class="dropdown-menu">
+                <a href="/account/setting">Setting</a>
+                <a href="/logout" class="logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li>
+                <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
+                    <i class="bi bi-columns-gap"></i>
+                    <span style="margin-left: 10px;">Dashboard</span>
+                </a>
+            </li>
 
-                <div class="form-group">
-                    <label>Alamat</label>
-                    <input type="text" name="alamat" value="<?= old('alamat', $data['alamat'] ?? '') ?>" required>
-                </div>
+            <li>
+                <a href="<?= base_url('/tagihan') ?>" class="sidebar-link">
+                    <i class="bi bi-droplet-half"></i>
+                    <span style="margin-left: 10px;">Tagihan</span>
+                </a>
+            </li>
 
-                <div class="form-group">
-                    <label>No.Meter</label>
-                    <input type="text" name="nomor_meter" value="<?= old('nomor_meter', $data['nomor_meter'] ?? '') ?>" required>
-                </div>
+            <li>
+                <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
+                    <i class="bi bi-graph-up"></i>
+                    <span style="margin-left: 10px;">Riwayat</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 
-                <div class="form-group">
-                    <label>Jumlah Meter</label>
-                    <input type="number" name="jumlah_meter" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
-                </div>
+    <div class="main-content" id="mainContent">
+        <div class="container-create">
+            <div class="form-tagihan">
+                <!-- app/Views/tagihan/create.php -->
+                <h2>Tambah Data Tagihan</h2>
+                <form id="formAddTagihan" action="<?= base_url('/tagihan/store') ?>" method="post">
+                    <?= csrf_field() ?>
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" name="nama_pelanggan" value="<?= old('nama_pelanggan', $data['nama_pelanggan'] ?? '') ?>" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Periode</label>
-                    <input type="month" name="periode" value="<?= old('periode', $data['periode'] ?? '') ?>" required>
-                </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <input type="text" name="alamat" value="<?= old('alamat', $data['alamat'] ?? '') ?>" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Jumlah Tagihan</label>
-                    <input type="number" name="jumlah_tagihan" value="<?= old('jumlah_tagihan', $data['jumlah_tagihan'] ?? '') ?>" required>
-                </div>
+                    <div class="form-group">
+                        <label>No.Meter</label>
+                        <input type="text" name="nomor_meter" value="<?= old('nomor_meter', $data['nomor_meter'] ?? '') ?>" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Status</label>
-                    <select name="status" required>
-                        <option value="Lunas" <?= (old('status', $data['status'] ?? '') == 'Lunas') ? 'selected' : '' ?>>Lunas</option>
-                        <option value="Belum Lunas" <?= (old('status', $data['status'] ?? '') == 'Belum Lunas') ? 'selected' : '' ?>>Belum Lunas</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label>Jumlah Meter</label>
+                        <input type="number" name="jumlah_meter" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
+                    </div>
 
-                <button type="submit" id="btnAddTagihan" class="btn-simpan">Simpan</button>
-            </form>
-            <a href="<?= base_url('/tagihan') ?>" class="btn-kembali">← Kembali ke Daftar Tagihan</a>
+                    <div class="form-group">
+                        <label>Periode</label>
+                        <input type="month" name="periode" value="<?= old('periode', $data['periode'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Tagihan</label>
+                        <input type="number" name="jumlah_tagihan" value="<?= old('jumlah_tagihan', $data['jumlah_tagihan'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status" required>
+                            <option value="Lunas" <?= (old('status', $data['status'] ?? '') == 'Lunas') ? 'selected' : '' ?>>Lunas</option>
+                            <option value="Belum Lunas" <?= (old('status', $data['status'] ?? '') == 'Belum Lunas') ? 'selected' : '' ?>>Belum Lunas</option>
+                            <option value="Tidak Ada" <?= (old('status', $data['status'] ?? '') == 'Tidak Ada') ? 'selected' : '' ?>>Tidak Ada</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="btnAddTagihan" class="btn-simpan">Simpan</button>
+                </form>
+                <a href="<?= base_url('/tagihan') ?>" class="btn-kembali">← Kembali ke Daftar Tagihan</a>
+            </div>
         </div>
     </div>
 

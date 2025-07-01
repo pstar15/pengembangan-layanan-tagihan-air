@@ -477,6 +477,10 @@ body.sidebar-collapsed .main-content {
     background-color: #f39c12;
 }
 
+.badge-secondary {
+    background-color: #6c757d;
+}
+
 .btn {
     padding: 6px 12px;
     margin: 2px;
@@ -525,15 +529,15 @@ body.sidebar-collapsed .main-content {
     background-color: #f1f1f1;
 }
 
-/* Tambah data tagihan dan Edit data Tagihan */
+/* CSS Tambah data tagihan dan Edit data Tagihan */
 
 /* Container Form */
 .form-tagihan {
     max-width: 600px;
     margin: 30px auto;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
+    background: #fff;
+    padding: 50px;
+    border-radius: 8px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     animation: fadeSlideIn 0.6s ease;
 }
@@ -588,6 +592,7 @@ body.sidebar-collapsed .main-content {
     border-radius: 6px;
     font-size: 15px;
     cursor: pointer;
+    margin-top: 20px;
     transition: background-color 0.3s ease;
     width: 100%;
 }
@@ -610,7 +615,7 @@ body.sidebar-collapsed .main-content {
 .btn-kembali:hover {
     color: #2c3e50;
 }
-
+/* END CSS CREATE DATA TAGIHAN **/
 /* Alert Error */
 .alert-error {
     padding: 10px;

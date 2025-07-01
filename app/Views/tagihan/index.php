@@ -39,7 +39,6 @@
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
-        
         .filter-form {
             display: flex;
             position: inherit;
@@ -52,12 +51,18 @@
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
         }
-
         .no-copy {
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+        }
+        .table td.nama-col,
+        .table td.alamat-col {
+            white-space: nowrap;        /* Mencegah pemisahan baris */
+            overflow: hidden;           /* Potong teks yang kepanjangan */
+            text-overflow: ellipsis;    /* Tambahkan "..." di akhir */
+            max-width: 100px;           /* Batasi lebar kolom */
         }
 
     </style>
@@ -182,7 +187,7 @@
 
             <!-- Tabel data tagihan -->
             <div id="resultContainer" class="table-container">
-                <table border="1" cellpadding="10" cellspacing="0" width="100%" class="styled-table">
+                <table border="1" cellpadding="10" cellspacing="0" width="100%" class="table styled-table">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -199,20 +204,24 @@
                         <?php if (!empty($tagihan)) : ?>
                             <?php foreach ($tagihan as $row): ?>
                                 <tr>
-                                    <td><?= esc($row['nama_pelanggan']) ?></td>
-                                    <td><?= esc($row['alamat']) ?></td>
+                                    <td class="nama-col"><?= esc($row['nama_pelanggan']) ?></td>
+                                    <td class="alamat-col"><?= esc($row['alamat']) ?></td>
                                     <td><?= esc($row['nomor_meter']) ?></td>
                                     <td><?= esc($row['jumlah_meter']) ?></td>
                                     <td><?= esc($row['periode']) ?></td>
                                     <td><?= esc($row['jumlah_tagihan']) ?></td>
                                     <td>
-                                        <span class="badge <?= $row['status'] == 'Lunas' ? 'badge-success' : 'badge-warning' ?>">
-                                            <?= $row['status'] ?>
-                                        </span>
+                                        <?php if ($row['status'] == 'Lunas'): ?>
+                                            <span class="badge badge-success">Lunas</span>
+                                        <?php elseif ($row['status'] == 'Belum Lunas'): ?>
+                                            <span class="badge badge-warning">Belum Lunas</span>
+                                        <?php elseif ($row['status'] == 'Tidak Ada' || empty($row['status'])): ?>
+                                            <span class="badge badge-secondary">Tidak Ada</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <a href="<?= base_url('tagihan/edit/' . $row['id']) ?>" class="btn btn-edit">Edit</a>
-                                        <a href="<?= base_url('tagihan/delete/' . $row['id']) ?>" class="btn btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                        <a href="<?= base_url('tagihan/delete/' . $row['id']) ?>" id="btnhapus" class="btn btn-delete">Hapus</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -245,6 +254,25 @@
     });
 </script>
 <?php endif; ?>
+<script>
+    document.getElementById('btnhapus').addEventListener('click', function (e) {
+            e.preventDefault(); // Mencegah submit otomatis
+
+            Swal.fire({
+                title: 'Yakin ingin menyimpan data ini?',
+                text: "Pastikan data sudah sesuai.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, simpan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit form secara manual setelah konfirmasi
+                    document.getElementById('formUpdateTagihan').submit();
+                }
+            });
+        });
+</script>
 
 </body>
 </html>

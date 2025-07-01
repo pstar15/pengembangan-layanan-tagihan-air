@@ -101,7 +101,6 @@ class Auth extends BaseController
         $RiwayatTagihanModel = new RiwayatTagihanModel();
         $userModel    = new \App\Models\PhoneUser();
 
-        // Ambil data tagihan dari kedua tabel, lalu gabungkan dan hitung per periode
         $tagihan = $TagihanModel->select('periode, SUM(jumlah_tagihan) as total')
                                 ->groupBy('periode')
                                 ->findAll();
@@ -110,7 +109,6 @@ class Auth extends BaseController
                                     ->groupBy('periode')
                                     ->findAll();
 
-        // Gabungkan data berdasarkan periode
         $gabungan = [];
 
         foreach ($tagihan as $t) {
@@ -125,21 +123,17 @@ class Auth extends BaseController
             }
         }
 
-        ksort($gabungan); // Urutkan berdasarkan periode
+        ksort($gabungan);
 
-        // Siapkan data untuk chart
         $periode = array_keys($gabungan);
         $total = array_values($gabungan);
 
         $data['periode'] = json_encode($periode);
         $data['total'] = json_encode($total);
 
-        // Tambahkan informasi dashboard lainnya jika ada
-        $data['total_tagihan'] = $TagihanModel->countAll() + $RiwayatTagihanModel->countAll();
-        $data['total_lunas'] = $TagihanModel->where('status', 'Lunas')->countAllResults() +
-                            $RiwayatTagihanModel->where('status', 'Lunas')->countAllResults();
-        $data['total_belum_lunas'] = $TagihanModel->where('status', 'Belum Lunas')->countAllResults() +
-                                    $RiwayatTagihanModel->where('status', 'Belum Lunas')->countAllResults();
+        $data['total_tagihan'] = $TagihanModel->countAll();
+        $data['total_lunas'] = $TagihanModel->where('status', 'Lunas')->countAllResults();
+        $data['total_belum_lunas'] = $TagihanModel->where('status', 'Belum Lunas')->countAllResults();
         $data['username'] = session()->get('username');
         $data['tagihan'] = $RiwayatTagihanModel->findAll();
         $data['akun_android'] = $userModel->findAll();

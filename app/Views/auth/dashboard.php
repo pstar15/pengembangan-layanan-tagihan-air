@@ -109,24 +109,27 @@
             <div class="card-container">
                 <div class="">
                     <div class="card total">
-                        <h3>Total Semua Tagihan</h3>
+                        <i class="bi bi-database" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_tagihan ?></p>
+                        <h3>Total Data Tagihan</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card total tagihan</h5>
                 </div>
                 <div class="">
                     <div class="card lunas">
-                        <h3 class="card-title">Tagihan Lunas</h3>
+                        <i class="bi bi-database-check" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_lunas ?></p>
+                        <h3 class="card-title">Tagihan Lunas</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card tagihan lunas</h5>
                 </div>
                 <div class="">
                     <div class="card belum-lunas">
-                        <h3 class="card-title">Belum Lunas</h3>
+                        <i class="bi bi-database-exclamation" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_belum_lunas ?></p>
+                        <h3 class="card-title">Belum Lunas</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                     <h5>card tagihan belum lunas</h5>
@@ -218,7 +221,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="/js/sidebar.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/curva.js"></script>
 <script>

@@ -31,50 +31,63 @@ class Riwayat extends BaseController
 
     public function kembalikan()
     {
+        $tagihanModel = new \App\Models\TagihanModel();
+        $riwayatModel = new \App\Models\RiwayatTagihanModel();
+
         $json = $this->request->getJSON(true);
         $ids = $json['ids'] ?? [];
 
         if (empty($ids)) {
-            return $this->response->setJSON([
-                'success' => false,
-                'message' => 'Tidak ada data yang dipilih.'
-            ]);
+            return $this->response->setJSON(['success' => false, 'message' => 'Tidak ada data yang dipilih.']);
         }
 
-        $RiwayatTagihanModel = new \App\Models\RiwayatTagihanModel();
-        $TagihanModel = new \App\Models\TagihanModel();
+        foreach ($ids as $id) {
+            $riwayat = $riwayatModel->find($id);
 
-        try {
-            $dataToMove = $RiwayatTagihanModel->whereIn('id', $ids)->findAll();
+            if (!$riwayat) continue;
 
-            if (empty($dataToMove)) {
-                return $this->response->setJSON([
-                    'success' => false,
-                    'message' => 'Data tidak ditemukan di riwayat.'
+            // Cek apakah data tagihan dengan identitas yang sama sudah ada
+            $existing = $tagihanModel->where([
+                'nama_pelanggan' => $riwayat['nama_pelanggan'],
+                'alamat'         => $riwayat['alamat'],
+                'nomor_meter'    => $riwayat['nomor_meter'],
+                'jumlah_meter'   => $riwayat['jumlah_meter'],
+            ])->first();
+
+            if ($existing) {
+                // Update hanya jika data kosong
+                $updateData = [];
+                if (empty($existing['periode'])) {
+                    $updateData['periode'] = $riwayat['periode'];
+                }
+                if (empty($existing['jumlah_tagihan'])) {
+                    $updateData['jumlah_tagihan'] = $riwayat['jumlah_tagihan'];
+                }
+                if (empty($existing['status'])) {
+                    $updateData['status'] = $riwayat['status'];
+                }
+
+                if (!empty($updateData)) {
+                    $tagihanModel->update($existing['id'], $updateData);
+                }
+            } else {
+                // Tambahkan data baru jika tidak ada yang cocok
+                $tagihanModel->insert([
+                    'nama_pelanggan' => $riwayat['nama_pelanggan'],
+                    'alamat'         => $riwayat['alamat'],
+                    'nomor_meter'    => $riwayat['nomor_meter'],
+                    'jumlah_meter'   => $riwayat['jumlah_meter'],
+                    'periode'        => $riwayat['periode'],
+                    'jumlah_tagihan' => $riwayat['jumlah_tagihan'],
+                    'status'         => $riwayat['status'] ?? 'Tidak Ada',
                 ]);
             }
 
-            foreach ($dataToMove as $item) {
-                unset($item['id']);
-                $TagihanModel->insert($item);
-            }
-
-            $RiwayatTagihanModel->whereIn('id', $ids)->delete();
-
-            session()->setFlashdata('success', 'Data berhasil dikembalikan ke tabel tagihan.');
-
-            return $this->response->setJSON([
-                'success' => true,
-                'message' => 'Data berhasil dikembalikan.'
-            ]);
-        } catch (\Exception $e) {
-            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
-
-            return $this->response->setJSON([
-                'success' => false,
-                'message' => 'Gagal mengembalikan data: ' . $e->getMessage()
-            ]);
+            // Hapus dari riwayat setelah dipindahkan
+            $riwayatModel->delete($id);
         }
+
+        return $this->response->setJSON(['success' => true, 'message' => 'Data berhasil dikembalikan.']);
     }
     public function hapus()
     {

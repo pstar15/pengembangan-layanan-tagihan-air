@@ -131,36 +131,41 @@ class Tagihan extends BaseController
         $tagihanModel = new \App\Models\TagihanModel();
         $riwayatModel = new \App\Models\RiwayatTagihanModel();
 
-        $dataTagihan = $tagihanModel
-            ->where('periode IS NOT NULL')
-            ->where('jumlah_tagihan IS NOT NULL')
-            ->findAll();
+        // Ambil semua data tagihan
+        $dataTagihan = $tagihanModel->findAll();
 
         if (empty($dataTagihan)) {
-            return redirect()->back()->with('error', 'Tidak ada data tagihan yang bisa dipindahkan.');
+            return redirect()->back()->with('error', 'Tidak ada data tagihan yang tersedia.');
         }
 
         foreach ($dataTagihan as $tagihan) {
-            $status = !empty($tagihan['status']) ? $tagihan['status'] : 'Tidak Ada';
+            // Cek apakah data sudah lengkap
+            if (
+                !empty($tagihan['periode']) &&
+                !empty($tagihan['jumlah_tagihan']) &&
+                !empty($tagihan['status'])
+            ) {
+                // Simpan ke riwayat
+                $riwayatModel->save([
+                    'nama_pelanggan' => $tagihan['nama_pelanggan'],
+                    'alamat'         => $tagihan['alamat'],
+                    'nomor_meter'    => $tagihan['nomor_meter'],
+                    'jumlah_meter'   => $tagihan['jumlah_meter'],
+                    'periode'        => $tagihan['periode'],
+                    'jumlah_tagihan' => $tagihan['jumlah_tagihan'],
+                    'status'         => $tagihan['status'],
+                ]);
 
-            $riwayatModel->save([
-                'nama_pelanggan' => $tagihan['nama_pelanggan'],
-                'alamat'         => $tagihan['alamat'],
-                'nomor_meter'    => $tagihan['nomor_meter'],
-                'jumlah_meter'   => $tagihan['jumlah_meter'],
-                'periode'        => $tagihan['periode'],
-                'jumlah_tagihan' => $tagihan['jumlah_tagihan'],
-                'status'         => $status,
-            ]);
-
-            $tagihanModel->update($tagihan['id'], [
-                'periode'        => null,
-                'jumlah_tagihan' => null,
-                'status'         => null,
-            ]);
+                // Kosongkan kolom tertentu di tabel tagihan untuk penagihan berikutnya
+                $tagihanModel->update($tagihan['id'], [
+                    'periode'        => null,
+                    'jumlah_tagihan' => null,
+                    'status'         => null,
+                ]);
+            }
         }
 
-        return redirect()->to('/tagihan')->with('success', 'Semua data berhasil dipindahkan ke riwayat.');
+        return redirect()->to('/tagihan')->with('success', 'Data berhasil dipindahkan ke riwayat. Data kosong tetap berada di tabel tagihan.');
     }
     public function riwayat()
     {

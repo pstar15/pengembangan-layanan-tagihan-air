@@ -343,7 +343,7 @@ body.sidebar-collapsed .main-content {
     font-size: 12px;
     border-radius: 6px;
     margin-top: -5px;
-    margin-left: 78px;
+    margin-left: 120px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
@@ -727,7 +727,7 @@ body.sidebar-collapsed .main-content {
     align-items: right;
     margin: 0 auto;
     margin-left: 220px;
-    margin-top: 25px;
+    margin-top: 23px;
     padding: 1px 4px;
     text-decoration: none;
     border: none;
@@ -1379,7 +1379,7 @@ body.sidebar-collapsed .main-content {
 .export-riwayat {
     position: absolute;
     margin: 0 auto;
-    margin-left: 545px;
+    margin-left: 750px;
     margin-top: -12px;
     padding: 7px 5px;
     transition: transform 0.3s ease;
@@ -1434,7 +1434,7 @@ canvas {
 }
 .chart-container {
     display: flex;
-    margin-top: -80px;
+    margin-top: -30px;
     justify-content: space-between;
     width: 100%;
     transition: transform 0.3s ease;
@@ -1479,12 +1479,12 @@ canvas {
     font-size: 13px;
     overflow: hidden;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
 }
 
 .thead-da {
-    background-color: #007bff;
+    background-color: #2980b9;
 }
 .tbody-da {
     color: #000;
@@ -1492,7 +1492,7 @@ canvas {
 
 .table-tr-daftar-akun {
     margin-right: 0;
-    background: #007bff;
+    background: #2980b9;
     color: #fff;
     border: none;
 }

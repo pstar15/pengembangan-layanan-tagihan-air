@@ -134,8 +134,9 @@ class Auth extends BaseController
         $data['total_tagihan'] = $TagihanModel->countAll();
         $data['total_lunas'] = $TagihanModel->where('status', 'Lunas')->countAllResults();
         $data['total_belum_lunas'] = $TagihanModel->where('status', 'Belum Lunas')->countAllResults();
+
         $data['username'] = session()->get('username');
-        $data['tagihan'] = $RiwayatTagihanModel->findAll();
+        $data['tagihan'] = $TagihanModel->findAll();
         $data['akun_android'] = $userModel->findAll();
 
         return view('auth/dashboard', $data);

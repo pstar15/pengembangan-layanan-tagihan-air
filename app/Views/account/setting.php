@@ -16,7 +16,7 @@
     }
 
     .container {
-        max-width: 800px;
+        max-width: 700px;
         width: 100%;
         margin: 0 auto;
         margin-top: 90px;
@@ -40,7 +40,7 @@
 
     input[type="username"],
     input[type="email"] {
-        width: 778px;
+        width: 679px;
         padding: 10px;
         margin-top: 6px;
         margin-bottom: 16px;
@@ -107,51 +107,73 @@
         margin-left: 0;
         margin-right: 10px;
     }
+    .logout:hover {
+        color:rgb(255, 0, 0);
+    }
 </style>
 </head>
 <body>
 
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 class="navbar-title">My App</h1>
-        <div class="navbar-spacer">
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air</h1>
+        <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
             <button class="profile-button">
-                <i class="bi bi-gear"></i>
+                <i class="bi bi-bell"></i>
             </button>
             <div class="dropdown-menu">
-                <a href="/account/setting">Setting</a>
-                <a href="/logout" class="logout">Logout</a>
+                <a href="/account/setting">
+                    <i class="bi bi-person-fill"></i>
+                    <span style="margin-left: 10px;">Account</span>
+                </a>
+                <a href="/logout" class="logout">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    <span style="margin-left: 10px;">Logout</span>
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar active" id="sidebar">
         <ul>
             <li>
-                <a href="<?= base_url('/auth/dashboard') ?>" class="sidebar-link">
-                    <i class="bi bi-columns-gap"></i>
-                    <span style="margin-left: 10px;">Dashboard</span>
+                <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
+                    <i class="bi bi-columns-gap" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a href="<?= base_url('tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-droplet-half"></i>
-                    <span style="margin-left: 10px;">Tagihan</span>
+                <a href="<?= base_url('/tagihan') ?>" class="sidebar-link">
+                    <i class="bi bi-droplet-half" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-journal"></i>
-                    <span style="margin-left: 10px;">Riwayat</span>
+                    <i class="bi bi-graph-up" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Riwayat</span>
+                </a>
+            </li>
+            <li>
+                <a href="/account/setting" class="<?= uri_string() == 'account/setting' ? 'active' : '' ?>">
+                    <i class="bi bi-gear" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Setting</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('logout') ?>" class="sidebar-link logout">
+                    <i class="bi bi-box-arrow-in-left" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Logout</span>
                 </a>
             </li>
         </ul>
     </div>
+
     <div class="main-content" id="mainContent">
         <div class="container">
             <h2>Pengaturan Akun</h2>
@@ -201,21 +223,21 @@
             <form action="<?= base_url('/account/update-password') ?>" method="post">
                 <div class="input-group mb-3">
                     <label for="currentPassword">Password Lama:</label>
-                    <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 778px;">
+                    <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 679px;">
                     <span class="input-group-text" onclick="togglePassword('currentPassword', this)">
                         <i class="bi bi-eye-slash"></i>
                     </span>
                 </div>
                 <div class="input-group mb-3">
                     <label for="newPassword">Password Baru:</label>
-                    <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 778px;">
+                    <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 679px;">
                     <span class="input-group-text" onclick="togglePassword('newPassword', this)">
                         <i class="bi bi-eye-slash"></i>
                     </span>
                 </div>
                 <div class="input-group mb-3">
                     <label for="confirmPassword">Confirmasi Password:</label>
-                    <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 778px;">
+                    <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 679px;">
                     <span class="input-group-text" onclick="togglePassword('confirmPassword', this)">
                         <i class="bi bi-eye-slash"></i>
                     </span>

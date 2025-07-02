@@ -12,12 +12,17 @@
     <style>
         .container-create {
             width: 100%;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
         .form-tagihan {
             width: 100%;
             margin-top: 80px;
             transition: transform 0.3s ease;
             animation: fadeIn 0.5s ease;
+        }
+        .logout:hover {
+            color:rgb(255, 0, 0);
         }
     </style>
 </head>
@@ -45,41 +50,59 @@
     <!-- navbar -->
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 oncontextmenu="return false;" class="navbar-title no-copy">My App</h1>
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air</h1>
         <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
             <button class="profile-button">
-                <i class="bi bi-gear"></i>
+                <i class="bi bi-bell"></i>
             </button>
             <div class="dropdown-menu">
-                <a href="/account/setting">Setting</a>
-                <a href="/logout" class="logout">Logout</a>
+                <a href="/account/setting">
+                    <i class="bi bi-person-fill"></i>
+                    <span style="margin-left: 10px;">Account</span>
+                </a>
+                <a href="/logout" class="logout">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    <span style="margin-left: 10px;">Logout</span>
+                </a>
             </div>
         </div>
     </div>
     <!-- sidebar -->
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar active" id="sidebar">
         <ul>
             <li>
                 <a href="<?= base_url('auth/dashboard') ?>" class="sidebar-link">
-                    <i class="bi bi-columns-gap"></i>
-                    <span style="margin-left: 10px;">Dashboard</span>
+                    <i class="bi bi-columns-gap" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Dashboard</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('/tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-droplet-half"></i>
-                    <span style="margin-left: 10px;">Tagihan</span>
+                    <i class="bi bi-droplet-half" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Tagihan</span>
                 </a>
             </li>
 
             <li>
                 <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
-                    <i class="bi bi-graph-up"></i>
-                    <span style="margin-left: 10px;">Riwayat</span>
+                    <i class="bi bi-graph-up" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Riwayat</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('account/setting') ?>" class="sidebar-link">
+                    <i class="bi bi-gear" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Setting</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('logout') ?>" class="sidebar-link logout">
+                    <i class="bi bi-box-arrow-in-left" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Logout</span>
                 </a>
             </li>
         </ul>

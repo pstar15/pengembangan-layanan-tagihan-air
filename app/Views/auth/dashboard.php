@@ -45,6 +45,9 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
+        .logout:hover {
+            color:rgb(255, 0, 0);
+        }
 
     </style>
 </head>
@@ -58,13 +61,13 @@
 
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 oncontextmenu="return false;" class="navbar-title no-copy">My App</h1>
+        <h1 oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air</h1>
         <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
             <button class="profile-button">
-                <i class="bi bi-gear"></i>
+                <i class="bi bi-bell"></i>
             </button>
             <div class="dropdown-menu">
                 <a href="/account/setting">
@@ -99,6 +102,18 @@
                 <a href="<?= base_url('riwayat-tagihan') ?>" class="sidebar-link">
                     <i class="bi bi-graph-up" style="font-size: 0.9rem;"></i>
                     <span class="sidebar-text" style="margin-left: 10px;">Riwayat</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('account/setting') ?>" class="sidebar-link">
+                    <i class="bi bi-gear" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Setting</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= base_url('logout') ?>" class="sidebar-link logout">
+                    <i class="bi bi-box-arrow-in-left" style="font-size: 0.9rem;"></i>
+                    <span class="sidebar-text" style="margin-left: 10px;">Logout</span>
                 </a>
             </li>
         </ul>
@@ -183,9 +198,6 @@
                                 <th>Alamat</th>
                                 <th>No.Meter</th>
                                 <th>Jumlah Meter</th>
-                                <th>Periode</th>
-                                <th>Jumlah</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -197,13 +209,6 @@
                                         <td class="alamat-col"><?= esc($row['alamat']) ?></td>
                                         <td><?= esc($row['nomor_meter']) ?></td>
                                         <td><?= esc($row['jumlah_meter']) ?></td>
-                                        <td><?= esc($row['periode']) ?></td>
-                                        <td>Rp <?= number_format($row['jumlah_tagihan'], 0, ',', '.') ?></td>
-                                        <td>
-                                            <span class="badge <?= $row['status'] == 'Lunas' ? 'badge-success' : 'badge-warning' ?>">
-                                                <?= $row['status'] ?>
-                                            </span>
-                                        </td>
                                     </tr>
                                 <?php endforeach ?>
                             <?php else : ?>

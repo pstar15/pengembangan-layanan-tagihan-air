@@ -164,6 +164,7 @@
                         <div class="thead-da">
                             <tr class="table-tr-daftar-akun">
                                 <th class="th-da">Username</th>
+                                <th class="th-da">Email</th>
                                 <th  class="th-da">Status</th>
                                 <th  class="th-da">Terakhir Online</th>
                             </tr>
@@ -172,6 +173,7 @@
                             <?php foreach ($akun_android as $akun): ?>
                                 <tr class="table-tr-row-daftar-akun">
                                     <td  class="td-da"><?= esc($akun['username']) ?></td>
+                                    <td><?= esc($akun['email']) ?></td>
                                     <td  class="td-da">
                                         <?php if ($akun['is_online']): ?>
                                             <span style="color:green;">Online</span>
@@ -179,7 +181,7 @@
                                             <span style="color:red;">Offline</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td  class="td-da"><?= $akun['last_online'] ?? 'Belum Pernah Login' ?></td>
+                                    <td  class="td-da"><?= esc($akun['last_online']) ?: '-' ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </div>

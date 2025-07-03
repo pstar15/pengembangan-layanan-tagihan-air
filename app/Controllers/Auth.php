@@ -99,7 +99,7 @@ class Auth extends BaseController
 
         $TagihanModel = new TagihanModel();
         $RiwayatTagihanModel = new RiwayatTagihanModel();
-        $userModel    = new \App\Models\PhoneUser();
+        $PhoneUser    = new \App\Models\PhoneUser();
 
         $tagihan = $TagihanModel->select('periode, SUM(jumlah_tagihan) as total')
                                 ->groupBy('periode')
@@ -137,7 +137,7 @@ class Auth extends BaseController
 
         $data['username'] = session()->get('username');
         $data['tagihan'] = $TagihanModel->findAll();
-        $data['akun_android'] = $userModel->findAll();
+        $data['akun_android'] = $PhoneUser->findAll();
 
         return view('auth/dashboard', $data);
     }

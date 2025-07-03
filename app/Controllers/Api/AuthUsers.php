@@ -55,24 +55,21 @@ class AuthUsers extends ResourceController
     {
         $model = new PhoneUser();
         $data = $this->request->getJSON(true);
-
         $user = $model->where('email', $data['email'])->first();
 
         if (!$user || !password_verify($data['password'], $user['password'])) {
-            return $this->respond([
-                'status' => false,
-                'message' => 'Email atau password salah.'
-            ], 401);
+            return $this->respond(['status' => false, 'message' => 'Email atau password salah.'], 401);
         }
+
+        $model->update($user['id'], [
+            'is_online'    => 1,
+            'last_online'  => date('Y-m-d H:i:s')
+        ]);
 
         return $this->respond([
             'status' => true,
             'message' => 'Login berhasil.',
-            'user' => [
-                'id'       => $user['id'],
-                'username' => $user['username'],
-                'email'    => $user['email']
-            ]
+            'user' => $user
         ]);
     }
 
@@ -80,5 +77,12 @@ class AuthUsers extends ResourceController
     {
         $model = new PhoneUser();
         return $this->respond($model->findAll());
+    }
+
+    public function logoutPhone($id)
+    {
+        $model = new PhoneUser();
+        $model->update($id, ['is_online' => 0]);
+        return $this->respond(['status' => true, 'message' => 'Logout berhasil.']);
     }
 }

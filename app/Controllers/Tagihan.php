@@ -5,14 +5,17 @@ namespace App\Controllers;
 use App\Models\TagihanModel;
 use App\Controllers\BaseController;
 use App\Models\RiwayatTagihanModel;
+use App\Models\TagihanAplikasiModel;
 
 class Tagihan extends BaseController
 {
     protected $TagihanModel;
+    protected $TagihanAplikasiModel;
 
     public function __construct()
     {
-        $this->TagihanModel = new TagihanModel();
+        $this->TagihanModel         = new TagihanModel();
+        $this->TagihanAplikasiModel = new TagihanAplikasiModel();
     }
 
     public function index()
@@ -167,6 +170,7 @@ class Tagihan extends BaseController
 
         return redirect()->to('/tagihan')->with('success', 'Data berhasil dipindahkan ke riwayat. Data kosong tetap berada di tabel tagihan.');
     }
+
     public function riwayat()
     {
         $periode = $this->request->getGet('periode');
@@ -183,4 +187,53 @@ class Tagihan extends BaseController
 
             return view('tagihan/riwayat', $data);
     }
+
+    public function kirim_tagihan()
+    {
+        $tagihanList = $this->TagihanModel->findAll();
+
+        $api_url = 'http://192.168.0.111/my-project-rekapitulasi-tagihan-air/public/'; // Ganti dengan URL endpoint Android Studio
+        $errors = [];
+
+        foreach ($tagihanList as $tagihan) {
+            $response = $this->sendTagihanToAndroid($api_url, $tagihan);
+
+            if ($response['status_code'] !== 200) {
+                $errors[] = $response['body'];
+            }
+        }
+
+        if (empty($errors)) {
+            session()->setFlashdata('success', 'Semua data tagihan berhasil dikirim!');
+        } else {
+            session()->setFlashdata('error', 'Beberapa tagihan gagal dikirim: ' . implode(', ', $errors));
+        }
+
+        return redirect()->to('/tagihan');
+    }
+
+    private function sendTagihanToAndroid(string $url, array $data): array
+    {
+        $client = \Config\Services::curlrequest();
+
+        try {
+            $response = $client->post($url, [
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => json_encode($data),
+            ]);
+
+            return [
+                'status_code' => $response->getStatusCode(),
+                'body' => $response->getBody()
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status_code' => 500,
+                'body' => 'Curl Error: ' . $e->getMessage()
+            ];
+        }
+    }
+
 }

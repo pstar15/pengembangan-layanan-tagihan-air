@@ -62,6 +62,12 @@
             color:rgb(255, 0, 0);
         }
 
+        .btn-kirim {
+            position: absolute;
+            margin-top: 100px;
+            margin-left: 390px;
+        }
+
     </style>
 </head>
 <body>
@@ -139,12 +145,14 @@
 
             <h2>Daftar Tagihan Air</h2>
 
-            <!-- 
-            <form action="" method="post" style="display:inline;" onsubmit="return confirm('Kirim data ke aplikasi Android?')">
-                <input type="hidden" name="id" value="">
-                <button type="submit" class="btn btn-success">Kirim</button>
-            </form>
-            -->
+            
+            <div class="btn-kirim-tagihan">
+                <form action="<?= base_url('/tagihan/kirim_tagihan') ?>" method="post" class="btn-kirim" style="display:inline;" onsubmit="return confirm('Kirim data ke aplikasi Android?')">
+                    <input type="hidden" name="id" value="">
+                    <button type="submit" class="btn btn-success">Kirim</button>
+                </form>
+            </div>
+            
 
             
             <div class="toolbar-wrapper">

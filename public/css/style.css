@@ -1456,7 +1456,7 @@ canvas {
 }
 
 .chart-line {
-    height: 410px; /* Tinggi default, bisa diubah sesuai kebutuhan */
+    height: 387px; /* Tinggi default, bisa diubah sesuai kebutuhan */
 }
 
 @media (max-width: 768px) {

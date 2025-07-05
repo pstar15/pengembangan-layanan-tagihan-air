@@ -188,52 +188,18 @@ class Tagihan extends BaseController
             return view('tagihan/riwayat', $data);
     }
 
-    public function kirim_tagihan()
+    public function kirim_tagihan($id)
     {
-        $tagihanList = $this->TagihanModel->findAll();
+        $tagihanModel = new TagihanModel();
+        $aplikasiModel = new TagihanAplikasiModel();
 
-        $api_url = 'http://192.168.0.111/my-project-rekapitulasi-tagihan-air/public/'; // Ganti dengan URL endpoint Android Studio
-        $errors = [];
-
-        foreach ($tagihanList as $tagihan) {
-            $response = $this->sendTagihanToAndroid($api_url, $tagihan);
-
-            if ($response['status_code'] !== 200) {
-                $errors[] = $response['body'];
-            }
+        $tagihan = $tagihanModel->find($id);
+        if ($tagihan) {
+            $aplikasiModel->insert($tagihan);
+            return redirect()->to('/tagihan')->with('success', 'Data tagihan berhasil dikirim ke aplikasi.');
         }
 
-        if (empty($errors)) {
-            session()->setFlashdata('success', 'Semua data tagihan berhasil dikirim!');
-        } else {
-            session()->setFlashdata('error', 'Beberapa tagihan gagal dikirim: ' . implode(', ', $errors));
-        }
-
-        return redirect()->to('/tagihan');
-    }
-
-    private function sendTagihanToAndroid(string $url, array $data): array
-    {
-        $client = \Config\Services::curlrequest();
-
-        try {
-            $response = $client->post($url, [
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ],
-                'body' => json_encode($data),
-            ]);
-
-            return [
-                'status_code' => $response->getStatusCode(),
-                'body' => $response->getBody()
-            ];
-        } catch (\Exception $e) {
-            return [
-                'status_code' => 500,
-                'body' => 'Curl Error: ' . $e->getMessage()
-            ];
-        }
+        return redirect()->to('/tagihan')->with('error', 'Tagihan tidak ditemukan.');
     }
 
 }

@@ -62,12 +62,6 @@
             color:rgb(255, 0, 0);
         }
 
-        .btn-kirim {
-            position: absolute;
-            margin-top: 100px;
-            margin-left: 390px;
-        }
-
     </style>
 </head>
 <body>
@@ -144,15 +138,6 @@
         <div class="container">
 
             <h2>Daftar Tagihan Air</h2>
-
-            
-            <div class="btn-kirim-tagihan">
-                <form action="<?= base_url('/tagihan/kirim_tagihan') ?>" method="post" class="btn-kirim" style="display:inline;" onsubmit="return confirm('Kirim data ke aplikasi Android?')">
-                    <input type="hidden" name="id" value="">
-                    <button type="submit" class="btn btn-success">Kirim</button>
-                </form>
-            </div>
-            
 
             
             <div class="toolbar-wrapper">
@@ -245,6 +230,7 @@
                                     <td>
                                         <a href="<?= base_url('tagihan/edit/' . $row['id']) ?>" class="btn btn-edit">Edit</a>
                                         <a href="<?= base_url('tagihan/delete/' . $row['id']) ?>" id="btnhapus" class="btn btn-delete">Hapus</a>
+                                        <a href="<?= site_url('tagihan/kirim_tagihan/' . $row['id']) ?>">Kirim</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

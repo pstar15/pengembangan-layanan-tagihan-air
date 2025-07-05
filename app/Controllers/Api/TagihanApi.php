@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\TagihanAplikasiModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class TagihanApi extends ResourceController
 {
-
     protected $format = 'json';
 
     public function index()
@@ -16,23 +16,22 @@ class TagihanApi extends ResourceController
 
     public function simpan()
     {
-        $data = $this->request->getJSON(true); // true untuk array asosiatif
+        $data = $this->request->getJSON(true);
 
-        // Contoh validasi sederhana
-        if (!isset($data['nama_pelanggan']) || !isset($data['nomor_meter'])) {
-            return $this->fail('Data tidak lengkap', 400);
+        if (!$data) {
+            return $this->respond([
+                'status' => false,
+                'message' => 'Data JSON tidak valid'
+            ], 400);
         }
 
-        $db = \Config\Database::connect();
-        $builder = $db->table('tagihan');
+        $model = new TagihanAplikasiModel();
+        $model->insert($data);
 
-        $simpan = $builder->insert($data);
-
-        if ($simpan) {
-            return $this->respond(['status' => true, 'message' => 'Tagihan berhasil disimpan']);
-        } else {
-            return $this->fail('Gagal menyimpan', 500);
-        }
+        return $this->respond([
+            'status' => true,
+            'message' => 'Data tagihan berhasil disimpan'
+        ], 200);
     }
 
 }

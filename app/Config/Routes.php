@@ -45,5 +45,5 @@ $routes->get('riwayat/filter', 'Riwayat::filter');
 //export data
 $routes->get('riwayat/export/(:any)', 'Riwayat::export/$1');
 //send data ke aplikasi
-$routes->post('/tagihan/kirim_tagihan', 'Tagihan::kirim_tagihan');
-$routes->post('/api/simpan_tagihan', 'Api\TagihanApi::simpan');
+$routes->get('tagihan/kirim_tagihan/(:num)', 'Tagihan::kirim_tagihan/$1');
+$routes->get('tagihan/kirim_tagihan/(:num)', 'Tagihan::kirim_tagihan/$1');

@@ -59,4 +59,16 @@ class TagihanApi extends ResourceController
         ]);
     }
 
+    public function listDataTagihan()
+    {
+        $db = \Config\Database::connect('db_tagihanaplikasi');
+        $query = $db->table('tagihanaplikasi')->get()->getResult();
+
+        return $this->respond([
+            'status' => true,
+            'data' => $query
+        ]);
+    }
+
+
 }

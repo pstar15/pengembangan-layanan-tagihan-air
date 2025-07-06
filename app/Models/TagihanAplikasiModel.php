@@ -13,6 +13,7 @@ class TagihanAplikasiModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['nama_pelanggan', 'alamat', 'nomor_meter', 'jumlah_meter', 'periode', 'jumlah_tagihan', 'status'];
+    protected $DBGroup = 'db_tagihanaplikasi';
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -21,7 +22,7 @@ class TagihanAplikasiModel extends Model
     protected array $castHandlers = [];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

@@ -34,27 +34,27 @@ class TagihanApi extends ResourceController
         ], 200);
     }
 
-    public function getSummary()
+    public function cardData()
     {
-        $db = \Config\Database::connect();
+        $db = \Config\Database::connect('db_tagihanaplikasi');
 
-        $total = $db->table('tagihan')->countAll();
-        $lunas = $db->table('tagihan')->where('status', 'Lunas')->countAllResults();
-        $belumLunas = $db->table('tagihan')->where('status !=', 'Lunas')->countAllResults();
+        $total = $db->table('tagihanaplikasi')->countAll();
+        $lunas = $db->table('tagihanaplikasi')->where('status', 'Lunas')->countAllResults();
+        $belum = $db->table('tagihanaplikasi')->where('status !=', 'Lunas')->countAllResults();
 
-        $totalTagihan = $db->table('tagihan')->selectSum('jumlah_tagihan')->get()->getRow()->jumlah_tagihan ?? 0;
-        $lunasTagihan = $db->table('tagihan')->where('status', 'Lunas')->selectSum('jumlah_tagihan')->get()->getRow()->jumlah_tagihan ?? 0;
-        $belumLunasTagihan = $totalTagihan - $lunasTagihan;
+        $totalTagihan = $db->table('tagihanaplikasi')->selectSum('jumlah_tagihan')->get()->getRow()->jumlah_tagihan ?? 0;
+        $lunasTagihan = $db->table('tagihanaplikasi')->where('status', 'Lunas')->selectSum('jumlah_tagihan')->get()->getRow()->jumlah_tagihan ?? 0;
+        $belumTagihan = $totalTagihan - $lunasTagihan;
 
         return $this->respond([
             'status' => true,
             'data' => [
                 'total' => $total,
                 'lunas' => $lunas,
-                'belum_lunas' => $belumLunas,
+                'belum_lunas' => $belum,
                 'total_tagihan' => (int) $totalTagihan,
                 'total_lunas' => (int) $lunasTagihan,
-                'total_belum_lunas' => (int) $belumLunasTagihan
+                'total_belum_lunas' => (int) $belumTagihan
             ]
         ]);
     }

@@ -6,32 +6,16 @@ use CodeIgniter\Database\Config as BaseConfig;
 
 class Database extends BaseConfig
 {
-    /**
-     * The directory that holds the Migrations
-     *
-     * @var string
-     */
     public string $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
-
-    /**
-     * Lets you choose which connection group to
-     * use if none is specified.
-     *
-     * @var string
-     */
     public string $defaultGroup = 'default';
 
-    /**
-     * Default database connection settings.
-     *
-     * @var array
-     */
+    // Koneksi default (utama)
     public array $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
         'username' => 'root',
         'password' => '',
-        'database' => 'db_rekapitulasi_tagihan_air',
+        'database' => 'db_rekapitulasi_tagihan_air', // Sesuaikan
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
@@ -48,11 +32,7 @@ class Database extends BaseConfig
         'port'     => 3306,
     ];
 
-    /**
-     * Tambahan koneksi ke database db_tagihanaplikasi
-     *
-     * @var array
-     */
+    // Koneksi tambahan: db_tagihanaplikasi
     public array $db_tagihanaplikasi = [
         'DSN'      => '',
         'hostname' => 'localhost',

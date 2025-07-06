@@ -70,5 +70,4 @@ class TagihanApi extends ResourceController
         ]);
     }
 
-
 }

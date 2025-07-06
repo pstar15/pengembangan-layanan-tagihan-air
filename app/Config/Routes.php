@@ -47,3 +47,4 @@ $routes->get('riwayat/export/(:any)', 'Riwayat::export/$1');
 //send data ke aplikasi
 $routes->get('tagihan/kirim_tagihan/(:num)', 'Tagihan::kirim_tagihan/$1');
 $routes->get('tagihan/kirim_tagihan/(:num)', 'Tagihan::kirim_tagihan/$1');
+$routes->get('TagihanApi/summary', 'TagihanApi::getSummary');

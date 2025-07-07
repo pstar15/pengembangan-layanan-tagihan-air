@@ -230,7 +230,11 @@
                                     <td>
                                         <a href="<?= base_url('tagihan/edit/' . $row['id']) ?>" class="btn btn-edit">Edit</a>
                                         <a href="<?= base_url('tagihan/delete/' . $row['id']) ?>" id="btnhapus" class="btn btn-delete">Hapus</a>
-                                        <a href="<?= site_url('tagihan/kirim_tagihan/' . $row['id']) ?>">Kirim</a>
+                                        <a href="<?= base_url('Tagihan/kirim/' . $row['id']) ?>" 
+                                            class="btn btn-link text-primary btn-kirim kirim-data"
+                                            title="Kirim Data">
+                                                <i class="fas fa-paper-plane"></i>
+                                            </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -246,26 +250,27 @@
 
 <script src="<?= base_url('js/script.js') ?>" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php if (session()->getFlashdata('success')): ?>
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil',
-        text: '<?= session()->getFlashdata('success') ?>'
-    });
-</script>
-<?php elseif (session()->getFlashdata('error')): ?>
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Gagal',
-        text: '<?= session()->getFlashdata('error') ?>'
-    });
-</script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '<?= session()->getFlashdata('success') ?>'
+        });
+    </script>
+    <?php elseif (session()->getFlashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '<?= session()->getFlashdata('error') ?>'
+        });
+    </script>
 <?php endif; ?>
 <script>
     document.getElementById('btnhapus').addEventListener('click', function (e) {
-            e.preventDefault(); // Mencegah submit otomatis
+            e.preventDefault();
 
             Swal.fire({
                 title: 'Yakin ingin menyimpan data ini?',
@@ -276,9 +281,27 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Submit form secara manual setelah konfirmasi
                     document.getElementById('formUpdateTagihan').submit();
                 }
+            });
+        });
+        document.querySelectorAll('.kirim-data').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.href;
+
+                Swal.fire({
+                    title: 'Kirim Data?',
+                    text: 'Data ini akan dikirim ke aplikasi.',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, kirim!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url; // lanjut GET
+                    }
+                });
             });
         });
 </script>

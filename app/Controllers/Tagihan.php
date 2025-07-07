@@ -6,6 +6,7 @@ use App\Models\TagihanModel;
 use App\Controllers\BaseController;
 use App\Models\RiwayatTagihanModel;
 use App\Models\TagihanAplikasiModel;
+use Config\Database;
 
 class Tagihan extends BaseController
 {
@@ -188,18 +189,43 @@ class Tagihan extends BaseController
             return view('tagihan/riwayat', $data);
     }
 
-    public function kirim_tagihan($id)
+    public function kirimData($id = null)
     {
-        $tagihanModel = new TagihanModel();
-        $aplikasiModel = new TagihanAplikasiModel();
+        $tagihanModel = new \App\Models\TagihanModel();
+        $data = $tagihanModel->find($id);
 
-        $tagihan = $tagihanModel->find($id);
-        if ($tagihan) {
-            $aplikasiModel->insert($tagihan);
-            return redirect()->to('/tagihan')->with('success', 'Data tagihan berhasil dikirim ke aplikasi.');
+        if (!$data) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }
 
-        return redirect()->to('/tagihan')->with('error', 'Tagihan tidak ditemukan.');
-    }
+        $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
 
+        $cek = $dbAplikasi->table('tagihanaplikasi')
+            ->where('nomor_meter', $data['nomor_meter'])
+            ->where('periode', $data['periode'])
+            ->get()
+            ->getRow();
+
+        if ($cek) {
+            return redirect()->back()->with('warning', 'Data ini sudah pernah dikirim.');
+        }
+
+        $dbAplikasi->table('tagihanaplikasi')->insert([
+            'nama_pelanggan' => $data['nama_pelanggan'],
+            'alamat' => $data['alamat'],
+            'nomor_meter' => $data['nomor_meter'],
+            'jumlah_meter' => $data['jumlah_meter'],
+            'periode' => $data['periode'], // tetap dikirim
+            'jumlah_tagihan' => $data['jumlah_tagihan'],
+            'status' => $data['status'],
+        ]);
+
+        $tagihanModel->update($id, [
+            'jumlah_tagihan' => null,
+            'status' => 'Tidak Ada'
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil dikirim dan disiapkan untuk periode berikutnya.');
+    }
+    
 }

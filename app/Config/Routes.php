@@ -44,9 +44,11 @@ $routes->post('riwayat/hapus', 'Riwayat::hapus');
 $routes->get('riwayat/filter', 'Riwayat::filter');
 //export data
 $routes->get('riwayat/export/(:any)', 'Riwayat::export/$1');
-//send data ke aplikasi
-$routes->get('tagihan/kirim_tagihan/(:num)', 'Tagihan::kirim_tagihan/$1');
+
 //Controller Api
+//send data ke aplikasi
+$routes->get('Tagihan/kirim/(:num)', 'Tagihan::kirimData/$1');
+$routes->post('TagihanApi/simpanRiwayat', 'TagihanApi::simpanKeRiwayat');
 //Route card android
 $routes->get('TagihanApi/cardData', 'Api\TagihanApi::cardData');
 //Daftar Tagihan Aplikasi

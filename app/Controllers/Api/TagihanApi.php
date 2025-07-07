@@ -70,4 +70,43 @@ class TagihanApi extends ResourceController
         ]);
     }
 
+    public function kirimKDataTagihan()
+    {
+        $json = $this->request->getJSON(true);
+
+        if (!$json || !is_array($json)) {
+            return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
+        }
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('riwayat_tagihan');
+
+        foreach ($json as $row) {
+            $builder->insert([
+                'nama_pelanggan' => $row['nama_pelanggan'],
+                'alamat' => $row['alamat'],
+                'nomor_meter' => $row['nomor_meter'],
+                'jumlah_meter' => $row['jumlah_meter'],
+                'periode' => $row['periode'],
+                'jumlah_tagihan' => $row['jumlah_tagihan'],
+                'status' => $row['status'],
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+        }
+
+        return $this->respond(['status' => true, 'message' => 'Data berhasil disimpan']);
+    }
+
+    public function riwayat()
+    {
+        $db = \Config\Database::connect();
+        $riwayat = $db->table('riwayat_tagihan')->orderBy('created_at', 'DESC')->get()->getResult();
+
+        return $this->respond([
+            'status' => true,
+            'data' => $riwayat
+        ]);
+    }
+
+
 }

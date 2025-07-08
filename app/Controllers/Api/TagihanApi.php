@@ -108,5 +108,38 @@ class TagihanApi extends ResourceController
         ]);
     }
 
+    public function getAllTagihan()
+    {
+        $model = new \App\Models\TagihanAplikasiModel();
+        $data = $model->findAll();
+
+        return $this->response->setJSON([
+            'status' => true,
+            'message' => 'Data tagihan berhasil dimuat',
+            'data' => $data
+        ]);
+    }
+
+    public function delete($id = null)
+    {
+        $model = new \App\Models\TagihanAplikasiModel();
+        $deleted = $model->delete($id);
+
+        if ($deleted) {
+            return $this->response->setJSON(['status' => true, 'message' => 'Data berhasil dihapus']);
+        } else {
+            return $this->response->setJSON(['status' => false, 'message' => 'Gagal menghapus data']);
+        }
+    }
+
+    public function update($id = null)
+    {
+        $model = new \App\Models\TagihanAplikasiModel();
+        $data = $this->request->getJSON(true);
+        $data['updated_at'] = date('Y-m-d H:i:s');
+
+        $model->update($id, $data);
+        return $this->response->setJSON(['status' => true, 'message' => 'Data berhasil diperbarui']);
+    }
 
 }

@@ -62,87 +62,25 @@ class TagihanApi extends ResourceController
         ]);
     }
 
-    public function listDataTagihan()
-    {
-        $db = \Config\Database::connect('db_tagihanaplikasi');
-        $query = $db->table('tagihanaplikasi')->get()->getResult();
-
-        return $this->respond([
-            'status' => true,
-            'data' => $query
-        ]);
-    }
-
-    public function kirimKDataTagihan()
-    {
-        $json = $this->request->getJSON(true);
-
-        if (!$json || !is_array($json)) {
-            return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
-        }
-
-        $db = \Config\Database::connect();
-        $builder = $db->table('riwayat_tagihan');
-
-        foreach ($json as $row) {
-            $builder->insert([
-                'nama_pelanggan' => $row['nama_pelanggan'],
-                'alamat' => $row['alamat'],
-                'nomor_meter' => $row['nomor_meter'],
-                'jumlah_meter' => $row['jumlah_meter'],
-                'periode' => $row['periode'],
-                'jumlah_tagihan' => $row['jumlah_tagihan'],
-                'status' => $row['status'],
-                'created_at' => date('Y-m-d H:i:s')
-            ]);
-        }
-
-        return $this->respond(['status' => true, 'message' => 'Data berhasil disimpan']);
-    }
-
-    public function riwayat()
-    {
-        $db = \Config\Database::connect();
-        $riwayat = $db->table('riwayat_tagihan')->orderBy('created_at', 'DESC')->get()->getResult();
-
-        return $this->respond([
-            'status' => true,
-            'data' => $riwayat
-        ]);
-    }
-
-    public function getAllTagihan()
-    {
-        $model = new \App\Models\TagihanAplikasiModel();
-        $data = $model->findAll();
-
-        return $this->response->setJSON([
-            'status' => true,
-            'message' => 'Data tagihan berhasil dimuat',
-            'data' => $data
-        ]);
-    }
-
-    public function delete($id = null)
-    {
-        $model = new \App\Models\TagihanAplikasiModel();
-        $deleted = $model->delete($id);
-
-        if ($deleted) {
-            return $this->response->setJSON(['status' => true, 'message' => 'Data berhasil dihapus']);
-        } else {
-            return $this->response->setJSON(['status' => false, 'message' => 'Gagal menghapus data']);
-        }
-    }
-
     public function update($id = null)
     {
-        $model = new \App\Models\TagihanAplikasiModel();
-        $data = $this->request->getJSON(true);
-        $data['updated_at'] = date('Y-m-d H:i:s');
+        $json = $this->request->getJSON();
+        $model = new TagihanAplikasiModel();
+
+        $data = [
+            'nama_pelanggan' => $json->namaPelanggan,
+            'alamat' => $json->alamat,
+            'nomor_meter' => $json->nomorMeter,
+            'jumlah_meter' => $json->jumlahMeter,
+            'periode' => $json->periode,
+            'jumlah_tagihan' => $json->jumlahTagihan,
+            'status' => $json->status,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
         $model->update($id, $data);
-        return $this->response->setJSON(['status' => true, 'message' => 'Data berhasil diperbarui']);
+
+        return $this->respond(['message' => 'Data berhasil diupdate']);
     }
 
 }

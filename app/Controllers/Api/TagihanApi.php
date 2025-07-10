@@ -8,10 +8,13 @@ use CodeIgniter\RESTful\ResourceController;
 class TagihanApi extends ResourceController
 {
     protected $format = 'json';
+    protected $modelName = 'App\Models\TagihanAplikasi';
 
     public function index()
     {
         //
+        $data = $this->model->findAll();
+        return $this->respond(['status' => true, 'data' => $data], 200);
     }
 
     public function simpan()

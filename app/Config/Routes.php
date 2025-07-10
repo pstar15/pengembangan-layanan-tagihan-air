@@ -52,4 +52,4 @@ $routes->post('TagihanApi/simpanRiwayat', 'TagihanApi::simpanKeRiwayat');
 //Route card android
 $routes->get('TagihanApi/cardData', 'Api\TagihanApi::cardData');
 //Daftar Tagihan Aplikasi
-$routes->get('TagihanApi/DaftarDataTagihan', 'Api\TagihanApi::listDataTagihan');
+$routes->get('tagihanapi', 'Api\TagihanApi::index');

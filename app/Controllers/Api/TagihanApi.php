@@ -8,7 +8,7 @@ use CodeIgniter\RESTful\ResourceController;
 class TagihanApi extends ResourceController
 {
     protected $format = 'json';
-    protected $modelName = 'App\Models\TagihanAplikasi';
+    protected $modelName = 'App\Models\TagihanAplikasiModel';
 
     public function index()
     {

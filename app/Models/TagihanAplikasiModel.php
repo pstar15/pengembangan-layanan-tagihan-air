@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class TagihanAplikasiModel extends Model
 {
-    protected $table            = 'db_tagihanaplikasi';
+    protected $table            = 'tagihanaplikasi';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

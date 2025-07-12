@@ -4,25 +4,23 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TagihanAplikasiModel extends Model
+class RiwayatAplikasi extends Model
 {
     protected $DBGroup          = 'db_tagihanaplikasi';
-    protected $table            = 'tagihanaplikasi';
+    protected $table            = 'riwayataplikasis';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-                                    'nama_pelanggan',
-                                    'alamat',
-                                    'nomor_meter',
-                                    'jumlah_meter',
-                                    'periode',
-                                    'jumlah_tagihan',
+    protected $allowedFields    = ['
+                                    nama_pelanggan', 
+                                    'alamat', 
+                                    'nomor_meter', 
+                                    'jumlah_meter', 
+                                    'periode', 
+                                    'jumlah_tagihan', 
                                     'status',
-                                    'created_at',
-                                    'updated_at'
                                 ];
 
     protected bool $allowEmptyInserts = false;

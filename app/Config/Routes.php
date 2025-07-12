@@ -53,3 +53,4 @@ $routes->post('TagihanApi/simpanRiwayat', 'TagihanApi::simpanKeRiwayat');
 $routes->get('TagihanApi/cardData', 'Api\TagihanApi::cardData');
 //Daftar Tagihan Aplikasi
 $routes->get('tagihanapi', 'Api\TagihanApi::index');
+$routes->post('update-tagihan', 'Tagihan::update');

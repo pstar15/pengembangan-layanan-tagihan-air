@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class TagihanAplikasiModel extends Model
 {
+    protected $DBGroup          = 'db_tagihanaplikasi';
     protected $table            = 'tagihanaplikasi';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -23,7 +24,6 @@ class TagihanAplikasiModel extends Model
                                     'created_at', 
                                     'updated_at'
                                 ];
-    protected $DBGroup = 'db_tagihanaplikasi';
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

@@ -13,7 +13,8 @@ class TagihanApi extends ResourceController
     public function index()
     {
         //
-        $data = $this->model->findAll();
+        $model = new TagihanAplikasiModel();
+        $data = $model->findAll();
         return $this->respond(['status' => true, 'data' => $data], 200);
     }
 
@@ -64,23 +65,36 @@ class TagihanApi extends ResourceController
 
     public function update($id = null)
     {
-        $json = $this->request->getJSON();
-        $model = new TagihanAplikasiModel();
+        $data = $this->request->getJSON(true);
 
-        $data = [
-            'nama_pelanggan' => $json->namaPelanggan,
-            'alamat' => $json->alamat,
-            'nomor_meter' => $json->nomorMeter,
-            'jumlah_meter' => $json->jumlahMeter,
-            'periode' => $json->periode,
-            'jumlah_tagihan' => $json->jumlahTagihan,
-            'status' => $json->status,
-            'updated_at' => date('Y-m-d H:i:s')
+        if (!$data) {
+            return $this->fail(['message' => 'Data tidak boleh kosong'], 400);
+        }
+
+        $model = new TagihanAplikasiModel();
+        $tagihan = $model->find($id);
+
+        if (!$tagihan) {
+            return $this->failNotFound("Data dengan ID $id tidak ditemukan");
+        }
+
+        $updateData = [
+            'nama_pelanggan' => $data['nama_pelanggan'] ?? $tagihan['nama_pelanggan'],
+            'alamat'         => $data['alamat'] ?? $tagihan['alamat'],
+            'nomor_meter'    => $data['nomor_meter'] ?? $tagihan['nomor_meter'],
+            'jumlah_meter'   => $data['jumlah_meter'] ?? $tagihan['jumlah_meter'],
+            'periode'        => $data['periode'] ?? $tagihan['periode'],
+            'jumlah_tagihan' => $data['jumlah_tagihan'] ?? $tagihan['jumlah_tagihan'],
+            'status'         => $data['status'] ?? $tagihan['status'],
+            'updated_at'     => date('Y-m-d H:i:s')
         ];
 
-        $model->update($id, $data);
+        $model->update($id, $updateData);
 
-        return $this->respond(['message' => 'Data berhasil diupdate']);
+        return $this->respond([
+            'status' => true,
+            'message' => 'Data berhasil diperbarui',
+            'data' => $updateData
+        ]);
     }
-
 }

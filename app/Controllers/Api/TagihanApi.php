@@ -97,4 +97,27 @@ class TagihanApi extends ResourceController
             'data' => $updateData
         ]);
     }
+
+    public function delete($id = null)
+    {
+        $model = new \App\Models\TagihanAplikasiModel();
+
+        // Cek apakah data dengan ID tersebut ada
+        $tagihan = $model->find($id);
+        if (!$tagihan) {
+            return $this->failNotFound("Data dengan ID $id tidak ditemukan");
+        }
+
+        // Hapus data
+        if ($model->delete($id)) {
+            return $this->respond([
+                'status' => true,
+                'message' => "Data berhasil dihapus"
+            ], 200);
+        }
+
+        // Jika gagal menghapus
+        return $this->failServerError("Gagal menghapus data");
+    }
+
 }

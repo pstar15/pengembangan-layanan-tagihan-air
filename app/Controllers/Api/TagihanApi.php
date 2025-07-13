@@ -124,22 +124,41 @@ class TagihanApi extends ResourceController
     {
         $data = $this->request->getJSON(true);
 
-        if (!$data) {
+        if (!$data || !is_array($data)) {
             return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
         }
 
-        // Simpan ke database aplikasi (riwayataplikasi)
-        $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
-        $dbAplikasi->table('riwayataplikasi')->insert($data);
+        try {
+            // 1. Simpan ke database aplikasi (riwayataplikasi)
+            $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
+            $dbAplikasi->table('riwayataplikasi')->insert($data);
 
-        // Simpan ke database pusat (riwayat_tagihan)
-        $dbPusat = \Config\Database::connect('db_rekapitulasi_tagihan_air');
-        $dbPusat->table('riwayat_tagihan')->insert($data);
+            // 2. Simpan ke database pusat (riwayat_tagihan)
+            $dbPusat = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+            $dbPusat->table('riwayat_tagihan')->insert($data);
 
-        return $this->respond([
-            'status' => true,
-            'message' => 'Data berhasil dikirim'
-        ], 200);
+            // 3. Simpan notifikasi pengiriman
+            $bulanTahun = date('m/Y');
+            $waktu = date('Y-m-d H:i:s');
+            $judul = "Tagihan $bulanTahun berhasil dikirim";
+            $deskripsi = "Tagihan bulan $bulanTahun telah dikirim pada $waktu.";
+
+            $dbPusat->table('notifikasi_tagihan')->insert([
+                'judul' => $judul,
+                'deskripsi' => $deskripsi,
+                'waktu' => $waktu
+            ]);
+
+            return $this->respond([
+                'status' => true,
+                'message' => 'Data berhasil dikirim dan notifikasi ditambahkan.'
+            ]);
+        } catch (\Exception $e) {
+            return $this->respond([
+                'status' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 

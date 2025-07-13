@@ -51,6 +51,28 @@ class Database extends Config
         ],
     ];
 
+        public array $db_rekapitulasi_tagihan_air = [
+        'DSN'      => '',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'db_rekapitulasi_tagihan_air',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'cacheOn'  => false,
+        'cacheDir' => '',
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 3306,
+    ];
+
     public array $db_tagihanaplikasi = [
         'DSN'      => '',
         'hostname' => 'localhost',

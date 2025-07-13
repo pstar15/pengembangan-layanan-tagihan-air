@@ -4,25 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class RiwayatAplikasi extends Model
+class NotifikasiTagihan extends Model
 {
-    protected $DBGroup          = 'db_tagihanaplikasi';
-    protected $table            = 'riwayataplikasis';
+    protected $table            = 'notifikasi_tagihans';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['
-                                    nama_pelanggan', 
-                                    'alamat', 
-                                    'nomor_meter', 
-                                    'jumlah_meter', 
-                                    'periode', 
-                                    'jumlah_tagihan', 
-                                    'status',
-                                    'created_at'
-                                ];
+    protected $allowedFields    = ['judul', 'deskripsi', 'waktu'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -31,7 +21,7 @@ class RiwayatAplikasi extends Model
     protected array $castHandlers = [];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -53,4 +43,9 @@ class RiwayatAplikasi extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getRecent($limit = 5)
+    {
+        return $this->orderBy('waktu', 'DESC')->limit($limit)->findAll();
+    }
 }

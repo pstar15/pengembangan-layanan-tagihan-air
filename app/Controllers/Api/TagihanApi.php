@@ -120,4 +120,27 @@ class TagihanApi extends ResourceController
         return $this->failServerError("Gagal menghapus data");
     }
 
+    public function kirim()
+    {
+        $data = $this->request->getJSON(true);
+
+        if (!$data) {
+            return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
+        }
+
+        // Simpan ke database aplikasi (riwayataplikasi)
+        $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
+        $dbAplikasi->table('riwayataplikasi')->insert($data);
+
+        // Simpan ke database pusat (riwayat_tagihan)
+        $dbPusat = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+        $dbPusat->table('riwayat_tagihan')->insert($data);
+
+        return $this->respond([
+            'status' => true,
+            'message' => 'Data berhasil dikirim'
+        ], 200);
+    }
+
+
 }

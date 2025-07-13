@@ -11,7 +11,20 @@ class Account extends BaseController
     public function index()
     {
         //
+        $data['notifikasi'] = $this->getNotifikasiTagihan();
+        return view('account/index', $data);
     }
+
+    protected function getNotifikasiTagihan()
+    {
+        $db = \Config\Database::connect();
+        return $db->table('notifikasi_tagihan')
+                ->orderBy('waktu', 'DESC')
+                ->limit(5)
+                ->get()
+                ->getResult();
+    }
+
     public function setting()
     {
         return view('account/setting');

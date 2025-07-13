@@ -82,18 +82,32 @@
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
-            <button class="profile-button">
+            <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
+                <?php if (!empty($notifikasi)) : ?>
+                    <span class="badge"><?= count($notifikasi) ?></span>
+                <?php endif; ?>
             </button>
-            <div class="dropdown-menu">
-                <a href="/account/setting">
-                    <i class="bi bi-person-fill"></i>
-                    <span style="margin-left: 10px;">Account</span>
-                </a>
-                <a href="/logout" class="logout">
-                    <i class="bi bi-box-arrow-in-left"></i>
-                    <span style="margin-left: 10px;">Logout</span>
-                </a>
+
+            <div class="dropdown-menu notifikasi-dropdown">
+                <div class="dropdown-header">
+                    <strong>Notifikasi</strong>
+                </div>
+
+                <?php if (!empty($notifikasi)) : ?>
+                    <?php foreach ($notifikasi as $notif) : ?>
+                        <div class="dropdown-item">
+                            <div class="notif-title"><?= esc($notif->judul) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="dropdown-item text-muted">Tidak ada notifikasi</div>
+                <?php endif; ?>
+
+                <div class="dropdown-footer">
+                    <a href="/notifikasi">Lihat semua</a>
+                </div>
             </div>
         </div>
     </div>

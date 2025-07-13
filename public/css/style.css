@@ -116,6 +116,7 @@ a {
     margin-right: 10px;
     text-align: end;
 }
+
 .profile-dropdown {
     position: relative;
     display: inline-block;
@@ -135,6 +136,7 @@ a {
 .profile-button:hover {
     background-color: #1f5e8e;
 }
+
 
 .dropdown-menu {
     position: absolute;
@@ -158,21 +160,68 @@ a {
     transform: translateY(0);
 }
 
-.dropdown-menu a {
-    display: block;
-    padding: 10px 16px;
-    border-radius: 2px;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
 .dropdown-menu a:hover {
     background-color: #ffffff;
 }
 
-.dropdown-menu a.logout {
-    color: #d9534f;
+.profile-dropdown:hover .notifikasi-dropdown {
+    display: block;
+}
+
+.notifikasi-dropdown {
+    padding: 10px;
+}
+
+.dropdown-header {
+    color: #b3b3b3;
+}
+
+.dropdown-item {
+    margin-top: 5px;
+    color: #b3b3b3;
+}
+
+.dropdown-footer {
+    margin-top: 10px;
+}
+
+.dropdown-footer a {
+    color: #0064cf;
+}
+
+.dropdown-footer a:hover {
+    color: #0044aa;
+}
+
+.badgee {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 10px;
+}
+
+.notifikasi-dropdown {
+    position: absolute;
+    right: 0;
+    background: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    width: 300px;
+    z-index: 999;
+    display: none;
+}
+
+
+.notif-title {
+    font-weight: 500;
+}
+
+.notif-time {
+    font-size: 12px;
+    color: gray;
 }
 
 /* Sidebar */
@@ -1483,7 +1532,7 @@ canvas {
 
 .table-da-akun {
     width: 100%;
-    height: 82%;
+    height: 81%;
     display: flex;
     margin-left: 30px;
     border: none;

@@ -121,18 +121,32 @@
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
-            <button class="profile-button">
+            <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
+                <?php if (!empty($notifikasi)) : ?>
+                    <span class="badge"><?= count($notifikasi) ?></span>
+                <?php endif; ?>
             </button>
-            <div class="dropdown-menu">
-                <a href="/account/setting">
-                    <i class="bi bi-person-fill"></i>
-                    <span style="margin-left: 10px;">Account</span>
-                </a>
-                <a href="/logout" class="logout">
-                    <i class="bi bi-box-arrow-in-left"></i>
-                    <span style="margin-left: 10px;">Logout</span>
-                </a>
+
+            <div class="dropdown-menu notifikasi-dropdown">
+                <div class="dropdown-header">
+                    <strong>Notifikasi</strong>
+                </div>
+
+                <?php if (!empty($notifikasi)) : ?>
+                    <?php foreach ($notifikasi as $notif) : ?>
+                        <div class="dropdown-item">
+                            <div class="notif-title"><?= esc($notif->judul) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="dropdown-item text-muted">Tidak ada notifikasi</div>
+                <?php endif; ?>
+
+                <div class="dropdown-footer">
+                    <a href="/notifikasi">Lihat semua</a>
+                </div>
             </div>
         </div>
     </div>
@@ -204,47 +218,49 @@
                 <div class="message success"><?= session()->getFlashdata('success_password') ?></div>
             <?php endif; ?>
 
-            <form action="<?= base_url('/account/update-username') ?>" method="post">
-                <label for="username">Ganti Username</label>
-                <input type="username" name="username" required value="<?= session()->get('username') ?>">
-                <button type="submit">Simpan Username</button>
-            </form>
+            <div style="margin-top: 40px;">
+                <form action="<?= base_url('/account/update-username') ?>" method="post">
+                    <label for="username">Username</label>
+                    <input type="username" name="username" required value="<?= session()->get('username') ?>">
+                    <button type="submit">Simpan Username</button>
+                </form>
 
-            <hr style="margin: 30px 0;">
+                <hr style="margin: 30px 0;">
 
-            <form action="<?= base_url('/account/update-email') ?>" method="post">
-                <label for="email">Ganti Email</label>
-                <input type="email" name="email" required value="<?= session()->get('email') ?>">
-                <button type="submit">Simpan Email</button>
-            </form>
+                <form action="<?= base_url('/account/update-email') ?>" method="post">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" required value="<?= session()->get('email') ?>">
+                    <button type="submit">Simpan Email</button>
+                </form>
 
-            <hr style="margin: 30px 0;">
+                <hr style="margin: 30px 0;">
 
-            <form action="<?= base_url('/account/update-password') ?>" method="post">
-                <div class="input-group mb-3">
-                    <label for="currentPassword">Password Lama:</label>
-                    <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 679px;">
-                    <span class="input-group-text" onclick="togglePassword('currentPassword', this)">
-                        <i class="bi bi-eye-slash"></i>
-                    </span>
-                </div>
-                <div class="input-group mb-3">
-                    <label for="newPassword">Password Baru:</label>
-                    <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 679px;">
-                    <span class="input-group-text" onclick="togglePassword('newPassword', this)">
-                        <i class="bi bi-eye-slash"></i>
-                    </span>
-                </div>
-                <div class="input-group mb-3">
-                    <label for="confirmPassword">Confirmasi Password:</label>
-                    <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 679px;">
-                    <span class="input-group-text" onclick="togglePassword('confirmPassword', this)">
-                        <i class="bi bi-eye-slash"></i>
-                    </span>
-                </div>
+                <form action="<?= base_url('/account/update-password') ?>" method="post">
+                    <div class="input-group mb-3">
+                        <label for="currentPassword">Password Lama:</label>
+                        <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 679px;">
+                        <span class="input-group-text" onclick="togglePassword('currentPassword', this)">
+                            <i class="bi bi-eye-slash"></i>
+                        </span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="newPassword">Password Baru:</label>
+                        <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 679px;">
+                        <span class="input-group-text" onclick="togglePassword('newPassword', this)">
+                            <i class="bi bi-eye-slash"></i>
+                        </span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="confirmPassword">Confirmasi Password:</label>
+                        <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 679px;">
+                        <span class="input-group-text" onclick="togglePassword('confirmPassword', this)">
+                            <i class="bi bi-eye-slash"></i>
+                        </span>
+                    </div>
 
-                <button type="submit">Simpan Password</button>
-            </form>
+                    <button type="submit">Simpan Password</button>
+                </form>
+            </div>
         </div>
     </div>
 

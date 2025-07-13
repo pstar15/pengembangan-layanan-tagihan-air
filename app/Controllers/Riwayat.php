@@ -26,7 +26,18 @@ class Riwayat extends BaseController
     public function index()
     {
         $data['riwayat'] = $this->RiwayatTagihanModel->findAll();
+        $data['notifikasi'] = $this->getNotifikasiTagihan();
         return view('tagihan/riwayat', $data);
+    }
+
+    protected function getNotifikasiTagihan()
+    {
+        $db = \Config\Database::connect();
+        return $db->table('notifikasi_tagihan')
+                ->orderBy('waktu', 'DESC')
+                ->limit(5)
+                ->get()
+                ->getResult();
     }
 
     public function kembalikan()

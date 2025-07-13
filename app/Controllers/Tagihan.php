@@ -37,8 +37,19 @@ class Tagihan extends BaseController
         }
 
         $data['tagihan'] = $query->findAll();
+        $data['notifikasi'] = $this->getNotifikasiTagihan();
 
         return view('tagihan/index', $data);
+    }
+
+    protected function getNotifikasiTagihan()
+    {
+        $db = \Config\Database::connect();
+        return $db->table('notifikasi_tagihan')
+                ->orderBy('waktu', 'DESC')
+                ->limit(5)
+                ->get()
+                ->getResult();
     }
 
     public function create()
@@ -162,7 +173,6 @@ class Tagihan extends BaseController
 
                 // Kosongkan kolom tertentu di tabel tagihan untuk penagihan berikutnya
                 $tagihanModel->update($tagihan['id'], [
-                    'periode'        => null,
                     'jumlah_tagihan' => null,
                     'status'         => null,
                 ]);
@@ -227,5 +237,4 @@ class Tagihan extends BaseController
 
         return redirect()->back()->with('success', 'Data berhasil dikirim dan disiapkan untuk periode berikutnya.');
     }
-    
 }

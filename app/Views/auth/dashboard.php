@@ -66,18 +66,32 @@
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
-            <button class="profile-button">
+            <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
+                <?php if (!empty($notifikasi)) : ?>
+                    <span class="badge"><?= count($notifikasi) ?></span>
+                <?php endif; ?>
             </button>
-            <div class="dropdown-menu">
-                <a href="/account/setting">
-                    <i class="bi bi-person-fill"></i>
-                    <span style="margin-left: 10px;">Account</span>
-                </a>
-                <a href="/logout" class="logout">
-                    <i class="bi bi-box-arrow-in-left"></i>
-                    <span style="margin-left: 10px;">Logout</span>
-                </a>
+
+            <div class="dropdown-menu notifikasi-dropdown">
+                <div class="dropdown-header">
+                    <strong>Notifikasi</strong>
+                </div>
+
+                <?php if (!empty($notifikasi)) : ?>
+                    <?php foreach ($notifikasi as $notif) : ?>
+                        <div class="dropdown-item">
+                            <div class="notif-title"><?= esc($notif->judul) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="dropdown-item text-muted">Tidak ada notifikasi</div>
+                <?php endif; ?>
+
+                <div class="dropdown-footer">
+                    <a href="/notifikasi">Lihat semua</a>
+                </div>
             </div>
         </div>
     </div>
@@ -176,7 +190,7 @@
                                     <td><?= esc($akun['email']) ?></td>
                                     <td  class="td-da">
                                         <?php if ($akun['is_online']): ?>
-                                            <span style="color:green;">Online</span>
+                                            <span style="color:green;">Aktif</span>
                                         <?php else: ?>
                                             <span style="color:red;">Offline</span>
                                         <?php endif; ?>
@@ -186,7 +200,7 @@
                             <?php endforeach; ?>
                         </div>
                     </table>
-                    <h5 style="position: absolute;margin-top: 460px;margin-left: 140px;">Daftar Akun</h5>
+                    <h5 style="position: absolute;margin-top: 433px;margin-left: 140px;">Daftar Akun</h5>
                 </div>
             </div>
 
@@ -222,7 +236,7 @@
                     </table>
                 </div>
             </div>
-            <h5>Data Tagihan Air</h5>
+            <h5 style="margin-top: -1px;">Data Tagihan Air</h5>
         </div>
     </div>
 

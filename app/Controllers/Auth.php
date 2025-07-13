@@ -33,6 +33,8 @@ class Auth extends BaseController
 
         $data['tagihan'] = $builder->findAll();
 
+        $data['notifikasi'] = $this->getNotifikasiTagihan();
+
         return view('auth/dashboard', $data);
     }
 
@@ -146,5 +148,15 @@ class Auth extends BaseController
     {
         session()->destroy();
         return redirect()->to('/login')->with('success', 'Anda berhasil logout.');
+    }
+
+    protected function getNotifikasiTagihan()
+    {
+        $db = \Config\Database::connect();
+        return $db->table('notifikasi_tagihan')
+                ->orderBy('waktu', 'DESC')
+                ->limit(5)
+                ->get()
+                ->getResult();
     }
 }

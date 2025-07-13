@@ -56,3 +56,6 @@ $routes->get('tagihanapi', 'Api\TagihanApi::index');
 $routes->post('update-tagihan', 'Tagihan::update');
 $routes->put('tagihanapi/(:num)', 'Api\TagihanApi::update/$1');
 $routes->resource('tagihanapi', ['controller' => 'Api\TagihanApi']);
+$routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->post('kirim-tagihan', 'TagihanApi::kirimTagihan');
+});

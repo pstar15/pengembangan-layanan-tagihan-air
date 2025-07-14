@@ -76,8 +76,8 @@
         <div class="profile-dropdown">
             <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
-                <?php if (!empty($notifikasi)) : ?>
-                    <span class="badgee"><?= count($notifikasi) ?></span>
+                <?php if (!empty($notifikasi_baru) && $notifikasi_baru > 0): ?>
+                    <span class="dot"></span>
                 <?php endif; ?>
             </button>
 
@@ -89,9 +89,11 @@
                 <?php if (!empty($notifikasi)) : ?>
                     <?php foreach ($notifikasi as $notif) : ?>
                         <div class="dropdown-item">
-                            <div class="notif-title"><?= esc($notif->judul) ?></div>
-                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                            <div class="notif-title"><?= esc($notif['judul']) ?></div>
+                            <div class="notif-desc"><?= esc($notif['deskripsi']) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif['waktu'])) ?></div>
                         </div>
+                        <hr class="notif-divider">
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="dropdown-item text-muted">Tidak ada notifikasi</div>
@@ -103,6 +105,7 @@
             </div>
         </div>
     </div>
+
     <!-- sidebar -->
     <div class="sidebar active" id="sidebar">
         <ul>
@@ -143,8 +146,8 @@
 
     <div class="main-content" id="mainContent">
         <div class="container">
-            <h2>Riwayat Tagihan Air</h2>
 
+            <h2>Riwayat Tagihan Air</h2>
             <!-- Filter data tagihan -->
             <div class="btns-riwayat">
                 <form action="<?= site_url('/riwayat-tagihan') ?>" method="get">
@@ -176,7 +179,7 @@
                 </div>
                 <h5 class="label-export-hover">export</h5>
             </div>
-            
+
             <!-- button menu keloladata -->
             <div id="kontrol-aksi" class="btn-keloladata mb-3">
                 <div class="btn-pilih-riwayat">
@@ -271,8 +274,8 @@
         </div>
     </div>
 
-<script src="<?= base_url('js/script.js') ?>" defer></script>
-<script src="<?= base_url('js/riwayat.js') ?>"></script>
+    <script src="<?= base_url('js/script.js') ?>" defer></script>
+    <script src="<?= base_url('js/riwayat.js') ?>"></script>
 <!-- Script Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- SweetAlert2 CDN -->

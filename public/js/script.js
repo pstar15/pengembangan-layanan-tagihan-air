@@ -121,3 +121,64 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+// Script Dropdown Pesan Notifikasi
+document.addEventListener('DOMContentLoaded', function () {
+    const notifBtn = document.getElementById('notifikasiBtn');
+    const dropdown = document.querySelector('.notifikasi-dropdown');
+    let hasMarked = false; // apakah sudah ditandai sebagai dilihat
+
+    // Fungsi untuk menghapus dot merah dan isi notifikasi
+    function bersihkanNotifikasi() {
+        // Hapus titik merah
+        const dot = notifBtn.querySelector('.dot');
+        if (dot) dot.remove();
+
+        // Bersihkan isi notifikasi (kecuali header & footer)
+        const items = dropdown.querySelectorAll('.dropdown-item');
+        items.forEach(item => item.remove());
+
+        // Tambahkan pesan kosong
+        const kosong = document.createElement('div');
+        kosong.className = 'dropdown-item text-muted';
+        kosong.textContent = 'Tidak ada notifikasi';
+        dropdown.insertBefore(kosong, dropdown.querySelector('.dropdown-footer'));
+    }
+
+    // Event klik tombol
+    notifBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('show');
+
+        if (!isOpen) {
+            dropdown.classList.add('show');
+
+            // AJAX hanya saat pertama dibuka
+            if (!hasMarked) {
+                fetch('/notifikasi/markAllAsRead', {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        hasMarked = true;
+                    }
+                });
+            }
+
+        } else {
+            dropdown.classList.remove('show');
+            bersihkanNotifikasi();
+        }
+    });
+
+    // Klik di luar area akan menutup dropdown dan bersihkan
+    document.addEventListener('click', function (e) {
+        if (!notifBtn.contains(e.target) && !dropdown.contains(e.target)) {
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                bersihkanNotifikasi();
+            }
+        }
+    });
+});

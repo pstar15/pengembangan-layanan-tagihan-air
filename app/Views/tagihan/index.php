@@ -84,8 +84,8 @@
         <div class="profile-dropdown">
             <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
-                <?php if (!empty($notifikasi)) : ?>
-                    <span class="badge"><?= count($notifikasi) ?></span>
+                <?php if (!empty($notifikasi_baru) && $notifikasi_baru > 0): ?>
+                    <span class="dot"></span>
                 <?php endif; ?>
             </button>
 
@@ -97,9 +97,11 @@
                 <?php if (!empty($notifikasi)) : ?>
                     <?php foreach ($notifikasi as $notif) : ?>
                         <div class="dropdown-item">
-                            <div class="notif-title"><?= esc($notif->judul) ?></div>
-                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                            <div class="notif-title"><?= esc($notif['judul']) ?></div>
+                            <div class="notif-desc"><?= esc($notif['deskripsi']) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif['waktu'])) ?></div>
                         </div>
+                        <hr class="notif-divider">
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="dropdown-item text-muted">Tidak ada notifikasi</div>
@@ -111,6 +113,7 @@
             </div>
         </div>
     </div>
+
     <div class="sidebar active" id="sidebar">
         <ul>
             <li>
@@ -152,8 +155,6 @@
         <div class="container">
 
             <h2>Daftar Tagihan Air</h2>
-
-            
             <div class="toolbar-wrapper">
                 <div class="toolbar-left">
                     <div class="button-add-group">
@@ -164,7 +165,7 @@
                         </button>
                         <h5 class="label-add-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Tambah Data Tagihan</h5>
                     </div>
-                    
+
                     <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form ">
                         <div class="Filter-Status">
                             <select name="status" class="form-select" onchange="this.form.submit()">
@@ -181,7 +182,7 @@
                             <h5 class="label-Fstatus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Filter Status</h5>
                         </div>
                     </form>
-                    
+
                     <!-- cadangan-->
                     <div class="btn-simpandata">
                         <a href="<?= site_url('tagihan/simpan-semua') ?>"
@@ -262,9 +263,9 @@
         </div>
     </div>
 
-<script src="<?= base_url('js/script.js') ?>" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url('js/script.js') ?>" defer></script>
 <?php if (session()->getFlashdata('success')): ?>
     <script>
         Swal.fire({

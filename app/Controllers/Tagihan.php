@@ -38,18 +38,30 @@ class Tagihan extends BaseController
 
         $data['tagihan'] = $query->findAll();
         $data['notifikasi'] = $this->getNotifikasiTagihan();
+        $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
 
         return view('tagihan/index', $data);
     }
 
-    protected function getNotifikasiTagihan()
+    private function getNotifikasiTagihan()
     {
-        $db = \Config\Database::connect();
+        $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+
         return $db->table('notifikasi_tagihan')
-                ->orderBy('waktu', 'DESC')
-                ->limit(5)
-                ->get()
-                ->getResult();
+            ->where('dilihat', 0) // hanya notifikasi baru
+            ->orderBy('waktu', 'DESC')
+            ->limit(10)
+            ->get()
+            ->getResultArray();
+    }
+
+    private function getNotifikasiBaruCount(): int
+    {
+        $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+
+        return $db->table('notifikasi_tagihan')
+            ->where('dilihat', 0)
+            ->countAllResults();
     }
 
     public function create()

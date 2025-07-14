@@ -55,4 +55,22 @@ class Notifikasi extends ResourceController
             'message' => 'Notifikasi berhasil dihapus.'
         ]);
     }
+    public function markAllAsRead()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->failForbidden('Hanya menerima AJAX request.');
+        }
+
+        $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+
+        $updated = $db->table('notifikasi_tagihan')
+            ->where('dilihat', 0)
+            ->update(['dilihat' => 1]);
+
+        return $this->respond([
+            'status' => true,
+            'message' => 'Semua notifikasi ditandai sebagai telah dilihat.'
+        ]);
+    }
+
 }

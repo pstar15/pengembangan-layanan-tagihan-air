@@ -65,3 +65,5 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) 
     $routes->get('notifikasi/(:num)/(:num)', 'Notifikasi::filterByMonthYear/$1/$2'); // contoh: /api/notifikasi/07/2025
     $routes->delete('notifikasi/(:num)', 'Notifikasi::delete/$1');
 });
+$routes->get('auth/notifikasi-dibuka', 'Auth::notifikasiDibuka');
+$routes->post('/notifikasi/markAllAsRead', 'Api\Notifikasi::markAllAsRead');

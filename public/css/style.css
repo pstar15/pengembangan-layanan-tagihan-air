@@ -222,14 +222,20 @@ a {
 
 .notifikasi-dropdown {
     position: absolute;
-    right: 0;
+    right: 10px;
     background: white;
     box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
     width: 300px;
-    z-index: 999;
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
     display: none;
 }
 
+.notifikasi-dropdown.show {
+    display: block;
+}
 
 .notif-title {
     font-weight: 500;

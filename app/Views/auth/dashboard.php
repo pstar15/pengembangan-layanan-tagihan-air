@@ -68,7 +68,7 @@
         <div class="profile-dropdown">
             <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
-                <?php if (!empty($notifikasi)) : ?>
+                <?php if ($notifikasi_baru > 0): ?>
                     <span class="dot"></span>
                 <?php endif; ?>
             </button>
@@ -306,6 +306,44 @@ const chartKurva = new Chart(ctxKurva, {
         document.addEventListener('click', function (e) {
             if (!profileDropdown.contains(e.target)) {
                 profileDropdown.classList.remove('open');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdown = document.querySelector('.notifikasi-dropdown');
+        const notifButton = document.getElementById('notifikasiBtn');
+
+        let hasMarked = false;
+
+        notifButton.addEventListener('click', function () {
+            // Toggle dropdown
+            dropdown.classList.toggle('show');
+
+            // Hanya kirim AJAX pertama kali saat dibuka
+            if (!hasMarked && dropdown.classList.contains('show')) {
+                fetch('/notifikasi/markAllAsRead', {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        // Hapus badge merah
+                        const badge = document.querySelector('.profile-button .badge');
+                        if (badge) badge.remove();
+
+                        // Hapus isi notifikasi
+                        document.querySelector('.notifikasi-dropdown .dropdown-header + *')?.remove();
+                        document.querySelector('.notifikasi-dropdown').insertAdjacentHTML('beforeend',
+                            `<div class="dropdown-item text-muted">Tidak ada notifikasi</div>`
+                        );
+                    }
+                });
+
+                hasMarked = true;
             }
         });
     });

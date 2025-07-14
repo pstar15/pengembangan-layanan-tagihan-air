@@ -153,14 +153,13 @@ class Auth extends BaseController
 
     private function getNotifikasiTagihan()
     {
-        // Gunakan koneksi khusus ke database notifikasi
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
-        // Pakai query builder langsung
         return $db->table('notifikasi_tagihan')
-                ->orderBy('waktu', 'DESC')
-                ->limit(10)
-                ->get()
-                ->getResultArray(); // agar bisa diakses pakai $notif['judul']
+            ->where('dilihat', 0) // hanya notifikasi baru
+            ->orderBy('waktu', 'DESC')
+            ->limit(10)
+            ->get()
+            ->getResultArray();
     }
 }

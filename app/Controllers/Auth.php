@@ -141,6 +141,7 @@ class Auth extends BaseController
         $data['akun_android'] = $PhoneUser->findAll();
 
         $data['notifikasi'] = $this->getNotifikasiTagihan();
+        $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
 
         return view('auth/dashboard', $data);
     }
@@ -161,5 +162,14 @@ class Auth extends BaseController
             ->limit(10)
             ->get()
             ->getResultArray();
+    }
+
+    private function getNotifikasiBaruCount(): int
+    {
+        $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+
+        return $db->table('notifikasi_tagihan')
+            ->where('dilihat', 0)
+            ->countAllResults();
     }
 }

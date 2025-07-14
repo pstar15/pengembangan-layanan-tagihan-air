@@ -131,8 +131,13 @@ class TagihanApi extends ResourceController
             return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
         }
 
-        if (!isset($data['nama_pelanggan']) || !isset($data['jumlah_tagihan'])) {
-            return $this->respond(['status' => false, 'message' => 'Field wajib tidak ada'], 400);
+        if (
+            !isset($data['nama_pelanggan']) ||
+            !isset($data['nomor_meter']) ||
+            !isset($data['periode']) ||
+            !isset($data['jumlah_tagihan'])
+        ) {
+            return $this->respond(['status' => false, 'message' => 'Field wajib tidak lengkap'], 400);
         }
 
         try {
@@ -144,12 +149,19 @@ class TagihanApi extends ResourceController
             $dbPusat = \Config\Database::connect('db_rekapitulasi_tagihan_air');
             $dbPusat->table('riwayat_tagihan')->insert($data);
 
-            // Simpan notifikasi
-            $bulanTahun = date('m/Y');
-            $waktu = date('Y-m-d H:i:s');
-            $judul = "Tagihan $bulanTahun berhasil dikirim";
-            $deskripsi = "Tagihan bulan $bulanTahun telah dikirim pada $waktu.";
+            // Format judul dan deskripsi notifikasi
+            $judul = sprintf(
+                "Tagihan atas nama %s (%s) periode %s sebesar Rp%s telah dikirim",
+                $data['nama_pelanggan'],
+                $data['nomor_meter'],
+                $data['periode'],
+                number_format((int)$data['jumlah_tagihan'], 0, ',', '.')
+            );
 
+            $waktu = date('Y-m-d H:i:s');
+            $deskripsi = "Pengiriman berhasil dilakukan pada $waktu.";
+
+            // Simpan ke tabel notifikasi
             $dbPusat->table('notifikasi_tagihan')->insert([
                 'judul' => $judul,
                 'deskripsi' => $deskripsi,
@@ -168,7 +180,6 @@ class TagihanApi extends ResourceController
             ], 500);
         }
     }
-
 
     public function show($id = null)
     {
@@ -189,5 +200,4 @@ class TagihanApi extends ResourceController
             'data' => $data
         ]);
     }
-
 }

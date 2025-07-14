@@ -68,7 +68,7 @@
         <div class="profile-dropdown">
             <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
-                <?php if ($notifikasi_baru > 0): ?>
+                <?php if (!empty($notifikasi_baru) && $notifikasi_baru > 0): ?>
                     <span class="dot"></span>
                 <?php endif; ?>
             </button>
@@ -82,8 +82,10 @@
                     <?php foreach ($notifikasi as $notif) : ?>
                         <div class="dropdown-item">
                             <div class="notif-title"><?= esc($notif['judul']) ?></div>
+                            <div class="notif-desc"><?= esc($notif['deskripsi']) ?></div>
                             <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif['waktu'])) ?></div>
                         </div>
+                        <hr class="notif-divider">
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="dropdown-item text-muted">Tidak ada notifikasi</div>
@@ -251,7 +253,7 @@ const ctxKurva = document.getElementById('chartKurva').getContext('2d');
 const chartKurva = new Chart(ctxKurva, {
     type: 'line',
     data: {
-        labels: <?= $periode ?>, // Pastikan variabel ini tersedia dari controller
+        labels: <?= $periode ?>,
         datasets: [{
             label: 'Jumlah Tagihan',
             data: <?= $total ?>,
@@ -295,55 +297,61 @@ const chartKurva = new Chart(ctxKurva, {
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const notifBtn = document.getElementById('notifikasiBtn');
-        const profileDropdown = document.querySelector('.profile-dropdown');
+        const dropdown = document.querySelector('.notifikasi-dropdown');
+        let hasMarked = false; // apakah sudah ditandai sebagai dilihat
 
+        // Fungsi untuk menghapus dot merah dan isi notifikasi
+        function bersihkanNotifikasi() {
+            // Hapus titik merah
+            const dot = notifBtn.querySelector('.dot');
+            if (dot) dot.remove();
+
+            // Bersihkan isi notifikasi (kecuali header & footer)
+            const items = dropdown.querySelectorAll('.dropdown-item');
+            items.forEach(item => item.remove());
+
+            // Tambahkan pesan kosong
+            const kosong = document.createElement('div');
+            kosong.className = 'dropdown-item text-muted';
+            kosong.textContent = 'Tidak ada notifikasi';
+            dropdown.insertBefore(kosong, dropdown.querySelector('.dropdown-footer'));
+        }
+
+        // Event klik tombol
         notifBtn.addEventListener('click', function (e) {
             e.stopPropagation();
-            profileDropdown.classList.toggle('open');
-        });
+            const isOpen = dropdown.classList.contains('show');
 
-        // Tutup dropdown saat klik di luar
-        document.addEventListener('click', function (e) {
-            if (!profileDropdown.contains(e.target)) {
-                profileDropdown.classList.remove('open');
+            if (!isOpen) {
+                dropdown.classList.add('show');
+
+                // AJAX hanya saat pertama dibuka
+                if (!hasMarked) {
+                    fetch('/notifikasi/markAllAsRead', {
+                        method: 'POST',
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status) {
+                            hasMarked = true;
+                        }
+                    });
+                }
+
+            } else {
+                dropdown.classList.remove('show');
+                bersihkanNotifikasi();
             }
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const dropdown = document.querySelector('.notifikasi-dropdown');
-        const notifButton = document.getElementById('notifikasiBtn');
-
-        let hasMarked = false;
-
-        notifButton.addEventListener('click', function () {
-            // Toggle dropdown
-            dropdown.classList.toggle('show');
-
-            // Hanya kirim AJAX pertama kali saat dibuka
-            if (!hasMarked && dropdown.classList.contains('show')) {
-                fetch('/notifikasi/markAllAsRead', {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status) {
-                        // Hapus badge merah
-                        const badge = document.querySelector('.profile-button .badge');
-                        if (badge) badge.remove();
-
-                        // Hapus isi notifikasi
-                        document.querySelector('.notifikasi-dropdown .dropdown-header + *')?.remove();
-                        document.querySelector('.notifikasi-dropdown').insertAdjacentHTML('beforeend',
-                            `<div class="dropdown-item text-muted">Tidak ada notifikasi</div>`
-                        );
-                    }
-                });
-
-                hasMarked = true;
+        // Klik di luar area akan menutup dropdown dan bersihkan
+        document.addEventListener('click', function (e) {
+            if (!notifBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                    bersihkanNotifikasi();
+                }
             }
         });
     });

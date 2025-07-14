@@ -69,7 +69,7 @@
             <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
                 <?php if (!empty($notifikasi)) : ?>
-                    <span class="badge"><?= count($notifikasi) ?></span>
+                    <span class="dot"></span>
                 <?php endif; ?>
             </button>
 
@@ -81,8 +81,8 @@
                 <?php if (!empty($notifikasi)) : ?>
                     <?php foreach ($notifikasi as $notif) : ?>
                         <div class="dropdown-item">
-                            <div class="notif-title"><?= esc($notif->judul) ?></div>
-                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                            <div class="notif-title"><?= esc($notif['judul']) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif['waktu'])) ?></div>
                         </div>
                     <?php endforeach; ?>
                 <?php else : ?>
@@ -240,10 +240,11 @@
         </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script src="/js/script.js"></script>
 <script src="/js/curva.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 const ctxKurva = document.getElementById('chartKurva').getContext('2d');
 
@@ -290,6 +291,24 @@ const chartKurva = new Chart(ctxKurva, {
         }
     }
 });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const notifBtn = document.getElementById('notifikasiBtn');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+
+        notifBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('open');
+        });
+
+        // Tutup dropdown saat klik di luar
+        document.addEventListener('click', function (e) {
+            if (!profileDropdown.contains(e.target)) {
+                profileDropdown.classList.remove('open');
+            }
+        });
+    });
 </script>
 
 </body>

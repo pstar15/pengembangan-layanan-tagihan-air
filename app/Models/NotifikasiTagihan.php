@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class NotifikasiTagihan extends Model
 {
-    protected $table            = 'notifikasi_tagihans';
+    protected $table            = 'notifikasi_tagihan';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

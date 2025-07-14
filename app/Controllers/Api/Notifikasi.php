@@ -3,7 +3,6 @@
 namespace App\Controllers\Api;
 
 use CodeIgniter\RESTful\ResourceController;
-use CodeIgniter\API\ResponseTrait;
 
 class Notifikasi extends ResourceController
 {

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\TagihanModel;
+use App\Models\NotifikasiTagihan;
 use App\Controllers\BaseController;
 use App\Models\RiwayatTagihanModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -32,8 +33,6 @@ class Auth extends BaseController
         }
 
         $data['tagihan'] = $builder->findAll();
-
-        $data['notifikasi'] = $this->getNotifikasiTagihan();
 
         return view('auth/dashboard', $data);
     }
@@ -141,6 +140,8 @@ class Auth extends BaseController
         $data['tagihan'] = $TagihanModel->findAll();
         $data['akun_android'] = $PhoneUser->findAll();
 
+        $data['notifikasi'] = $this->getNotifikasiTagihan();
+
         return view('auth/dashboard', $data);
     }
 
@@ -150,13 +151,16 @@ class Auth extends BaseController
         return redirect()->to('/login')->with('success', 'Anda berhasil logout.');
     }
 
-    protected function getNotifikasiTagihan()
+    private function getNotifikasiTagihan()
     {
-        $db = \Config\Database::connect();
+        // Gunakan koneksi khusus ke database notifikasi
+        $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
+
+        // Pakai query builder langsung
         return $db->table('notifikasi_tagihan')
                 ->orderBy('waktu', 'DESC')
-                ->limit(5)
+                ->limit(10)
                 ->get()
-                ->getResult();
+                ->getResultArray(); // agar bisa diakses pakai $notif['judul']
     }
 }

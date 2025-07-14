@@ -122,22 +122,29 @@ class TagihanApi extends ResourceController
 
     public function kirim()
     {
+        log_message('info', 'API - Memproses kirim tagihan...');
+
         $data = $this->request->getJSON(true);
+        log_message('info', 'Data diterima: ' . json_encode($data));
 
         if (!$data || !is_array($data)) {
             return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
         }
 
+        if (!isset($data['nama_pelanggan']) || !isset($data['jumlah_tagihan'])) {
+            return $this->respond(['status' => false, 'message' => 'Field wajib tidak ada'], 400);
+        }
+
         try {
-            // 1. Simpan ke database aplikasi (riwayataplikasi)
+            // Simpan ke database aplikasi
             $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
             $dbAplikasi->table('riwayataplikasi')->insert($data);
 
-            // 2. Simpan ke database pusat (riwayat_tagihan)
+            // Simpan ke database pusat
             $dbPusat = \Config\Database::connect('db_rekapitulasi_tagihan_air');
             $dbPusat->table('riwayat_tagihan')->insert($data);
 
-            // 3. Simpan notifikasi pengiriman
+            // Simpan notifikasi
             $bulanTahun = date('m/Y');
             $waktu = date('Y-m-d H:i:s');
             $judul = "Tagihan $bulanTahun berhasil dikirim";
@@ -153,7 +160,8 @@ class TagihanApi extends ResourceController
                 'status' => true,
                 'message' => 'Data berhasil dikirim dan notifikasi ditambahkan.'
             ]);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            log_message('error', 'Gagal kirim tagihan: ' . $e->getMessage());
             return $this->respond([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
@@ -161,5 +169,25 @@ class TagihanApi extends ResourceController
         }
     }
 
+
+    public function show($id = null)
+    {
+        // Ambil model
+        $model = new TagihanAplikasiModel();
+
+        // Cek apakah data dengan ID tersedia
+        $data = $model->find($id);
+
+        // Jika tidak ditemukan
+        if (!$data) {
+            return $this->failNotFound("Data dengan ID $id tidak ditemukan.");
+        }
+
+        // Jika ditemukan
+        return $this->respond([
+            'status' => true,
+            'data' => $data
+        ]);
+    }
 
 }

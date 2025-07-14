@@ -12,7 +12,15 @@ class RiwayatTagihanModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama_pelanggan', 'alamat', 'nomor_meter', 'jumlah_meter', 'periode', 'jumlah_tagihan', 'status', 'created_at'];
+    protected $allowedFields    = [
+                                    'nama_pelanggan',
+                                    'alamat', 'nomor_meter',
+                                    'jumlah_meter',
+                                    'periode',
+                                    'jumlah_tagihan',
+                                    'status',
+                                    'created_at'
+                                ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

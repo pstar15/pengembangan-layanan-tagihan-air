@@ -53,9 +53,15 @@ $routes->post('TagihanApi/simpanRiwayat', 'TagihanApi::simpanKeRiwayat');
 $routes->get('TagihanApi/cardData', 'Api\TagihanApi::cardData');
 //Daftar Tagihan Aplikasi
 $routes->get('tagihanapi', 'Api\TagihanApi::index');
+//route kirim aplikasi
+$routes->post('TagihanApi/kirim', 'Api\TagihanApi::kirim');
 $routes->post('update-tagihan', 'Tagihan::update');
 $routes->put('tagihanapi/(:num)', 'Api\TagihanApi::update/$1');
 $routes->resource('tagihanapi', ['controller' => 'Api\TagihanApi']);
+
+// Notifikasi API
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
-    $routes->post('kirim-tagihan', 'TagihanApi::kirimTagihan');
+    $routes->get('notifikasi', 'Notifikasi::index');
+    $routes->get('notifikasi/(:num)/(:num)', 'Notifikasi::filterByMonthYear/$1/$2'); // contoh: /api/notifikasi/07/2025
+    $routes->delete('notifikasi/(:num)', 'Notifikasi::delete/$1');
 });

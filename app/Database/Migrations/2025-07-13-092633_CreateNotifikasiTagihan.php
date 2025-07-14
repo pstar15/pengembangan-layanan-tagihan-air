@@ -10,10 +10,23 @@ class CreateNotifikasiTagihan extends Migration
     {
         //
         $this->forge->addField([
-            'id'         => ['type' => 'INT', 'auto_increment' => true],
-            'judul'      => ['type' => 'VARCHAR', 'constraint' => 255],
-            'deskripsi'  => ['type' => 'TEXT', 'null' => true],
-            'waktu'      => ['type' => 'DATETIME', 'default' => 'CURRENT_TIMESTAMP'],
+            'id' => [
+                'type'           => 'INT',
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
+            'judul' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'deskripsi' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'waktu' => [
+                'type' => 'TIMESTAMP',
+                'null' => false,
+            ],
         ]);
 
         $this->forge->addKey('id', true);

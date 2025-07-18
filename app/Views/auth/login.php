@@ -45,13 +45,18 @@
         }
 
         .bi-eye-slash {
+            position: absolute;
+            margin: 0 auto;
+            margin-top: -45px;
             margin-left: 190px;
-            margin-right: 0;
+            color: #000;
         }
-
         .bi-eye {
+            position: absolute;
+            margin: 0 auto;
+            margin-top: -45px;
             margin-left: 190px;
-            margin-right: 0;
+            color: #000;
         }
 
     </style>
@@ -79,7 +84,12 @@
             <div class="col-md-5 col-lg-4">
                 <div class="card bg-white p-4">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">Login</h3>
+
+                        <div class="logo-img">
+                            <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="Logo-Bumdes">
+                        </div>
+
+                        <h3 class="text-left mb-4">Login</h3>
 
                         <?php if(session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
@@ -91,7 +101,7 @@
                             </div>
                             <div class="mb-3 position-relative">
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                                <span class="btn btn-outline-secondary toggle-password" type="button" style="background: none; border: none; position: absolute; margin-top: 5px; margin-left: 50px;">
+                                <span class="btn btn-outline-secondary toggle-password" type="button" style="background: none; border: none; position: absolute; margin-left: 50px;">
                                     <i class="bi bi-eye-slash" id="togglePasswordIcon"></i>
                                 </span>
                             </div>
@@ -99,7 +109,7 @@
                                 <input class="form-check-input me-2" type="checkbox" name="remember" value="1" id="remember">
                                 <label class="form-check-label" for="remember">Remember Me</label>
                             </div>
-                            <div class="d-grid mb-3">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                         </form>

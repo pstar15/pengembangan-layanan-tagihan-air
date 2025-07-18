@@ -1,16 +1,50 @@
-.bi-eye-slash {
-    position: absolute;
-    margin: 0 auto;
-    margin-top: -40px;
-    margin-left: 150px;
-    color: #000;
+body {
+    font-family: Arial;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
-.bi-eye {
-    position: absolute;
+
+input {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+}
+
+a {
+    color: #0044aa;
+    text-decoration: none;
+}
+
+.logo-img img {
+    width: 100px;
+    margin-bottom: 10px;
+    display: flex;
+    position: relative;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     margin: 0 auto;
-    margin-top: -40px;
-    margin-left: 150px;
-    color: #000;
+    margin-top: 50px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .link-login-register {
@@ -552,13 +586,14 @@ body.sidebar-collapsed .main-content {
     left: 20px;
     z-index: 9999;
     padding: 12px 20px;
-    border-radius: 6px;
+    border-radius: 1px;
+    border: none;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
     opacity: 0.95;
     animation: fadeOut 5s forwards;
 }
 .alert-success {
-    background: #1dcc66;
+    background: #35be40;
     color: #fff;
 }
 .alert-danger {

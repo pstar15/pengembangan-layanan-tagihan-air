@@ -86,7 +86,7 @@ class Auth extends BaseController
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
         ];
         $userModel->save($data);
-        return redirect()->to('/login')->with('success', 'Registrasi berhasil!');
+        return redirect()->to('/login')->with('success', 'Registrasi berhasil! Silakan login untuk masuk ke akun Anda.');
     }
 
     public function loginProcess()

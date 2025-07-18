@@ -50,6 +50,21 @@
             border: none;
         }
 
+        .bi-eye-slash {
+            position: absolute;
+            margin: 0 auto;
+            margin-top: -55px;
+            margin-left: 150px;
+            color: #000;
+        }
+        .bi-eye {
+            position: absolute;
+            margin: 0 auto;
+            margin-top: -55px;
+            margin-left: 150px;
+            color: #000;
+        }
+
     </style>
 </head>
 <body class="animated">
@@ -74,13 +89,18 @@
             <div class="col-md-5 col-lg-4">
                 <div class="card bg-white p-4">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">Register</h3>
+
+                        <div class="logo-img">
+                            <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="Logo-Bumdes">
+                        </div>
+
+                        <h3 class="text-left mb-4">Register</h3>
 
                         <?php if(session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
                         <?php endif; ?>
 
-                        <form action="<?= base_url('/registerProcess') ?>" method="post">
+                        <form action="<?= base_url('/register') ?>" method="post">
                             <div class="mb-3">
                                 <input type="text" name="username" class="form-control" placeholder="Username" required value="<?= old('username') ?>">
                             </div>
@@ -137,7 +157,6 @@
             });
         });
 
-        // Optional: Animasi fade in
         document.querySelector("form").classList.add("fade-in");
     });
 </script>

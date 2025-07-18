@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login | Aplikasi Tagihan Air</title>
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
     <style>
         body {
-            color: #000;
+            background: linear-gradient(135deg, #006dccff, #4facfe);
             height: 100vh;
-            font-family: Arial, sans-serif;
-            background: #2A7B9B;
-            background: radial-gradient(circle,rgba(42, 123, 155, 1) 0%, rgba(87, 147, 199, 1) 50%, rgba(127, 83, 237, 1) 100%);
             display: flex;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            align-items: center;
         }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            animation: slideFadeIn 1s ease;
+
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            color: #000;
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #4facfe;
         }
-        input, button {
-            display: block;
-            width:83%;
-            margin: 10px 0;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
+
+        .btn-primary:hover {
+            background-color: #218838;
         }
-        
+
+        .form-check-input:checked {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .register-link {
+            font-size: 0.9rem;
+        }
+
+        .bi-eye-slash {
+            margin-left: 190px;
+            margin-right: 0;
+        }
+
+        .bi-eye {
+            margin-left: 190px;
+            margin-right: 0;
+        }
+
     </style>
 </head>
 <body class="animated">
@@ -67,42 +75,59 @@
         </div>
     <?php endif; ?>
     <div class="container">
-        <h2>Login</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="card bg-white p-4">
+                    <div class="card-body">
+                        <h3 class="text-center mb-4">Login</h3>
 
-        <form action="/login" method="post">
-            <input type="email" id="email" name="email" placeholder="Email" value="<?= old('email') ?>" required>
-            <div class="input-group">
-                <input type="password" id="login_password" name="password" placeholder="Password" required>
-                <span class="input-group-text toggle-password" data-target="#login_password">
-                    <i class="bi bi-eye-slash"></i>
-                </span>
+                        <?php if(session()->getFlashdata('error')): ?>
+                            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+                        <?php endif; ?>
+
+                        <form action="<?= base_url('/login') ?>" method="post">
+                            <div class="mb-3">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required value="<?= old('email') ?>">
+                            </div>
+                            <div class="mb-3 position-relative">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                                <span class="btn btn-outline-secondary toggle-password" type="button" style="background: none; border: none; position: absolute; margin-top: 5px; margin-left: 50px;">
+                                    <i class="bi bi-eye-slash" id="togglePasswordIcon"></i>
+                                </span>
+                            </div>
+                            <div class="mb-3 d-flex align-items-center">
+                                <input class="form-check-input me-2" type="checkbox" name="remember" value="1" id="remember">
+                                <label class="form-check-label" for="remember">Remember Me</label>
+                            </div>
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-3 register-link">
+                            Belum punya akun? <a href="<?= base_url('/register') ?>">Register</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button type="submit">Login</button>
-        </form>
-        <p class="link-login-register">Belum punya akun? <a href="/register">Daftar</a></p>
+        </div>
     </div>
-    <script src="/js/animation.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggleButtons = document.querySelectorAll(".toggle-password");
 
-            toggleButtons.forEach((btn) => {
-                btn.addEventListener("click", function () {
-                const input = document.querySelector(this.getAttribute("data-target"));
-                const icon = this.querySelector("i");
+<script src="/js/animation.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.querySelector(".toggle-password");
+        const passwordInput = document.querySelector("#password");
+        const icon = document.querySelector("#togglePasswordIcon");
 
-                if (input.type === "password") {
-                    input.type = "text";
-                    icon.classList.remove("bi-eye-slash");
-                    icon.classList.add("bi-eye");
-                } else {
-                    input.type = "password";
-                    icon.classList.remove("bi-eye");
-                    icon.classList.add("bi-eye-slash");
-                }
-                });
-            });
+        toggleBtn.addEventListener("click", function () {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+
+            icon.classList.toggle("bi-eye");
+            icon.classList.toggle("bi-eye-slash");
         });
-    </script>
+    });
+</script>
 </body>
 </html>

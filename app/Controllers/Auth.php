@@ -11,6 +11,26 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Auth extends BaseController
 {
+    public function __construct()
+    {
+        helper('cookie');
+
+        if (!session()->get('logged_in') && get_cookie('remember_me')) {
+            $token = get_cookie('remember_me');
+            $userModel = new \App\Models\UserModel();
+            $user = $userModel->where('remember_token', $token)->first();
+
+            if ($user) {
+                session()->set([
+                    'user_id'   => $user['id'],
+                    'username'  => $user['username'],
+                    'email'     => $user['email'],
+                    'logged_in' => true
+                ]);
+            }
+        }
+    }
+
     public function index()
     {
         //
@@ -73,6 +93,7 @@ class Auth extends BaseController
     {
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
+        $remember = $this->request->getPost('remember');
 
         $userModel = new \App\Models\UserModel();
         $user = $userModel->where('email', $email)->first();
@@ -84,7 +105,17 @@ class Auth extends BaseController
                 'email'     => $user['email'],
                 'logged_in' => true
             ]);
-            
+
+            if ($remember && isset($user['id'])) {
+                $token = bin2hex(random_bytes(32));
+                $data = ['remember_token' => $token];
+
+                if (!empty($data)) {
+                    $userModel->update($user['id'], $data);
+                }
+
+            setcookie('remember_me', $token, time() + (86400 * 30), "/");
+        }
 
             return redirect()->to('/auth/dashboard');
         } else {
@@ -149,6 +180,9 @@ class Auth extends BaseController
     public function logout()
     {
         session()->destroy();
+
+        delete_cookie('remember_me');
+
         return redirect()->to('/login')->with('success', 'Anda berhasil logout.');
     }
 

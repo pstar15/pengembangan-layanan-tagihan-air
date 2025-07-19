@@ -59,6 +59,51 @@
             color: #000;
         }
 
+        .notification-wrapper {
+            width: 70px;
+            height: 50px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .notification-icon {
+            height: 50px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 12px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .notification-popup {
+            display: none;
+            min-width: 250px;
+            bottom: 60px;
+            right: 0;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
     </style>
 </head>
 <body class="animated">
@@ -127,23 +172,24 @@
                     </div>
                 </div>
             </div>
+            <?php if (isset($reset_token)): ?>
+                <div class="notification-wrapper">
+                    <div class="notification-icon" id="notificationIcon" title="Pesan Reset">
+                        <i class="bi bi-chat-square-text"></i>
+                    </div>
+
+                    <div class="notification-popup" id="notificationPopup">
+                        <p><strong>🔐 Reset Password</strong></p>
+                        <a href="<?= base_url('/auth/reset-password/' . $reset_token) ?>">
+                            Klik di sini untuk atur ulang password Anda.
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
         </div>
     </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const toggleBtn = document.querySelector(".toggle-password");
-        const passwordInput = document.querySelector("#password");
-        const icon = document.querySelector("#togglePasswordIcon");
-
-        toggleBtn.addEventListener("click", function () {
-            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
-
-            icon.classList.toggle("bi-eye");
-            icon.classList.toggle("bi-eye-slash");
-        });
-    });
-</script>
+<script src="<?= base_url('js/script.js') ?>" defer></script>
 </body>
 </html>

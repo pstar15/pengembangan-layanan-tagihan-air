@@ -62,7 +62,13 @@ class Auth extends BaseController
 
     public function login()
     {
-        return view('auth/login');
+        $data = [];
+
+        if (session()->getFlashdata('reset_token')) {
+            $data['reset_token'] = session()->getFlashdata('reset_token');
+        }
+
+        return view('auth/login', $data);
     }
 
     public function register()
@@ -218,28 +224,27 @@ class Auth extends BaseController
     public function forgotProcess()
     {
         $email = $this->request->getPost('email');
-        $userModel = new UserModel();
-        $user = $userModel->where('email', $email)->first();
-    
+        $user = $this->userModel->where('email', $email)->first();
+
         if (!$user) {
-            return redirect()->back()->with('error', 'Email tidak ditemukan.');
+            return redirect()->back()->with('error', 'Email anda tidak ditemukan.');
         }
-    
+
         $token = bin2hex(random_bytes(32));
-        $userModel->update($user['id'], [
-            'reset_token' => $token,
+        $this->userModel->update($user['id'], [
+            'reset_token'      => $token,
             'token_expired_at' => date('Y-m-d H:i:s', strtotime('+1 hour'))
         ]);
-    
-        $resetLink = base_url("auth/reset-password/$token");
-    
-        return redirect()->to('/login')->with('success', "Link reset dikirim: <a href='$resetLink'>$resetLink</a>");
+
+        session()->setFlashdata('reset_token', $token);
+        session()->setFlashdata('success', 'Klik notifikasi di sebelah kanan bawah untuk mereset password.');
+
+        return redirect()->to('/login');
     }
 
     public function resetPassword($token)
     {
-        $userModel = new UserModel();
-        $user = $userModel->where('reset_token', $token)->first();
+        $user = $this->userModel->where('reset_token', $token)->first();
 
         if (!$user || strtotime($user['token_expired_at']) < time()) {
             return redirect()->to('/login')->with('error', 'Token tidak valid atau kadaluarsa.');
@@ -275,9 +280,8 @@ class Auth extends BaseController
 
     public function resetKataSandi($token)
     {
-        // validasi token apakah ada di DB
-        $user = $this->userModel->getByResetToken($token);
-        if (!$user) {
+        $user = $this->userModel->where('reset_token', $token)->first();
+        if (!$user || strtotime($user['token_expired_at']) < time()) {
             return redirect()->to('/login')->with('error', 'Token tidak valid atau kadaluarsa.');
         }
 

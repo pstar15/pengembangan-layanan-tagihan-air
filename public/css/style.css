@@ -34,6 +34,7 @@ a {
 
 .logo-img img {
     width: 100px;
+    height: 150px;
     margin-bottom: 10px;
     display: flex;
     position: relative;
@@ -580,26 +581,53 @@ body.sidebar-collapsed .main-content {
     font-size: 14px;
 }
 
+/* Animasi slide masuk */
+@keyframes slideIn {
+    0% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 0.95;
+    }
+}
+
+/* Animasi slide keluar */
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+}
+
 .custom-alert {
     position: fixed;
     top: 20px;
     left: 20px;
     z-index: 9999;
     padding: 12px 20px;
-    border-radius: 1px;
+    border-radius: 5px;
     border: none;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
     opacity: 0.95;
-    animation: fadeOut 5s forwards;
+    animation: slideIn 0.6s ease-out forwards;
 }
+
+/* Warna alert */
 .alert-success {
     background: #35be40;
     color: #fff;
 }
 .alert-danger {
-    background: #e74c3c;
+    background: #d85749;
     color: #fff;
 }
+/* END CSS ALERT */
 /* Animasi menghilang */
 @keyframes fadeOut {
     0% { opacity: 1; }

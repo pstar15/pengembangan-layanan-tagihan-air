@@ -7,12 +7,27 @@ setTimeout(() => {
         setTimeout(() => alertBox.remove(), 1000);
     }
 }, 5000);
-//sidebar
+// SCRIPT ALERT
+document.addEventListener('DOMContentLoaded', function () {
+    const alertBox = document.getElementById('alertBox');
+    if (alertBox) {
+        // Setelah 4 detik, mulai animasi slide keluar
+        setTimeout(() => {
+            alertBox.style.animation = 'slideOut 0.6s ease-in forwards';
+
+            // Hapus elemen setelah animasi selesai
+            setTimeout(() => {
+                alertBox.remove();
+            }, 600); // sama dengan durasi animasi
+        }, 4000);
+    }
+});
+// END SCRIPT ALERT
+// SCRIPT SIDEBAR
 document.addEventListener('DOMContentLoaded', function () {
     const body = document.body;
     const toggleButton = document.getElementById('sidebarToggle');
 
-    // Baca status sidebar dari localStorage
     const isSidebarOpen = localStorage.getItem('sidebarOpen');
 
     if (isSidebarOpen === 'false') {
@@ -23,19 +38,45 @@ document.addEventListener('DOMContentLoaded', function () {
         body.classList.remove('sidebar-collapsed');
     }
 
-    // Event toggle klik
     toggleButton?.addEventListener('click', function () {
         body.classList.toggle('sidebar-open');
         body.classList.toggle('sidebar-collapsed');
 
-        // Simpan status
         const isOpen = body.classList.contains('sidebar-open');
         localStorage.setItem('sidebarOpen', isOpen);
     });
 });
-// script Tambah data tagihan dan Edit data Tagihan
+// END SCRIPT SIDEBAR
+// SCRIPT TOGGLE PASSWORD
 document.addEventListener("DOMContentLoaded", function () {
-    // Fade in alert
+    const toggleBtn = document.querySelector(".toggle-password");
+    const passwordInput = document.querySelector("#password");
+    const icon = document.querySelector("#togglePasswordIcon");
+
+    toggleBtn.addEventListener("click", function () {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+
+        icon.classList.toggle("bi-eye");
+        icon.classList.toggle("bi-eye-slash");
+    });
+});
+//END SCRIPT TOGGLE PASSWORD
+// SCRIPT NOTIFIKASI POPUP
+const icon = document.getElementById('notificationIcon');
+const popup = document.getElementById('notificationPopup');
+
+if (icon && popup) {
+    icon.addEventListener('click', () => {
+    popup.style.display = 'block';
+    setTimeout(() => {
+        popup.style.display = 'none';
+    }, 8000);
+    });
+}
+// END SCRIPT NOTIFIKASI POPUP
+// SCRIPT TAMBAH AND EDIT DATA TAGIHAN
+document.addEventListener("DOMContentLoaded", function () {
     const alertBox = document.querySelector(".alert-error");
     if (alertBox) {
         alertBox.style.opacity = 0;
@@ -44,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
             alertBox.style.opacity = 1;
         }, 100);
 
-        // Auto dismiss after 4s
         setTimeout(() => {
             alertBox.style.opacity = 0;
             setTimeout(() => {
@@ -53,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 4000);
     }
 
-    // script Input Focus
     const inputs = document.querySelectorAll(".form-tagihan input, .form-tagihan select");
     inputs.forEach((input) => {
         input.addEventListener("focus", () => {
@@ -64,7 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-//script Filter Data Tagihan
+
+// END SCRIPT TAMBAH AND EDTI DATA TAGIHAN
+// SCRIPT FILTER DATA TAGIHAN
 document.addEventListener('DOMContentLoaded', function () {
     const filter = document.getElementById('statusFilter');
     const rows = document.querySelectorAll('.tagihan-row');
@@ -88,7 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-//script loading pencarian data tagihan
+// EDN SCRIPT FILTER DATA TAGIHAN
+// SCRIPT CARI DATA TAGIHAN
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('filterForm');
     const input = document.getElementById('keywordInput');
@@ -121,30 +163,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-// Script Dropdown Pesan Notifikasi
+// END SCRIPT CARI DATA TAGIHAN
+// SCRIPT DROPDOWN PESAN NOTIFIKASI
 document.addEventListener('DOMContentLoaded', function () {
     const notifBtn = document.getElementById('notifikasiBtn');
     const dropdown = document.querySelector('.notifikasi-dropdown');
-    let hasMarked = false; // apakah sudah ditandai sebagai dilihat
+    let hasMarked = false;
 
-    // Fungsi untuk menghapus dot merah dan isi notifikasi
     function bersihkanNotifikasi() {
-        // Hapus titik merah
         const dot = notifBtn.querySelector('.dot');
         if (dot) dot.remove();
 
-        // Bersihkan isi notifikasi (kecuali header & footer)
         const items = dropdown.querySelectorAll('.dropdown-item');
         items.forEach(item => item.remove());
 
-        // Tambahkan pesan kosong
         const kosong = document.createElement('div');
         kosong.className = 'dropdown-item text-muted';
         kosong.textContent = 'Tidak ada notifikasi';
         dropdown.insertBefore(kosong, dropdown.querySelector('.dropdown-footer'));
     }
 
-    // Event klik tombol
     notifBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         const isOpen = dropdown.classList.contains('show');
@@ -152,7 +190,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!isOpen) {
             dropdown.classList.add('show');
 
-            // AJAX hanya saat pertama dibuka
             if (!hasMarked) {
                 fetch('/notifikasi/markAllAsRead', {
                     method: 'POST',
@@ -172,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Klik di luar area akan menutup dropdown dan bersihkan
     document.addEventListener('click', function (e) {
         if (!notifBtn.contains(e.target) && !dropdown.contains(e.target)) {
             if (dropdown.classList.contains('show')) {
@@ -182,3 +218,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+// END SCRIPT DROPDOWN PESAN NOTIFIKASI

@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
     <title>Lupa Password | Aplikasi Tagihan Air</title>
     <style>
         body {
@@ -53,15 +57,20 @@
     </style>
 </head>
 <body>
+    <!-- alert -->
+    <?php if(session()->getFlashdata('success')): ?>
+        <div class="alert alert-success custom-alert" id="alertBox">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if(session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger custom-alert" id="alertBox">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+    <?php endif; ?>
     <div class="auth-card">
         <div class="form-title">Lupa Password</div>
-        
-        <?php if(session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-        <?php endif; ?>
-        <?php if(session()->getFlashdata('success')): ?>
-            <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
-        <?php endif; ?>
 
         <form action="<?= base_url('auth/forgotProcess') ?>" method="post">
             <div class="mb-3">
@@ -77,5 +86,6 @@
         </div>
     </div>
 
+    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -58,14 +58,13 @@
             margin-left: 190px;
             color: #000;
         }
-
         .notification-wrapper {
             width: 70px;
             height: 50px;
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
-            z-index: 9999;
+            z-index: 999;
         }
 
         .notification-icon {
@@ -76,22 +75,21 @@
             border-radius: 50%;
             font-size: 22px;
             cursor: pointer;
-            display: inline-block;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             animation: float 2s ease-in-out infinite;
         }
 
         .notification-popup {
             display: none;
-            min-width: 250px;
+            position: absolute;
             bottom: 60px;
             right: 0;
-            padding: 12px 16px;
-            margin-top: 8px;
-            border-radius: 10px;
             background: #fff;
+            padding: 12px;
+            border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             animation: fadeIn 0.5s ease;
+            width: 230px;
         }
 
         @keyframes float {

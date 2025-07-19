@@ -16,6 +16,12 @@ $routes->post('/login', 'Auth::loginProcess');
 $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::registerProcess');
 $routes->get('/logout', 'Auth::logout');
+//Route Reset Password
+$routes->get('/forgot', 'Auth::forgot');
+$routes->post('/auth/forgotProcess', 'Auth::forgotProcess');
+$routes->get('/auth/reset-password/(:any)', 'Auth::resetPassword/$1');
+$routes->post('/auth/resetProcess', 'Auth::resetProcess');
+//Route Dashboard
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/auth/dashboard', 'Auth::dashboard');
     $routes->get('/tagihan', 'Tagihan::index');
@@ -44,7 +50,6 @@ $routes->post('riwayat/hapus', 'Riwayat::hapus');
 $routes->get('riwayat/filter', 'Riwayat::filter');
 //export data
 $routes->get('riwayat/export/(:any)', 'Riwayat::export/$1');
-
 //Controller Api
 //send data ke aplikasi
 $routes->get('Tagihan/kirim/(:num)', 'Tagihan::kirimData/$1');
@@ -58,7 +63,6 @@ $routes->post('TagihanApi/kirim', 'Api\TagihanApi::kirim');
 $routes->post('update-tagihan', 'Tagihan::update');
 $routes->put('tagihanapi/(:num)', 'Api\TagihanApi::update/$1');
 $routes->resource('tagihanapi', ['controller' => 'Api\TagihanApi']);
-
 // Notifikasi API
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function($routes) {
     $routes->get('notifikasi', 'Notifikasi::index');

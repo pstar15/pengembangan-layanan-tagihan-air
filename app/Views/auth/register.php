@@ -72,7 +72,7 @@
         PR add form input confirmasi password
         and icon eye and eye-slash
     -->
-        <!-- alert -->
+    <!-- alert -->
     <?php if(session()->getFlashdata('success')): ?>
         <div class="alert alert-success custom-alert" id="alertBox">
             <?= session()->getFlashdata('success') ?>

@@ -11,14 +11,17 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Auth extends BaseController
 {
+    protected $userModel;
+
     public function __construct()
     {
         helper('cookie');
 
+        $this->userModel = new \App\Models\UserModel();
+
         if (!session()->get('logged_in') && get_cookie('remember_me')) {
             $token = get_cookie('remember_me');
-            $userModel = new \App\Models\UserModel();
-            $user = $userModel->where('remember_token', $token)->first();
+            $user = $this->userModel->where('remember_token', $token)->first();
 
             if ($user) {
                 session()->set([
@@ -191,8 +194,8 @@ class Auth extends BaseController
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
         return $db->table('notifikasi_tagihan')
-            ->where('dilihat', 0) // hanya notifikasi baru
-            ->orderBy('waktu', 'DESC')
+        ->where('dilihat', 0) // hanya notifikasi baru
+        ->orderBy('waktu', 'DESC')
             ->limit(10)
             ->get()
             ->getResultArray();
@@ -206,4 +209,79 @@ class Auth extends BaseController
             ->where('dilihat', 0)
             ->countAllResults();
     }
+
+    public function forgot()
+    {
+        return view('auth/forgot');
+    }
+
+    public function forgotProcess()
+    {
+        $email = $this->request->getPost('email');
+        $userModel = new UserModel();
+        $user = $userModel->where('email', $email)->first();
+    
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email tidak ditemukan.');
+        }
+    
+        $token = bin2hex(random_bytes(32));
+        $userModel->update($user['id'], [
+            'reset_token' => $token,
+            'token_expired_at' => date('Y-m-d H:i:s', strtotime('+1 hour'))
+        ]);
+    
+        $resetLink = base_url("auth/reset-password/$token");
+    
+        return redirect()->to('/login')->with('success', "Link reset dikirim: <a href='$resetLink'>$resetLink</a>");
+    }
+
+    public function resetPassword($token)
+    {
+        $userModel = new UserModel();
+        $user = $userModel->where('reset_token', $token)->first();
+
+        if (!$user || strtotime($user['token_expired_at']) < time()) {
+            return redirect()->to('/login')->with('error', 'Token tidak valid atau kadaluarsa.');
+        }
+
+        return view('auth/reset_password', ['token' => $token]);
+    }
+
+    public function resetProcess()
+    {
+        $token    = $this->request->getPost('token');
+        $password = $this->request->getPost('password');
+        $confirm  = $this->request->getPost('confirm_password');
+
+        if ($password !== $confirm) {
+            return redirect()->back()->with('error', 'Konfirmasi password tidak cocok.');
+        }
+
+        $user = $this->userModel->where('reset_token', $token)->first();
+
+        if (!$user || strtotime($user['token_expired_at']) < time()) {
+            return redirect()->to('/login')->with('error', 'Token tidak valid atau sudah kadaluarsa.');
+        }
+
+        $this->userModel->update($user['id'], [
+            'password'         => password_hash($password, PASSWORD_DEFAULT),
+            'reset_token'      => null,
+            'token_expired_at' => null
+        ]);
+
+        return redirect()->to('/login')->with('success', 'Password berhasil direset. Silakan login.');
+    }
+
+    public function resetKataSandi($token)
+    {
+        // validasi token apakah ada di DB
+        $user = $this->userModel->getByResetToken($token);
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'Token tidak valid atau kadaluarsa.');
+        }
+
+        return view('auth/reset_password', ['token' => $token]);
+    }
+
 }

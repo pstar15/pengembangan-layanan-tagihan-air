@@ -117,13 +117,19 @@
                         <div class="text-center mt-3 register-link">
                             Belum punya akun? <a href="<?= base_url('/register') ?>">Register</a>
                         </div>
+
+                        <div class="text-center">
+                            <a href="<?= base_url('/forgot') ?>" class="btn btn-link text-decoration-none">
+                                <i class="bi bi-shield-lock-fill me-1"></i> Lupa Password?
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-<script src="/js/animation.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const toggleBtn = document.querySelector(".toggle-password");

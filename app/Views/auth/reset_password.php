@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Reset Password | Aplikasi Tagihan Air</title>
     <style>
         body {
@@ -93,26 +93,5 @@
     </div>
 
 <script src="/js/script.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const toggles = document.querySelectorAll(".toggle-password");
-
-        toggles.forEach(function (toggle) {
-            toggle.addEventListener("click", function () {
-                const targetSelector = toggle.getAttribute("data-target");
-                const input = document.querySelector(targetSelector);
-                const icon = toggle.querySelector("i");
-
-                if (input.type === "password") {
-                    input.type = "text";
-                    icon.classList.replace("bi-eye-slash", "bi-eye");
-                } else {
-                    input.type = "password";
-                    icon.classList.replace("bi-eye", "bi-eye-slash");
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>

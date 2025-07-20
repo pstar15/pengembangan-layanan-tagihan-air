@@ -65,6 +65,15 @@
             color: #000;
         }
 
+        .toggle-password {
+            position: absolute;
+            right: 0;
+            margin-top: 1px;
+            margin-right: 170px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body class="animated">
@@ -110,14 +119,14 @@
 
                             <div class="mb-3 position-relative">
                                 <input type="password" class="form-control password-register" id="password" name="password" placeholder="Password" required>
-                                <span class="input-group-text toggle-password" data-target="#password" style="background: none; border: none; position: absolute; margin-top: -5px; margin-left: 90px;">
+                                <span class="input-group-text toggle-password" data-target="#password">
                                     <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>
 
                             <div class="mb-3 position-relative">
                                 <input type="password" class="form-control password-register" id="confirm_password" name="confirm_password" placeholder="Konfirmasi Password" required>
-                                <span class="input-group-text toggle-password" data-target="#confirm_password" style="background: none; border: none; position: absolute; margin-top: -5px; margin-left: 90px;">
+                                <span class="input-group-text toggle-password" data-target="#confirm_password">
                                     <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>

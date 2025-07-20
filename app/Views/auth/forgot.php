@@ -19,6 +19,8 @@
             align-items: center;
             justify-content: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .auth-card {
@@ -70,11 +72,11 @@
         </div>
     <?php endif; ?>
     <div class="auth-card">
-        <div class="form-title">Lupa Password</div>
+        <div class="form-title text-black" style="text-align: left;">Lupa Password</div>
 
         <form action="<?= base_url('auth/forgotProcess') ?>" method="post">
             <div class="mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Masukkan email Anda" required>
+                <input type="email" name="email" class="form-control" placeholder="Masukkan email" required>
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Kirim Link Reset</button>

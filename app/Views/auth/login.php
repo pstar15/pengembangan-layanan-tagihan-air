@@ -58,48 +58,14 @@
             margin-left: 190px;
             color: #000;
         }
-        .notification-wrapper {
-            width: 70px;
-            height: 50px;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-        }
 
-        .notification-icon {
-            height: 50px;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 12px;
-            border-radius: 50%;
-            font-size: 22px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation: float 2s ease-in-out infinite;
-        }
-
-        .notification-popup {
-            display: none;
+        .toggle-password {
             position: absolute;
-            bottom: 60px;
             right: 0;
-            background: #fff;
-            padding: 12px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            animation: fadeIn 0.5s ease;
-            width: 230px;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            margin-top: 7px;
+            margin-right: 220px;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
 
     </style>
@@ -142,9 +108,9 @@
                             <div class="mb-3">
                                 <input type="email" name="email" class="form-control" placeholder="Email" required value="<?= old('email') ?>">
                             </div>
-                            <div class="mb-3 position-relative">
+                            <div class="mb-3 position-relative input-password-login">
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                                <span class="btn btn-outline-secondary toggle-password" type="button" style="background: none; border: none; position: absolute; margin-left: 50px;">
+                                <span class="toggle-password" type="button">
                                     <i class="bi bi-eye-slash" id="togglePasswordIcon"></i>
                                 </span>
                             </div>

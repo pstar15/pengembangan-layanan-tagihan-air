@@ -17,6 +17,8 @@
             align-items: center;
             justify-content: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .auth-card {
@@ -50,16 +52,20 @@
         }
 
         .toggle-password {
+            position: absolute;
+            right: 0;
+            margin-top: -27px;
+            margin-right: 10px;
+            transform: translateY(-50%);
             cursor: pointer;
             background: none;
             border: none;
-            position: absolute;
         }
     </style>
 </head>
 <body>
     <div class="auth-card">
-        <div class="form-title">Reset Password Baru</div>
+        <div class="form-title text-black" style="text-align: left;">Reset Password Baru</div>
 
         <?php if(session()->getFlashdata('error')): ?>
             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
@@ -71,14 +77,14 @@
             <div class="mb-3 position-relative">
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password baru" required>
                 <span class="input-group-text toggle-password" type="button" data-target="#password">
-                    <i class="bi bi-eye-slash" style="background: none; border: none; position: absolute; margin-left: 300px; margin-top: -46px;"></i>
+                    <i class="bi bi-eye-slash"></i>
                 </span>
             </div>
 
             <div class="mb-3 position-relative">
                 <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Konfirmasi password" required>
                 <span class="input-group-text toggle-password" type="button" data-target="#confirm_password">
-                    <i class="bi bi-eye-slash" style="background: none; border: none; position: absolute; margin-left: 300px; margin-top: -46px;"></i>
+                    <i class="bi bi-eye-slash"></i>
                 </span>
             </div>
 
@@ -92,6 +98,25 @@
         </div>
     </div>
 
-<script src="/js/script.js"></script>
+<script>
+    document.querySelectorAll('.toggle-password').forEach(function (toggle) {
+    toggle.addEventListener('click', function () {
+        const targetSelector = this.getAttribute('data-target');
+        const targetInput = document.querySelector(targetSelector);
+        const icon = this.querySelector('i');
+
+            if (targetInput.type === 'password') {
+                targetInput.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            } else {
+                targetInput.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            }
+        });
+    });
+</script>
+</script>
 </body>
 </html>

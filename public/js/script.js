@@ -49,20 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 // END SCRIPT SIDEBAR
 // SCRIPT TOGGLE PASSWORD
 document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.querySelector(".toggle-password");
-    const passwordInput = document.querySelector("#password");
-    const icon = document.querySelector("#togglePasswordIcon");
-
-    toggleBtn.addEventListener("click", function () {
-        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-
-        icon.classList.toggle("bi-eye");
-        icon.classList.toggle("bi-eye-slash");
-    });
-});
-// SCRIPT TOGGLE PASSWORD
-document.addEventListener("DOMContentLoaded", function () {
     const toggles = document.querySelectorAll(".toggle-password");
 
     toggles.forEach(function (toggle) {

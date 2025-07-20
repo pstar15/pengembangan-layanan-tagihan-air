@@ -115,16 +115,21 @@
 <body>
 
     <div class="navbar">
-        <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air</h1>
+        <span class="menu-toggle" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </span>
+        <div class="nav-title">
+            <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="copyright-bumdesa" class="nav-logo">
+            <span oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air BUMDesa</span>
+        </div>
         <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
         <div class="profile-dropdown">
             <button class="profile-button" id="notifikasiBtn">
                 <i class="bi bi-bell"></i>
-                <?php if (!empty($notifikasi)) : ?>
-                    <span class="badge"><?= count($notifikasi) ?></span>
+                <?php if (!empty($notifikasi_baru) && $notifikasi_baru > 0): ?>
+                    <span class="dot"></span>
                 <?php endif; ?>
             </button>
 
@@ -136,9 +141,11 @@
                 <?php if (!empty($notifikasi)) : ?>
                     <?php foreach ($notifikasi as $notif) : ?>
                         <div class="dropdown-item">
-                            <div class="notif-title"><?= esc($notif->judul) ?></div>
-                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif->waktu)) ?></div>
+                            <div class="notif-title"><?= esc($notif['judul']) ?></div>
+                            <div class="notif-desc"><?= esc($notif['deskripsi']) ?></div>
+                            <div class="notif-time"><?= date('d/m/Y H:i:s', strtotime($notif['waktu'])) ?></div>
                         </div>
+                        <hr class="notif-divider">
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="dropdown-item text-muted">Tidak ada notifikasi</div>

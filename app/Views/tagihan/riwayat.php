@@ -68,8 +68,13 @@
 
     <!-- navbar -->
     <div class="navbar">
-        <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air</h1>
+        <span class="menu-toggle" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </span>
+        <div class="nav-title">
+            <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="copyright-bumdesa" class="nav-logo">
+            <span oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air BUMDesa</span>
+        </div>
         <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>

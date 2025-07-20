@@ -68,7 +68,7 @@
         <span class="menu-toggle" id="sidebarToggle">
             <i class="bi bi-list"></i>
         </span>
-        <div class="logo-navbar">
+        <div class="nav-title">
             <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="copyright-bumdesa" class="nav-logo">
             <span oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air BUMDesa</span>
         </div>
@@ -186,34 +186,36 @@
                     </div>
                 </div>
                 <div class="tabel-daftar-akun">
-                    <table class="table-da-akun" cellpadding="8" cellspacing="0">
-                        <div class="thead-da">
-                            <tr class="table-tr-daftar-akun">
-                                <th class="th-da">Username</th>
-                                <th class="th-da">Email</th>
-                                <th  class="th-da">Status</th>
-                                <th  class="th-da">Terakhir Online</th>
-                            </tr>
-                        </div>
-                        <div class="tbody-da">
-                            <?php foreach ($akun_android as $akun): ?>
-                                <tr class="table-tr-row-daftar-akun">
-                                    <td  class="td-da"><?= esc($akun['username']) ?></td>
-                                    <td><?= esc($akun['email']) ?></td>
-                                    <td  class="td-da">
-                                        <?php if ($akun['is_online']): ?>
-                                            <span style="color:green;">Aktif</span>
-                                        <?php else: ?>
-                                            <span style="color:red;">Offline</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td  class="td-da"><?= esc($akun['last_online']) ?: '-' ?></td>
+                    <div class="table-da-akun">
+                        <table cellpadding="8" cellspacing="0">
+                            <thead>
+                                <tr class="table-tr-daftar-akun">
+                                    <th class="th-da">Username</th>
+                                    <th class="th-da">Email</th>
+                                    <th  class="th-da">Status</th>
+                                    <th  class="th-da">Terakhir Online</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </div>
-                    </table>
-                    <h5 style="position: absolute;margin-top: 433px;margin-left: 140px;">Daftar Akun</h5>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($akun_android as $akun): ?>
+                                    <tr class="table-tr-row-daftar-akun">
+                                        <td  class="td-da"><?= esc($akun['username']) ?></td>
+                                        <td class="td-da"><?= esc($akun['email']) ?></td>
+                                        <td  class="td-da">
+                                            <?php if ($akun['is_online']): ?>
+                                                <span style="color:green;">Aktif</span>
+                                            <?php else: ?>
+                                                <span style="color:red;">Offline</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td  class="td-da"><?= esc($akun['last_online']) ?: '-' ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <h5 style="position: absolute;margin-top: 500px;margin-left: 170px;">Daftar Akun</h5>
             </div>
 
             <div class="table-container">

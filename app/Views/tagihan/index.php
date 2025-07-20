@@ -8,7 +8,7 @@
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-    <title>Daftar Tagihan Air</title>
+    <title>Tagihan | Tagihan Air</title>
     <style>
         .container {
             width: 100%;

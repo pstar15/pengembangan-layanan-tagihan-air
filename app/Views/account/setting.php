@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-    <title>Account Setting</title>
+    <title>Account Setting | Tagihan Air</title>
     <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: #f2f5f9;
-        transition: transform 0.3s ease;
-        animation: fadeIn 0.5s ease;
-    }
-
     .container {
         max-width: 700px;
         width: 100%;
@@ -110,7 +105,24 @@
     .logout:hover {
         color:rgb(255, 0, 0);
     }
-</style>
+
+    .menu-toggle {
+        width: 35px;
+        height: 20px;
+        cursor: pointer;
+        font-size: 20px;
+        margin-left: 10px;
+        color: #b4b4b4;
+        padding: 3px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+        color: #d3d3d3;
+        border: 2px solid #d3d3d3;
+    }
+    </style>
 </head>
 <body>
 
@@ -271,34 +283,32 @@
         </div>
     </div>
 
-    <script src="/js/script.js"></script>
-    <script>
-        setTimeout(function() {
-            const alerts = document.querySelectorAll('.message');
-            alerts.forEach(alert => {
-                alert.style.transition = 'opacity 0.5s ease';
-                alert.style.opacity = '0';
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 5000);
-    </script>
-    <script>
-        function togglePassword(id, el) {
-            const input = document.getElementById(id);
-            const icon = el.querySelector('i');
+<script src="<?= base_url('js/script.js') ?>" defer></script>
+<script>
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.message');
+        alerts.forEach(alert => {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 5000);
+</script>
+<script>
+    function togglePassword(id, el) {
+        const input = document.getElementById(id);
+        const icon = el.querySelector('i');
 
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
-            } else {
-                input.type = "password";
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            }
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        } else {
+            input.type = "password";
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
         }
-    </script>
-
-
+    }
+</script>
 </body>
 </html>

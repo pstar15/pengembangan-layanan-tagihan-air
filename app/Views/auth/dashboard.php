@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LOGO BROWSER -->
+    <link rel="icon" type="image/png" href="<?= base_url('img/logo-bumdes.png') ?>">
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-    <title>Dashboard</title>
+    <title>Dashboard | Tagihan Air BUMDesa</title>
     <style>
         body {
-            background-color:rgb(255, 255, 255);
+            background-color: #f7f7f7ff;
         }
         h2 {
             text-align: left;
@@ -19,7 +24,7 @@
             color: #a3a3a3;
         }
         .container {
-            margin-top: 90px;
+            margin-top: 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,8 +65,13 @@
     -->
 
     <div class="navbar">
-        <span class="menu-toggle" id="sidebarToggle">&#9776;</span>
-        <h1 oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air</h1>
+        <span class="menu-toggle" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </span>
+        <div class="logo-navbar">
+            <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="copyright-bumdesa" class="nav-logo">
+            <span oncontextmenu="return false;" class="navbar-title no-copy">Tagihan Air BUMDesa</span>
+        </div>
         <div oncontextmenu="return false;" class="navbar-spacer no-copy">
             <?= session()->get('username'); ?>
         </div>
@@ -138,7 +148,7 @@
     <div class="main-content" id="mainContent">
         <div class="container">
             <div class="card-container">
-                <div class="">
+                <div>
                     <div class="card total">
                         <i class="bi bi-database" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_tagihan ?></p>
@@ -147,7 +157,7 @@
                     </div>
                     <h5>card total tagihan</h5>
                 </div>
-                <div class="">
+                <div>
                     <div class="card lunas">
                         <i class="bi bi-database-check" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_lunas ?></p>
@@ -156,7 +166,7 @@
                     </div>
                     <h5>card tagihan lunas</h5>
                 </div>
-                <div class="">
+                <div>
                     <div class="card belum-lunas">
                         <i class="bi bi-database-exclamation" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_belum_lunas ?></p>
@@ -245,6 +255,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="<?= base_url('js/script.js') ?>" defer></script>
 <script>
 const ctxKurva = document.getElementById('chartKurva').getContext('2d');

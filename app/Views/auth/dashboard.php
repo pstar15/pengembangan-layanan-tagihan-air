@@ -11,6 +11,7 @@
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/daftar_akun.css') ?>">
     <title>Dashboard | Tagihan Air BUMDesa</title>
     <style>
         body {
@@ -32,6 +33,7 @@
             text-align: center;
         }
         .table-container {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -193,38 +195,40 @@
                         <h5 class="card-title">Chart Kurva</h5>
                     </div>
                 </div>
+                <div class="table-daftar-akun-container">
+                    <div class="tabel-daftar-akun">
+                        <table class="table-da-akun" cellpadding="8" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="th-da">Username</th>
+                                    <th class="th-da">Email</th>
+                                    <th  class="th-da">Status</th>
+                                    <th  class="th-da">Terakhir Online</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($akun_android as $akun): ?>
+                                <tr>
+                                    <td  class="da-nama"><?= esc($akun['username']) ?></td>
+                                    <td ><?= esc($akun['email']) ?></td>
+                                    <td >
+                                        <?php if ($akun['is_online']): ?>
+                                            <span style="color:green;">Aktif</span>
+                                        <?php else: ?>
+                                            <span style="color:red;">Offline</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= esc($akun['last_online']) ?: '-' ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <h5 style="position: absolute;margin-left: 170px;">Daftar Akun</h5>
+                    </div>
+                </div>
             </div>
 
             <div class="table-container">
-                <div class="tabel-daftar-akun">
-                    <table class="table-da-akun" cellpadding="8" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class="th-da">Username</th>
-                                <th class="th-da">Email</th>
-                                <th  class="th-da">Status</th>
-                                <th  class="th-da">Terakhir Online</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($akun_android as $akun): ?>
-                            <tr>
-                                <td  class="da-nama"><?= esc($akun['username']) ?></td>
-                                <td ><?= esc($akun['email']) ?></td>
-                                <td >
-                                    <?php if ($akun['is_online']): ?>
-                                        <span style="color:green;">Aktif</span>
-                                    <?php else: ?>
-                                        <span style="color:red;">Offline</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= esc($akun['last_online']) ?: '-' ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <h5 style="position: absolute;margin-top: 500px;margin-left: 170px;">Daftar Akun</h5>
-                </div>
                 <div class="table-responsive" style="box-shadow: none;">
                     <table class="table table-bordered table-striped styled-table">
                         <thead>

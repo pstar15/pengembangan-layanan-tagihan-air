@@ -514,58 +514,6 @@ body.sidebar-collapsed .main-content {
         min-width: 90%;
     }
 }
-
-/* Tabel Styling */
-.styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    font-size: 15px;
-    background-color: #fff;
-    color: #000;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
-    overflow: hidden;
-    text-align: center;
-}
-
-.styled-table thead {
-    background-color: #2980b9;
-    color: #fff;
-    text-align: center;
-}
-
-.styled-table th,
-.styled-table td {
-    padding: 14px 18px;
-    border-bottom: 1px solid #ddd;
-    border: none;
-    vertical-align: middle;
-}
-
-.styled-table tbody tr:hover {
-    background-color: #eceff3;
-    transition: background-color 0.3s ease;
-}
-
-.styled-table td:nth-child(1) {
-    width: 50px;
-}
-.table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-.table td.nama-col,
-.table td.alamat-col {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
-    text-align: left;
-}
-
 /* Tombol Edit dan Hapus */
 .btn-edit, .btn-delete {
     padding: 8px 12px;
@@ -1620,14 +1568,19 @@ canvas {
 .chart-container {
     display: flex;
     margin-top: -30px;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease;
 }
 
+.chart-body {
+    max-width: 550px;
+    min-width: 500px;
+}
+
 .chart-line {
-    height: 387px; /* Tinggi default, bisa diubah sesuai kebutuhan */
+    height: 350px; /* Tinggi default, bisa diubah sesuai kebutuhan */
 }
 
 @media (max-width: 768px) {
@@ -1642,68 +1595,112 @@ canvas {
         height: 250px;
     }
 }
-/* CSS Tabel Daftar Akun */
-.tabel-daftar-akun {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: -35px;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-
-.table-da-akun {
-    width: 100%;
-    height: 81%;
-    display: flex;
-    margin-left: 30px;
-    border: none;
+/* Tabel Styling */
+.styled-table {
+    width: 50%;
     border-collapse: collapse;
-    border-radius: 5px;
     margin-bottom: 20px;
-    font-size: 13px;
+    font-size: 15px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
     overflow: hidden;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
 }
 
-.thead-da {
+.styled-table thead {
     background-color: #2980b9;
-}
-.tbody-da {
-    color: #000;
-}
-
-.table-tr-daftar-akun {
-    margin-right: 0;
-    background: #2980b9;
     color: #fff;
-    border: none;
+    text-align: center;
 }
 
-.table-tr-row-daftar-akun {
-    color: #000;
-    border: none;
-}
-
-.table-tr-daftar-akun .th-da {
-    width: 200px;
-}
-
-.table-da-akun .th-da .td-da {
+.styled-table th,
+.styled-table td {
     padding: 14px 18px;
     border-bottom: 1px solid #ddd;
     border: none;
     vertical-align: middle;
 }
 
-.table-da-akun .td-da:nth-child(1) {
-    width: 50px;
+.styled-table tbody tr:hover {
+    background-color: #eceff3;
+    transition: background-color 0.3s ease;
 }
 
-.table-da-akun .thead-da .th-da {
+.styled-table td:nth-child(1) {
+    width: 50px;
+}
+.table thead th {
     position: sticky;
     top: 0;
     z-index: 2;
+}
+.table td.nama-col,
+.table td.alamat-col {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    text-align: left;
+}
+/* CSS Tabel Daftar Akun */
+.tabel-akun {
+    width: 45%;
+}
+
+.tabel-daftar-akun {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.tabel-daftar-akun {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 15px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.tabel-daftar-akun thead {
+    background-color: #2980b9;
+    color: #fff;
+    text-align: center;
+    height: 30px;
+}
+
+.tabel-daftar-akun th,
+.tabel-daftar-akun td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #ddd;
+    border: none;
+    vertical-align: middle;
+}
+
+.tabel-daftar-akun tbody tr:hover {
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
+}
+
+.tabel-daftar-akun .da-nama {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    text-align: left;
+}
+.tabel-daftar-akun,
+.table-responsive {
+    flex: 1;
+    min-width: 300px;
 }

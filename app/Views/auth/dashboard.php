@@ -32,7 +32,15 @@
             text-align: center;
         }
         .table-container {
-            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .table-responsive {
+            overflow-x: auto;
             max-height: 400px;
             overflow-y: auto;
             position: relative;
@@ -180,45 +188,43 @@
             <!--Chart-->
             <div class="chart-container">
                 <div class="chart-curva">
-                    <div class="card-body">
+                    <div class="chart-body">
                         <canvas id="chartKurva" class="chart-line"></canvas>
                         <h5 class="card-title">Chart Kurva</h5>
                     </div>
                 </div>
-                <div class="tabel-daftar-akun">
-                    <div class="table-da-akun">
-                        <table cellpadding="8" cellspacing="0">
-                            <thead>
-                                <tr class="table-tr-daftar-akun">
-                                    <th class="th-da">Username</th>
-                                    <th class="th-da">Email</th>
-                                    <th  class="th-da">Status</th>
-                                    <th  class="th-da">Terakhir Online</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($akun_android as $akun): ?>
-                                    <tr class="table-tr-row-daftar-akun">
-                                        <td  class="td-da"><?= esc($akun['username']) ?></td>
-                                        <td class="td-da"><?= esc($akun['email']) ?></td>
-                                        <td  class="td-da">
-                                            <?php if ($akun['is_online']): ?>
-                                                <span style="color:green;">Aktif</span>
-                                            <?php else: ?>
-                                                <span style="color:red;">Offline</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td  class="td-da"><?= esc($akun['last_online']) ?: '-' ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <h5 style="position: absolute;margin-top: 500px;margin-left: 170px;">Daftar Akun</h5>
             </div>
 
             <div class="table-container">
+                <div class="tabel-daftar-akun">
+                    <table class="table-da-akun" cellpadding="8" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="th-da">Username</th>
+                                <th class="th-da">Email</th>
+                                <th  class="th-da">Status</th>
+                                <th  class="th-da">Terakhir Online</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($akun_android as $akun): ?>
+                            <tr>
+                                <td  class="da-nama"><?= esc($akun['username']) ?></td>
+                                <td ><?= esc($akun['email']) ?></td>
+                                <td >
+                                    <?php if ($akun['is_online']): ?>
+                                        <span style="color:green;">Aktif</span>
+                                    <?php else: ?>
+                                        <span style="color:red;">Offline</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= esc($akun['last_online']) ?: '-' ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <h5 style="position: absolute;margin-top: 500px;margin-left: 170px;">Daftar Akun</h5>
+                </div>
                 <div class="table-responsive" style="box-shadow: none;">
                     <table class="table table-bordered table-striped styled-table">
                         <thead>
@@ -248,9 +254,9 @@
                             <?php endif ?>
                         </tbody>
                     </table>
+                    <h5 style="margin-top: -1px;">Data Tagihan Air</h5>
                 </div>
             </div>
-            <h5 style="margin-top: -1px;">Data Tagihan Air</h5>
         </div>
     </div>
 

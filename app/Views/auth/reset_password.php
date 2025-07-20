@@ -117,6 +117,5 @@
         });
     });
 </script>
-</script>
 </body>
 </html>

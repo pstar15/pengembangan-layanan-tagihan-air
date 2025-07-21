@@ -66,7 +66,6 @@
             margin: 0;
         }
 
-
         .text-setting {
             text-align: left;
             font-size: 15px;

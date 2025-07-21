@@ -11,14 +11,9 @@
     <title>Account Setting | Tagihan Air</title>
     <style>
     .container {
-        max-width: 700px;
         width: 100%;
         margin: 0 auto;
-        margin-top: 90px;
-        background: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        margin-top: 60px;
         transition: transform 0.3s ease;
         animation: fadeIn 0.5s ease;
     }
@@ -35,7 +30,7 @@
 
     input[type="username"],
     input[type="email"] {
-        width: 679px;
+        width: 98%;
         padding: 10px;
         margin-top: 6px;
         margin-bottom: 16px;
@@ -193,7 +188,7 @@
                 </a>
             </li>
             <li>
-                <a href="/account/setting" class="<?= uri_string() == 'account/setting' ? 'active' : '' ?>">
+                <a href="<?= base_url('account/setting') ?>" class="sidebar-link">
                     <i class="bi bi-gear" style="font-size: 0.9rem;"></i>
                     <span class="sidebar-text" style="margin-left: 10px;">Setting</span>
                 </a>
@@ -241,7 +236,7 @@
                 <form action="<?= base_url('/account/update-username') ?>" method="post">
                     <label for="username">Username</label>
                     <input type="username" name="username" required value="<?= session()->get('username') ?>">
-                    <button type="submit">Simpan Username</button>
+                    <button type="submit">Update</button>
                 </form>
 
                 <hr style="margin: 30px 0;">
@@ -249,7 +244,7 @@
                 <form action="<?= base_url('/account/update-email') ?>" method="post">
                     <label for="email">Email</label>
                     <input type="email" name="email" required value="<?= session()->get('email') ?>">
-                    <button type="submit">Simpan Email</button>
+                    <button type="submit">Update</button>
                 </form>
 
                 <hr style="margin: 30px 0;">
@@ -257,27 +252,27 @@
                 <form action="<?= base_url('/account/update-password') ?>" method="post">
                     <div class="input-group mb-3">
                         <label for="currentPassword">Password Lama:</label>
-                        <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 679px;">
+                        <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 98%;">
                         <span class="input-group-text" onclick="togglePassword('currentPassword', this)">
                             <i class="bi bi-eye-slash"></i>
                         </span>
                     </div>
                     <div class="input-group mb-3">
                         <label for="newPassword">Password Baru:</label>
-                        <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 679px;">
+                        <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 98%;">
                         <span class="input-group-text" onclick="togglePassword('newPassword', this)">
                             <i class="bi bi-eye-slash"></i>
                         </span>
                     </div>
                     <div class="input-group mb-3">
                         <label for="confirmPassword">Confirmasi Password:</label>
-                        <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 679px;">
+                        <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 98%;">
                         <span class="input-group-text" onclick="togglePassword('confirmPassword', this)">
                             <i class="bi bi-eye-slash"></i>
                         </span>
                     </div>
 
-                    <button type="submit">Simpan Password</button>
+                    <button type="submit">Update</button>
                 </form>
             </div>
         </div>

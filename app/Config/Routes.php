@@ -27,8 +27,9 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/tagihan', 'Tagihan::index');
 });
 //Account Seting
-$routes->post('/account/update-username', 'Account::updateUsername', ['filter' => 'auth']);
 $routes->get('/account/setting', 'Account::setting', ['filter' => 'auth']);
+$routes->get('/account/setting_account', 'Account::settingAccount', ['filter' => 'auth']);
+$routes->post('/account/update-username', 'Account::updateUsername', ['filter' => 'auth']);
 $routes->post('/account/update-email', 'Account::updateEmail', ['filter' => 'auth']);
 $routes->post('/account/check-old-password', 'Account::checkOldPassword', ['filter' => 'auth']);
 $routes->post('/account/update-password', 'Account::updatePassword', ['filter' => 'auth']);

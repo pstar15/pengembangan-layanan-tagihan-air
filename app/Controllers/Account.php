@@ -39,7 +39,13 @@ class Account extends BaseController
 
     public function setting()
     {
-        return view('account/setting');
+        $data['username'] = session()->get('username');
+        return view('account/setting', $data);
+    }
+
+    public function settingAccount()
+    {
+        return view('account/set_account');
     }
 
     public function checkOldPassword()

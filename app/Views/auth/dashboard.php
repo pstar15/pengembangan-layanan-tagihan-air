@@ -33,22 +33,11 @@
             text-align: center;
         }
         .table-container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            width: 98%;
             gap: 20px;
             margin-top: 20px;
-            flex-wrap: wrap;
         }
-        .table-responsive {
-            overflow-x: auto;
-            max-height: 400px;
-            overflow-y: auto;
-            position: relative;
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
-        }
+        
         .table-striped thead th {
             position: sticky;
             top: 0;
@@ -165,7 +154,6 @@
                         <h3>Total Data Tagihan</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
-                    <h5>card total tagihan</h5>
                 </div>
                 <div>
                     <div class="card lunas">
@@ -174,7 +162,6 @@
                         <h3 class="card-title">Tagihan Lunas</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
-                    <h5>card tagihan lunas</h5>
                 </div>
                 <div>
                     <div class="card belum-lunas">
@@ -183,7 +170,6 @@
                         <h3 class="card-title">Belum Lunas</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
-                    <h5>card tagihan belum lunas</h5>
                 </div>
             </div>
 
@@ -192,42 +178,40 @@
                 <div class="chart-curva">
                     <div class="chart-body">
                         <canvas id="chartKurva" class="chart-line"></canvas>
-                        <h5 class="card-title">Chart Kurva</h5>
                     </div>
                 </div>
-                <div class="table-daftar-akun-container">
-                    <div class="tabel-daftar-akun">
-                        <table class="table-da-akun" cellpadding="8" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th class="th-da">Username</th>
-                                    <th class="th-da">Email</th>
-                                    <th  class="th-da">Status</th>
-                                    <th  class="th-da">Terakhir Online</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            </div>
+
+            <div class="table-daftar-akun-container">
+                <div class="tabel-daftar-akun">
+                    <table class="table-da-akun" cellpadding="8" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="">Username</th>
+                                <th class="">Email</th>
+                                <th  class="kolom-status">Status</th>
+                                <th  class="th-last-online">Terakhir Online</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <?php foreach ($akun_android as $akun): ?>
                                 <tr>
                                     <td  class="da-nama"><?= esc($akun['username']) ?></td>
                                     <td ><?= esc($akun['email']) ?></td>
-                                    <td >
+                                    <td class="kolom-status">
                                         <?php if ($akun['is_online']): ?>
                                             <span style="color:green;">Aktif</span>
                                         <?php else: ?>
                                             <span style="color:red;">Offline</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= esc($akun['last_online']) ?: '-' ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <h5 style="position: absolute;margin-left: 170px;">Daftar Akun</h5>
-                    </div>
+                                    <td class="da-last-online"><?= esc($akun['last_online']) ?: '-' ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
             <div class="table-container">
                 <div class="table-responsive" style="box-shadow: none;">
                     <table class="table table-bordered table-striped styled-table">
@@ -237,7 +221,7 @@
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>No.Meter</th>
-                                <th>Jumlah Meter</th>
+                                <th style="text-align: right;">Jumlah Meter</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -248,7 +232,7 @@
                                         <td class="nama-col"><?= esc($row['nama_pelanggan']) ?></td>
                                         <td class="alamat-col"><?= esc($row['alamat']) ?></td>
                                         <td><?= esc($row['nomor_meter']) ?></td>
-                                        <td><?= esc($row['jumlah_meter']) ?></td>
+                                        <td style="text-align: right;"><?= esc($row['jumlah_meter']) ?></td>
                                     </tr>
                                 <?php endforeach ?>
                             <?php else : ?>
@@ -258,7 +242,6 @@
                             <?php endif ?>
                         </tbody>
                     </table>
-                    <h5 style="margin-top: -1px;">Data Tagihan Air</h5>
                 </div>
             </div>
         </div>

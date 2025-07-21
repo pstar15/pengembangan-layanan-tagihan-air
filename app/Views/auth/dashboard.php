@@ -35,7 +35,6 @@
         .table-container {
             width: 98%;
             gap: 20px;
-            margin-top: 20px;
         }
         
         .table-striped thead th {
@@ -183,14 +182,14 @@
             </div>
 
             <div class="table-daftar-akun-container">
-                <div class="tabel-daftar-akun">
-                    <table class="table-da-akun" cellpadding="8" cellspacing="0">
+                <div class="tabel-daftar-akun"  style="box-shadow: none;">
+                    <table class="table-da-akun">
                         <thead>
                             <tr>
                                 <th class="">Username</th>
                                 <th class="">Email</th>
                                 <th  class="kolom-status">Status</th>
-                                <th  class="th-last-online">Terakhir Online</th>
+                                <th  class="kolom-last-online">Terakhir Online</th>
                             </tr>
                         </thead>
                         <tbody>

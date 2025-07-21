@@ -6,20 +6,12 @@
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/table_riwayat.css') ?>">
     <title>Riwayat | Tagihan Air</title>
     <style>
         .container {
             width: 100%;
             margin-top: 80px;
-        }
-        .table-container {
-            margin: 0 auto;
-            margin-top: 40px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
         }
         h2 {
             position: absolute;
@@ -237,7 +229,7 @@
 
             <div class="table-container">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped styled-table">
+                    <table class="riwayat-striped">
                         <thead>
                             <tr>
                                 <th>Nama</th>
@@ -254,8 +246,8 @@
                         <tbody>
                             <?php foreach ($riwayat as $r): ?>
                             <tr>
-                                <td class="nama-col"><?= esc($r['nama_pelanggan']) ?></td>
-                                <td class="alamat-col"><?= esc($r['alamat']) ?></td>
+                                <td class="nama-riwayat"><?= esc($r['nama_pelanggan']) ?></td>
+                                <td class="alamat-riwayat"><?= esc($r['alamat']) ?></td>
                                 <td><?= esc($r['nomor_meter']) ?></td>
                                 <td><?= esc($r['jumlah_meter']) ?></td>
                                 <td><?= esc($r['periode']) ?></td>

@@ -1,36 +1,41 @@
 /* Container utama tabel daftar akun */
 .table-daftar-akun-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: 0 15px;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-}
-
-/* Wrapper tabel */
-.tabel-daftar-akun {
     width: 98%;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 /* Tabel */
 .table-da-akun {
     width: 100%;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    background-color: #fff;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 15px;
+    background: #fff;
     color: #000;
+    border: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
 }
 
 /* Header */
 .table-da-akun thead {
-    color: #000000;
+    background-color: #2980b9;
+    color: #fff;
     text-align: left;
 }
-.table-da-akun .th-last-online {
+
+.table-da-akun .kolom-status {
+    text-align: center;
+}
+
+.table-da-akun .kolom-status {
+    text-align: center;
+}
+
+.table-da-akun .kolom-last-online {
     text-align: right;
 }
 

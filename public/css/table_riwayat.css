@@ -1,0 +1,59 @@
+.table-container {
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
+}
+
+.riwayat-striped {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 15px;
+    background: #fff;
+    color: #000;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.riwayat-striped thead {
+    background-color: #2980b9;
+    color: #fff;
+    text-align: center;
+}
+
+.riwayat-striped th,
+.riwayat-striped td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #ddd;
+    border: none;
+    vertical-align: middle;
+}
+
+.riwayat-striped tbody tr:hover {
+    background-color: #eceff3;
+    transition: background-color 0.3s ease;
+}
+
+.riwayat-striped td:nth-child(1) {
+    width: 50px;
+}
+.riwayat-striped thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.riwayat-striped td.nama-riwayat,
+.riwayat-striped td.alamat-riwayat {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    text-align: left;
+}

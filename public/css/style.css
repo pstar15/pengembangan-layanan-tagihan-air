@@ -403,7 +403,7 @@ body.sidebar-collapsed .main-content {
 /* END CSS SIDEBAR */
 /* Content */
 .main-content {
-    width: 100%;
+    width: 83%;
     padding: 20px;
     margin-left: 200px;
     transition: margin-left 0.3s ease;
@@ -1632,8 +1632,7 @@ canvas {
     top: 0;
     z-index: 2;
 }
-.table td.nama-col,
-.table td.alamat-col {
+.table td.nama-col {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

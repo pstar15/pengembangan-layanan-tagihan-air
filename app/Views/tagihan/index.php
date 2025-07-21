@@ -8,20 +8,12 @@
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/table_tagihan.css') ?>">
     <title>Tagihan | Tagihan Air</title>
     <style>
         .container {
             width: 100%;
             margin-top: -10px;
-        }
-        .table-container {
-            margin: 0 auto;
-            margin-top: -37px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
         }
         h2 {
             position: absolute;
@@ -215,7 +207,7 @@
 
             <!-- Tabel data tagihan -->
             <div id="resultContainer" class="table-container">
-                <table border="1" cellpadding="10" cellspacing="0" width="100%" class="table styled-table">
+                <table border="1" cellpadding="10" cellspacing="0" width="100%" class="tagihan-striped">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -232,8 +224,8 @@
                         <?php if (!empty($tagihan)) : ?>
                             <?php foreach ($tagihan as $row): ?>
                                 <tr>
-                                    <td class="nama-col"><?= esc($row['nama_pelanggan']) ?></td>
-                                    <td class="alamat-col"><?= esc($row['alamat']) ?></td>
+                                    <td class="nama-tagiihan"><?= esc($row['nama_pelanggan']) ?></td>
+                                    <td class="alamat-tagiihan"><?= esc($row['alamat']) ?></td>
                                     <td><?= esc($row['nomor_meter']) ?></td>
                                     <td><?= esc($row['jumlah_meter']) ?></td>
                                     <td><?= esc($row['periode']) ?></td>

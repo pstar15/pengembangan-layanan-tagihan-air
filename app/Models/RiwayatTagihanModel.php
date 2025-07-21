@@ -51,4 +51,9 @@ class RiwayatTagihanModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getTotalTagihan()
+    {
+        return $this->selectSum('jumlah_tagihan')->first()['jumlah_tagihan'];
+    }
 }

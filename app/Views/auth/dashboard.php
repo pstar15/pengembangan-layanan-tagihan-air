@@ -145,12 +145,22 @@
 
     <div class="main-content" id="mainContent">
         <div class="container">
+
+            <!-- CARD TAGIHAN -->
             <div class="card-container">
                 <div>
                     <div class="card total">
                         <i class="bi bi-database" style="font-size: 2rem;"></i>
                         <p class="card-text"><?= $total_tagihan ?></p>
                         <h3>Total Data Tagihan</h3>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="card total-pendapatan">
+                        <i class="fas fa-file-invoice-dollar" style="font-size: 2rem;"></i>
+                        <p class="card-text">Rp <?= number_format($totalTagihan, 0, ',', '.') ?></p>
+                        <h3 class="card-title" style="color: #000;">Total Pendapatan</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                 </div>

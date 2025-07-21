@@ -439,8 +439,8 @@ body.sidebar-collapsed .main-content {
 
 .card {
     flex: 1 1 250px;
-    max-width: 400px;
-    min-width: 300px;
+    max-width: 500px;
+    min-width: 485px;
     background: none;
     padding: 25px;
     border-radius: 12px;
@@ -480,6 +480,11 @@ body.sidebar-collapsed .main-content {
 .card.belum-lunas {
     background-color: #e74c3c;
     color: white;
+}
+
+.card.total-pendapatan {
+    background-color: #ffff;
+    color: #000000;
 }
 
 .detail-card {

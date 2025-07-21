@@ -33,6 +33,11 @@ $routes->post('/account/update-username', 'Account::updateUsername', ['filter' =
 $routes->post('/account/update-email', 'Account::updateEmail', ['filter' => 'auth']);
 $routes->post('/account/check-old-password', 'Account::checkOldPassword', ['filter' => 'auth']);
 $routes->post('/account/update-password', 'Account::updatePassword', ['filter' => 'auth']);
+//Account Setting App
+$routes->get('/account_app', 'SettingAccountApp::index');
+$routes->get('/account_app/edit/(:num)', 'SettingAccountApp::edit/$1');
+$routes->post('/account_app/update/(:num)', 'SettingAccountApp::update/$1');
+$routes->get('/account_app/delete/(:num)', 'SettingAccountApp::delete/$1');
 //Route CRUD Tagihan Air
 $routes->get('/tagihan/create', 'Tagihan::create');
 $routes->post('/tagihan/store', 'Tagihan::store');

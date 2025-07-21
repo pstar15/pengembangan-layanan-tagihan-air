@@ -176,7 +176,7 @@
                     <h5 class="text-setting">Setting Account</h5>
                 </a>
 
-                <a href="" class="button-setting-account">
+                <a href="<?= base_url('/account_app') ?>" class="button-setting-account">
                     <h5 class="text-setting">Account Aplikasi</h5>
                 </a>
             </div>

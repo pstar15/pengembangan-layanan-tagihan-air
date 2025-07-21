@@ -141,6 +141,7 @@ class Auth extends BaseController
         $TagihanModel = new TagihanModel();
         $RiwayatTagihanModel = new RiwayatTagihanModel();
         $PhoneUser    = new \App\Models\PhoneUser();
+        $totalTagihan = $RiwayatTagihanModel->getTotalTagihan();
 
         $tagihan = $TagihanModel->select('periode, SUM(jumlah_tagihan) as total')
                                 ->groupBy('periode')
@@ -182,6 +183,8 @@ class Auth extends BaseController
 
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
+
+        $data['totalTagihan'] = $totalTagihan;
 
         return view('auth/dashboard', $data);
     }

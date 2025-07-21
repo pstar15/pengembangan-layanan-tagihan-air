@@ -140,22 +140,17 @@ class Auth extends BaseController
 
         $TagihanModel = new TagihanModel();
         $RiwayatTagihanModel = new RiwayatTagihanModel();
-        $PhoneUser    = new \App\Models\PhoneUser();
-        $totalTagihan = $RiwayatTagihanModel->getTotalTagihan();
-
-        $tagihan = $TagihanModel->select('periode, SUM(jumlah_tagihan) as total')
-                                ->groupBy('periode')
-                                ->findAll();
+        $PhoneUser       = new \App\Models\PhoneUser();
+        $totalTagihan    = $RiwayatTagihanModel->getTotalTagihan();
+        $totalAkun       = $PhoneUser->countAll();
+        $totalAktif      = $PhoneUser->where('is_online', 'Aktif')->countAllResults();
+        $totalNonAktif   = $PhoneUser->where('is_online', 'Aktif')->countAllResults();
 
         $riwayat = $RiwayatTagihanModel->select('periode, SUM(jumlah_tagihan) as total')
                                     ->groupBy('periode')
                                     ->findAll();
 
         $gabungan = [];
-
-        foreach ($tagihan as $t) {
-            $gabungan[$t['periode']] = $t['total'];
-        }
 
         foreach ($riwayat as $r) {
             if (isset($gabungan[$r['periode']])) {
@@ -178,13 +173,20 @@ class Auth extends BaseController
         $data['total_belum_lunas'] = $TagihanModel->where('status', 'Belum Lunas')->countAllResults();
 
         $data['username'] = session()->get('username');
+
         $data['tagihan'] = $TagihanModel->findAll();
+
         $data['akun_android'] = $PhoneUser->findAll();
 
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
 
         $data['totalTagihan'] = $totalTagihan;
+
+        $data['totalAkun'] = $totalAkun;
+
+        $data['totalAktif'] = $totalAktif;
+        $data['totalNonAktif'] = $totalNonAktif;
 
         return view('auth/dashboard', $data);
     }

@@ -16,7 +16,7 @@
             align-items: center;
         }
 
-        .card {
+        .card-login {
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
@@ -91,14 +91,14 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5 col-lg-4">
-                <div class="card bg-white p-4">
+                <div class="card-login bg-white p-4">
                     <div class="card-body">
 
                         <div class="logo-img">
                             <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="Logo-Bumdes">
                         </div>
 
-                        <h3 class="text-left mb-4">Login</h3>
+                        <h3 class="text-left mb-4 text-black">Login</h3>
 
                         <?php if(session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
@@ -116,14 +116,14 @@
                             </div>
                             <div class="mb-3 d-flex align-items-center">
                                 <input class="form-check-input me-2" type="checkbox" name="remember" value="1" id="remember">
-                                <label class="form-check-label" for="remember">Remember Me</label>
+                                <label class="form-check-label text-black" for="remember">Remember Me</label>
                             </div>
                             <div class="">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                         </form>
 
-                        <div class="text-center mt-3 register-link">
+                        <div class="text-center mt-3 register-link text-black">
                             Belum punya akun? <a href="<?= base_url('/register') ?>">Register</a>
                         </div>
 

@@ -17,7 +17,7 @@
             align-items: center;
         }
 
-        .card {
+        .card-register {
             border-radius: 1rem;
             padding: 2rem;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
@@ -96,14 +96,14 @@
     <div class="container">
         <div class="row justify-content-center ">
             <div class="col-md-5 col-lg-4">
-                <div class="card bg-white p-4">
+                <div class="card-register bg-white p-4">
                     <div class="card-body">
 
                         <div class="logo-img">
                             <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="Logo-Bumdes">
                         </div>
 
-                        <h3 class="text-left mb-4">Register</h3>
+                        <h3 class="text-left mb-4 text-black">Register</h3>
 
                         <?php if(session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
@@ -136,7 +136,7 @@
                             </div>
                         </form>
 
-                        <div class="text-center login-link">
+                        <div class="text-center login-link text-black">
                             Sudah punya akun? <a href="<?= base_url('/login') ?>">Login</a>
                         </div>
                     </div>

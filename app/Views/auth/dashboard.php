@@ -148,38 +148,42 @@
 
             <!-- CARD TAGIHAN -->
             <div class="card-container">
-                <div>
-                    <div class="card total">
-                        <i class="bi bi-database" style="font-size: 2rem;"></i>
-                        <p class="card-text"><?= $total_tagihan ?></p>
-                        <h3>Total Data Tagihan</h3>
-                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
-                    </div>
-                </div>
-                <div>
-                    <div class="card total-pendapatan">
-                        <i class="fas fa-file-invoice-dollar" style="font-size: 2rem;"></i>
-                        <p class="card-text">Rp <?= number_format($totalTagihan, 0, ',', '.') ?></p>
-                        <h3 class="card-title" style="color: #000;">Total Pendapatan</h3>
+                <div style="height: fit-content;">
+                    <div class="card total" style="height: 278px;">
+                        <p style="text-align: left;">Hai, <?= session()->get('username'); ?></p>
+                        <hr>
+                        <p class="card-text" style="margin-top: 70px;">Rp <?= number_format($totalTagihan, 0, ',', '.') ?></p>
+                        <h3>Total Pendapatan</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                 </div>
                 <div>
                     <div class="card lunas">
-                        <i class="bi bi-database-check" style="font-size: 2rem;"></i>
+                        <p class="card-text"><?= $total_tagihan ?></p>
+                        <h3>Total Data Tagihan</h3>
+                        <hr>
                         <p class="card-text"><?= $total_lunas ?></p>
                         <h3 class="card-title">Tagihan Lunas</h3>
+                        <hr>
+                        <p class="card-text"><?= $total_belum_lunas ?></p>
+                        <h3 class="card-title">Tagihan Belum Lunas</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                 </div>
                 <div>
-                    <div class="card belum-lunas">
-                        <i class="bi bi-database-exclamation" style="font-size: 2rem;"></i>
-                        <p class="card-text"><?= $total_belum_lunas ?></p>
-                        <h3 class="card-title">Belum Lunas</h3>
+                    <div class="card total-akun">
+                        <p class="card-text"><?= $totalAkun ?></p>
+                        <h3 class="card-title">Total Akun Aplikasi</h3>
+                        <hr>
+                        <p class="card-text"><?= $totalAktif ?></p>
+                        <h3 class="card-title">Total Akun Aktif</h3>
+                        <hr>
+                        <p class="card-text"><?= $totalNonAktif ?></p>
+                        <h3 class="card-title">Total Akun Tidak Aktif</h3>
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
                     </div>
                 </div>
+                
             </div>
 
             <!--Chart-->
@@ -262,51 +266,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="<?= base_url('js/script.js') ?>" defer></script>
 <script>
-const ctxKurva = document.getElementById('chartKurva').getContext('2d');
+    const ctxKurva = document.getElementById('chartKurva').getContext('2d');
 
-const chartKurva = new Chart(ctxKurva, {
-    type: 'line',
-    data: {
-        labels: <?= $periode ?>,
-        datasets: [{
-            label: 'Jumlah Tagihan',
-            data: <?= $total ?>,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            fill: true,
-            tension: 0.3,
-            pointRadius: 4,
-            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top'
-            },
-            title: {
-                display: true,
-                text: 'Kurva Tagihan per Periode'
-            }
+    const chartKurva = new Chart(ctxKurva, {
+        type: 'line',
+        data: {
+            labels: <?= $periode ?>,
+            datasets: [{
+                label: 'Jumlah Tagihan',
+                data: <?= $total ?>,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            }]
         },
-        scales: {
-            x: {
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
                 title: {
                     display: true,
-                    text: 'Periode'
+                    text: 'Kurva Tagihan per Periode'
                 }
             },
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Jumlah Tagihan'
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Periode'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Jumlah Tagihan'
+                    }
                 }
             }
         }
-    }
-});
+    });
 </script>
 <script>
     

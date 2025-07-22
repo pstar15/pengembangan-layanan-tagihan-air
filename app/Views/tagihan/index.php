@@ -50,9 +50,6 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
-        .logout:hover {
-            color:rgb(255, 0, 0);
-        }
 
     </style>
 </head>

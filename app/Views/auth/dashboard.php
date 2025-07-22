@@ -11,7 +11,7 @@
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('css/daftar_akun.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/table_dashboard.css') ?>">
     <title>Dashboard | Tagihan Air BUMDesa</title>
     <style>
         body {
@@ -32,11 +32,6 @@
             justify-content: center;
             text-align: center;
         }
-        .table-container {
-            width: 98%;
-            gap: 20px;
-        }
-        
         .table-striped thead th {
             position: sticky;
             top: 0;
@@ -148,113 +143,153 @@
 
             <!-- CARD TAGIHAN -->
             <div class="card-container">
-                <div style="height: fit-content;">
-                    <div class="card total" style="height: 278px;">
-                        <p style="text-align: left;">Hai, <?= session()->get('username'); ?></p>
-                        <hr>
-                        <p class="card-text" style="margin-top: 70px;">Rp <?= number_format($totalTagihan, 0, ',', '.') ?></p>
-                        <h3>Total Pendapatan</h3>
-                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
+                <div class="card-left">
+                    <div class="card pendapatan">
+                        <div class="card-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                            <hr>
+                        </div>
+                        <div class="card-text-pendapatan">
+                            <p class="card-text" style="font-size: 25px;">Rp <?= number_format($totalTagihan, 0, ',', '.') ?></p>
+                        </div>
+                        <div class="card-footer">
+                            <hr>
+                            <h3 style="margin-left: 20px;">Total Pendapatan</h3>
+                        </div>
+                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">
+                            Detail
+                        </a>
                     </div>
                 </div>
-                <div>
-                    <div class="card lunas">
-                        <p class="card-text"><?= $total_tagihan ?></p>
-                        <h3>Total Data Tagihan</h3>
-                        <hr>
-                        <p class="card-text"><?= $total_lunas ?></p>
-                        <h3 class="card-title">Tagihan Lunas</h3>
-                        <hr>
-                        <p class="card-text"><?= $total_belum_lunas ?></p>
-                        <h3 class="card-title">Tagihan Belum Lunas</h3>
-                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
+
+                <div class="card-right">
+                    <div class="card-row">
+                        <div class="card card-content total-tagihan">
+                            <div class="cart-text-info">
+                                <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-tagihan">
+                                    <i class="bi bi-database-fill"></i>
+                                </a>
+                            </div>
+                            <h3>Total Data Tagihan</h3>
+                            <p class="card-text"><?= $total_tagihan ?></p>
+                        </div>
+                        <div class="card card-content tagihan-lunas">
+                            <div class="cart-text-info">
+                                <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-tagihan">
+                                    <i class="bi bi-database-fill-check"></i>
+                                </a>
+                            </div>
+                            <h3>Tagihan Lunas</h3>
+                            <p class="card-text"><?= $total_lunas ?></p>
+                        </div>
+                        <div class="card card-content tagihan-belum-lunas">
+                            <div class="cart-text-info">
+                                <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-tagihan">
+                                    <i class="bi bi-database-fill-exclamation"></i>
+                                </a>
+                            </div>
+                            <h3>Tagihan Belum Lunas</h3>
+                            <p class="card-text"><?= $total_belum_lunas ?></p>
+                        </div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card card-content total-akun">
+                            <div class="cart-text-info">
+                                <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-akun">
+                                    <i class="bi bi-person-fill"></i>
+                                </a>
+                            </div>
+                            <h3>Total Akun Aplikasi</h3>
+                            <p class="card-text"><?= $totalAkun ?></p>
+                        </div>
+                        <div class="card card-content total-akun-aktif">
+                            <div class="cart-text-info">
+                                <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-akun">
+                                    <i class="bi bi-person-fill-check"></i>
+                                </a>
+                            </div>
+                            <h3>Total Akun Aktif</h3>
+                            <p class="card-text"><?= $totalAktif ?></p>
+                        </div>
+                        <div class="card card-content total-akun-tidak-aktif">
+                            <div class="cart-text-info">
+                                <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-akun">
+                                    <i class="bi bi-person-fill-exclamation"></i>
+                                </a>
+                            </div>
+                            <h3>Total Akun Tidak Aktif</h3>
+                            <p class="card-text"><?= $totalNonAktif ?></p>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <div class="card total-akun">
-                        <p class="card-text"><?= $totalAkun ?></p>
-                        <h3 class="card-title">Total Akun Aplikasi</h3>
-                        <hr>
-                        <p class="card-text"><?= $totalAktif ?></p>
-                        <h3 class="card-title">Total Akun Aktif</h3>
-                        <hr>
-                        <p class="card-text"><?= $totalNonAktif ?></p>
-                        <h3 class="card-title">Total Akun Tidak Aktif</h3>
-                        <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">Detail</a>
-                    </div>
-                </div>
-                
             </div>
 
             <!--Chart-->
             <div class="chart-container">
-                <div class="chart-curva">
-                    <div class="chart-body">
-                        <canvas id="chartKurva" class="chart-line"></canvas>
-                    </div>
+                <div class="chart-wrapper">
+                    <canvas id="chartKurva" class="chart-line"></canvas>
                 </div>
             </div>
 
-            <div class="table-daftar-akun-container">
-                <div class="tabel-daftar-akun"  style="box-shadow: none;">
-                    <table class="table-da-akun">
-                        <thead>
-                            <tr>
-                                <th class="">Username</th>
-                                <th class="">Email</th>
-                                <th  class="kolom-status">Status</th>
-                                <th  class="kolom-last-online">Terakhir Online</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($akun_android as $akun): ?>
+            <div class="table-wrapper">
+                <div class="table-scroll">
+                    <div class="table-box akun">
+                        <table class="table-da-akun">
+                            <thead>
                                 <tr>
-                                    <td  class="da-nama"><?= esc($akun['username']) ?></td>
-                                    <td ><?= esc($akun['email']) ?></td>
-                                    <td class="kolom-status">
-                                        <?php if ($akun['is_online']): ?>
-                                            <span style="color:green;">Aktif</span>
-                                        <?php else: ?>
-                                            <span style="color:red;">Offline</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="da-last-online"><?= esc($akun['last_online']) ?: '-' ?></td>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Terakhir Online</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="table-container">
-                <div class="table-responsive" style="box-shadow: none;">
-                    <table class="table table-bordered table-striped styled-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>No.Meter</th>
-                                <th style="text-align: right;">Jumlah Meter</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($tagihan)) : ?>
-                                <?php foreach ($tagihan as $i => $row) : ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($akun_android as $akun): ?>
                                     <tr>
-                                        <td><?= $i + 1 ?></td>
-                                        <td class="nama-col"><?= esc($row['nama_pelanggan']) ?></td>
-                                        <td class="alamat-col"><?= esc($row['alamat']) ?></td>
-                                        <td><?= esc($row['nomor_meter']) ?></td>
-                                        <td style="text-align: right;"><?= esc($row['jumlah_meter']) ?></td>
+                                        <td><?= esc($akun['username']) ?></td>
+                                        <td><?= esc($akun['email']) ?></td>
+                                        <td>
+                                            <?php if ($akun['is_online']): ?>
+                                                <span style="color:green;">Aktif</span>
+                                            <?php else: ?>
+                                                <span style="color:red;">Offline</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?= esc($akun['last_online']) ?: '-' ?></td>
                                     </tr>
-                                <?php endforeach ?>
-                            <?php else : ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-box tagihan">
+                        <table class="styled-table">
+                            <thead>
                                 <tr>
-                                    <td colspan="6" class="text-center">Belum ada data tagihan</td>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th>No.Meter</th>
                                 </tr>
-                            <?php endif ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($tagihan)) : ?>
+                                    <?php foreach ($tagihan as $i => $row) : ?>
+                                        <tr>
+                                            <td><?= $i + 1 ?></td>
+                                            <td><?= esc($row['nama_pelanggan']) ?></td>
+                                            <td><?= esc($row['alamat']) ?></td>
+                                            <td><?= esc($row['nomor_meter']) ?></td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">Belum ada data tagihan</td>
+                                    </tr>
+                                <?php endif ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -291,21 +326,21 @@
                 },
                 title: {
                     display: true,
-                    text: 'Kurva Tagihan per Periode'
+                    text: 'Kurva Pendapatan per Periode'
                 }
             },
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Periode'
+                        text: 'Pendapatamn Per Periode'
                     }
                 },
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Jumlah Tagihan'
+                        text: 'Jumlah Pendapatan'
                     }
                 }
             }

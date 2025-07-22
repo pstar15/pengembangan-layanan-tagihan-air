@@ -11,7 +11,7 @@
     <title>Account Setting | Tagihan Air</title>
     <style>
         .container {
-            width: 100%;
+            width: 50%;
             margin: 0 auto;
             margin-top: 60px;
             transition: transform 0.3s ease;
@@ -180,6 +180,7 @@
                     <h5 class="text-setting">Account Aplikasi</h5>
                 </a>
             </div>
+        </div>
     </div>
 
 <script src="<?= base_url('js/script.js') ?>" defer></script>

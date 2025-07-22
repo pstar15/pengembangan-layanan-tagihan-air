@@ -399,6 +399,10 @@ body.sidebar-collapsed .main-content {
     border-radius: 1px;
 }
 
+.logout:hover {
+    color:rgb(255, 0, 0);
+}
+
 /* END CSS SIDEBAR */
 /* Content */
 .main-content {
@@ -429,6 +433,7 @@ body.sidebar-collapsed .main-content {
 
 /* card */
 .card-container {
+    width: 92%;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -436,101 +441,128 @@ body.sidebar-collapsed .main-content {
     margin-bottom:30px;
 }
 
+.card-left {
+    flex: 1;
+    max-width: 250px;
+    min-width: 220px;
+}
+
+.card-left .pendapatan {
+    height: 178px;
+}
+
+.card-left .card-icon {
+    text-align: center;
+    font-size: 30px;
+    color: #000;
+}
+
+.card-right {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Card umum */
 .card {
-    max-width: 400px;
-    min-width: 300px;
-    background: none;
-    padding: 25px;
+    background: #fff;
+    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
     position: relative;
-    text-align: center;
-}
-
-.card h3 {
-    margin-bottom: 10px;
-    color: #000;
-    font-size: 16px;
-}
-
-.card p {
-    font-size: 32px;
-    font-weight: bold;
-    margin: 10px 0;
+    transition: transform 0.3s ease;
+    text-align: left;
+    flex: 1;
+    min-width: 180px;
+    max-width: 250px;
 }
 
 .card:hover {
     transform: scale(1.05);
 }
 
-/* kategori */
-.card.total {
-    background-color: #ffff;
-    color: #000;
-}
-.card.lunas {
-    background-color: #ffff;
+.card h3 {
+    width: 80%;
+    font-size: 13px;
+    margin-bottom: 8px;
     color: #000;
 }
 
-.card.belum-lunas {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.card.total-pendapatan {
-    background-color: #ffff;
-    color: #000000;
-}
-
-.total-akun,
-.total-aktif,
-.total-non-aktif {
-    background-color: #ffff;
+.card p.card-text {
+    font-size: 20px;
+    margin: 0;
     color: #000;
 }
 
-.total-akun .card-title,
-.total-aktif .card-title,
-.total-non-aktif .card-title {
-    color: #000;
+.card .card-text-pendapatan {
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* responsive fix */
-@media (max-width: 768px) {
-    .card {
-        flex: 1 1 100%;
-    }
+.card .card-footer {
+    margin-top: 20px;
+    text-align: center;
 }
 
-@media (max-width: 480px) {
-    .card {
-        padding: 15px;
-        font-size: 14px;
-    }
+.card-content .detail-row-akun {
+    position: absolute;
+    display: flex;
+    margin-left: 150px;
+    margin-right: 0;
+    margin-top: 7px;
+    gap: 10px;
+    background: #007bff;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 25px;
+}
 
-    .card p {
-        font-size: 24px;
-    }
+.card-content .detail-row-tagihan {
+    position: absolute;
+    display: flex;
+    margin-left: 150px;
+    margin-right: 0;
+    gap: 10px;
+    margin-top: 7px;
+    color: #fff;
+    font-size: 25px;
+}
 
-    .card h3 {
-        font-size: 14px;
-    }
+.card-content .detail-row-tagihan .bi-database-fill {
+    background-color: #007bff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card-content .detail-row-tagihan .bi-database-fill-check {
+    background-color: #35be40;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card-content .detail-row-tagihan .bi-database-fill-exclamation {
+    background-color: #f5e400;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .detail-card {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
-    min-width: 40px;
+    bottom: 10px;
+    right: 10px;
     background-color: #ffffff18;
     color: #333;
-    padding: 6px 10px;
+    padding: 8px;
     font-size: 12px;
     border-radius: 6px;
-    margin-left: 120px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -539,6 +571,23 @@ body.sidebar-collapsed .main-content {
     background-color: #f1f1f1;
     color: #000;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card-row {
+        flex-direction: column;
+    }
+
+    .card-left,
+    .card {
+        max-width: 100%;
+    }
+}
+
 /* End Card **/
 /* Animasi masuk */
 @keyframes fadeIn {
@@ -1595,85 +1644,48 @@ body.sidebar-collapsed .main-content {
 }
 /* END CSS button Export riwayat **/
 /* Chart */
-canvas {
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
 .chart-container {
-    display: flex;
-    margin-top: 0;
-    justify-content: space-around;
     width: 100%;
-    transition: transform 0.3s ease;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     animation: fadeIn 0.5s ease;
 }
 
-.chart-line {
-    height: 555px; /* Tinggi default, bisa diubah sesuai kebutuhan */
-}
-
-@media (max-width: 768px) {
-    .chart-line {
-        height: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .chart-bar,
-    .chart-line {
-        height: 250px;
-    }
-}
-/* Tabel daftar tagihan */
-.styled-table {
+.chart-wrapper {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    font-size: 15px;
+    max-width: 1000px;
+    padding: 10px;
     background: #fff;
-    color: #000;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
-    overflow: hidden;
-    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.styled-table thead {
-    background-color: #2980b9;
-    color: #fff;
-    text-align: center;
+canvas.chart-line {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 550px;
 }
 
-.styled-table th,
-.styled-table td {
-    padding: 14px 18px;
-    border-bottom: 1px solid #ddd;
-    border: none;
-    vertical-align: middle;
+/* Responsif di ukuran tablet */
+@media (max-width: 768px) {
+    canvas.chart-line {
+        max-height: 350px;
+    }
 }
 
-.styled-table tbody tr:hover {
-    background-color: #eceff3;
-    transition: background-color 0.3s ease;
+/* Responsif di ukuran HP */
+@media (max-width: 480px) {
+    canvas.chart-line {
+        max-height: 250px;
+    }
 }
 
-.styled-table td:nth-child(1) {
-    width: 50px;
-}
-.table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-.table td.nama-col {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
-    text-align: left;
+/* Animasi masuk */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

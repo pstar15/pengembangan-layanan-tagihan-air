@@ -41,8 +41,6 @@
             margin-left: 240px;
             margin-bottom: 10px;
             margin-top: 80px;
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
         }
         .no-copy {
             user-select: none;
@@ -160,7 +158,7 @@
                         <h5 class="label-add-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Tambah Data Tagihan</h5>
                     </div>
 
-                    <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form ">
+                    <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form">
                         <div class="Filter-Status">
                             <select name="status" class="form-select" onchange="this.form.submit()">
                                 <option value="">
@@ -176,15 +174,6 @@
                             <h5 class="label-Fstatus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Filter Status</h5>
                         </div>
                     </form>
-
-                    <!-- cadangan-->
-                    <div class="btn-simpandata">
-                        <a href="<?= site_url('tagihan/simpan-semua') ?>"
-                            onclick="return confirm('Yakin ingin menyimpan semua tagihan ke riwayat?')"
-                            class="btn-simpan-tagihan btn btn-primary" style="color: #fff;">
-                            Simpan Semua ke Riwayat
-                        </a>
-                    </div>
 
                     <div class="toolbar-rihght">
                         <form method="get" action="<?= base_url('tagihan') ?>" id="filterForm" class="search-form">

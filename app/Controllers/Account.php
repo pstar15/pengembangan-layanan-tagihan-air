@@ -21,7 +21,7 @@ class Account extends BaseController
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
         return $db->table('notifikasi_tagihan')
-            ->where('dilihat', 0) // hanya notifikasi baru
+            ->where('dilihat', 0)
             ->orderBy('waktu', 'DESC')
             ->limit(10)
             ->get()
@@ -57,9 +57,9 @@ class Account extends BaseController
         $oldPassword = $this->request->getPost('current_password');
 
         if (password_verify($oldPassword, $user['password'])) {
-            return redirect()->back()->with('success_password', 'Password lama benar.');
+            return redirect()->back()->with('success_password', 'Selamat, password lama yang anda masukkan sudah cocok.');
         } else {
-            return redirect()->back()->with('error_password', 'Password lama salah!');
+            return redirect()->back()->with('error_password', 'Password lama yang anda masukkan salah, silahkan coba lagi.');
         }
     }
 
@@ -75,7 +75,7 @@ class Account extends BaseController
         // Update session username
         session()->set('username', $newUsername);
 
-        return redirect()->back()->with('success_username', 'Username berhasil diperbarui!');
+        return redirect()->back()->with('success_username', 'Selamat, username anda  berhasil diperbarui!');
     }
 
 
@@ -87,7 +87,7 @@ class Account extends BaseController
 
         $userModel->update($userId, ['email' => $newEmail]);
 
-        return redirect()->back()->with('success_email', 'Email berhasil diperbarui!');
+        return redirect()->back()->with('success_email', 'Selamat, email anda berhasil diperbarui!');
     }
 
     public function updatePassword()
@@ -105,19 +105,19 @@ class Account extends BaseController
 
         // Validasi password lama cocok
         if (!password_verify($currentPassword, $user['password'])) {
-            return redirect()->back()->with('error', 'Password lama tidak sesuai!');
+            return redirect()->back()->with('error', 'Password lama yang anda masukkan tidak sesuai, silahkan coba lagi.');
         }
 
         // Validasi password baru dan konfirmasi harus sama
         if ($newPassword !== $confirmPassword) {
-            return redirect()->back()->with('error', 'Konfirmasi password baru tidak cocok!');
+            return redirect()->back()->with('error', 'Konfirmasi password baru yang anda masukkan tidak cocok, silahkan coba lagi.');
         }
 
         // Simpan password baru yang di-hash
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $userModel->update($userId, ['password' => $hashedPassword]);
 
-        return redirect()->back()->with('success', 'Password berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Selamat, password anda berhasil diperbarui!');
     }
 
 }

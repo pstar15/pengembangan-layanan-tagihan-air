@@ -11,7 +11,7 @@
     <title>Account Setting | Tagihan Air</title>
     <style>
         .container {
-            width: 50%;
+            width: 100%;
             margin: 0 auto;
             margin-top: 60px;
             transition: transform 0.3s ease;
@@ -24,22 +24,103 @@
             color: #000000;
         }
 
+        .form-setting {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
         .profile-icon {
             font-size: 100px;
             margin: 0 auto;
-            margin-bottom: 20px;
+            color: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .text-username {
-            text-align: center;
+        .profile-name {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 20px;
-            font-weight: 500;
-            font-weight: bold;
-            margin-left: 10px;
-            color: #000000;
+            color: #000;
+            user-select: none;
+            white-space: nowrap;
         }
 
-        .button-setting-account {
+        .container-form-setting {
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .form-setting .form-set {
+            margin-bottom: 15px;
+        }
+
+        .form-set {
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .form-set input {
+            position: inherit;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .label-input {
+            flex: 1;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            margin-left: 10px;
+        }
+
+        .button-edit-account a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            width: 80%;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .button-edit-account a:hover {
+            background-color: #0064cf;
+            transform: scale(1.05);
+        }
+
+        .button-set-acount-aplikasi  a {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -47,32 +128,19 @@
             width: 40%;
             padding: 12px 24px;
             border-radius: 10px;
-            background-color: #ffffff;
+            background-color: #007BFF;
+            color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-decoration: none;
             transition: background-color 0.3s, transform 0.2s;
             cursor: pointer;
         }
 
-        .button-setting-account:hover {
-            background-color: #f0f0f0;
-            transform: scale(1.02);
+        .button-set-acount-aplikasi  a:hover {
+            background-color: #0064cf;
+            transform: scale(1.05);
         }
 
-        .text-setting {
-            font-size: 16px;
-            font-weight: 500;
-            color: #000000;
-            margin: 0;
-        }
-
-        .text-setting {
-            text-align: left;
-            font-size: 15px;
-            font-weight: 500;
-            margin-left: 10px;
-            color: #000;
-        }
     </style>
 </head>
 <body>
@@ -160,24 +228,33 @@
 
     <div class="main-content" id="mainContent">
         <div class="container">
-            <div class="title-username">
-                <div oncontextmenu="return false;" class="name navbar-spacer no-copy">
-                    <div class="profile-icon">
-                        <i class="bi bi-person-circle"></i>
+            <div oncontextmenu="return false;" class="form-setting no-copy">
+                <div class="profile-icon">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <div class="profile-name">
+                    <p>Identitas Akun</p>
+                </div>
+                <div class="container-form-setting">
+                    <div class="form-set">
+                        <label for="username" class="label-input">Username</label>
+                        <input type="username" name="username" required value="<?= session()->get('username') ?>" readonly>
                     </div>
-                    <div class="text-username">
-                        hai, <?= session()->get('username'); ?>
+                    <div class="form-set">
+                        <label for="email" class="label-input">Email</label>
+                        <input type="email" name="email" required value="<?= session()->get('email') ?>" readonly>
+                    </div>
+                    <div class="button-edit-account">
+                        <a href="<?= base_url('account/setting_account') ?>">
+                            Edit Akun
+                        </a>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="">
-                <a href="<?= base_url('/account/setting_account') ?>" class="button-setting-account">
-                    <h5 class="text-setting">Setting Account</h5>
-                </a>
-
-                <a href="<?= base_url('/account_app') ?>" class="button-setting-account">
-                    <h5 class="text-setting">Account Aplikasi</h5>
+            <div class="button-set-acount-aplikasi">
+                <a href="<?= base_url('/account_app') ?>" class="button-edit-account-aplikasi">
+                    Daftar Account Aplikasi
                 </a>
             </div>
         </div>

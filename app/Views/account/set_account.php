@@ -18,85 +18,146 @@
         animation: fadeIn 0.5s ease;
     }
 
-    h2 {
-        margin-bottom: 20px;
+    .message {
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        font-weight: 500;
+    }
+
+    .message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+
+    .container-edit-akun {
+        margin: 30px auto;
+        padding: 24px;
+        max-width: 500px; /* Tetap */
+        width: 100%;       /* Responsif */
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        background-color: #fff;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .edit-akun h2 {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 24px;
         color: #333;
     }
 
-    label {
-        font-weight: bold;
-        color: #000;
+    form {
+        margin-bottom: 30px;
     }
 
-    input[type="username"],
-    input[type="email"] {
-        width: 98%;
-        padding: 10px;
-        margin-top: 6px;
-        margin-bottom: 16px;
+    label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+        color: #222;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px 14px;
         border: 1px solid #ccc;
         border-radius: 8px;
-        transition: all 0.3s ease-in-out;
+        font-size: 15px;
+        transition: border 0.3s ease;
+        background-color: #fff;
+        box-sizing: border-box;
     }
 
     input:focus {
         border-color: #4a90e2;
         outline: none;
-        box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
     }
 
     button {
+        width: 100%;
         background-color: #4a90e2;
         color: white;
-        padding: 10px 16px;
+        padding: 12px;
         border: none;
         border-radius: 8px;
+        font-weight: bold;
+        font-size: 16px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        margin-top: 10px;
+        box-sizing: border-box;
     }
 
     button:hover {
         background-color: #357ab8;
     }
 
-    .message {
-        padding: 10px;
-        margin-bottom: 16px;
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-wrapper input {
+        width: 100%;
+        padding: 10px 40px 10px 14px; /* padding kanan diperbesar */
+        border: 1px solid #ccc;
         border-radius: 8px;
-        animation: slideIn 0.5s ease;
-        opacity: 1;
+        font-size: 15px;
+        box-sizing: border-box;
     }
 
-    .success { background: #d4edda; color: #155724; }
-    .error { background: #f8d7da; color: #721c24; }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    .toggle-icon {
+        position: absolute;
+        right: 12px;
+        cursor: pointer;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
 
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateX(-20px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-    .fade-in {
-        opacity: 0;
-        animation: fadeIn 0.8s ease-in-out forwards;
+    .toggle-icon:hover {
+        color: #000;
     }
 
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
+
+    hr {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 30px 0;
+    }
+
+    /* Responsive Behavior - Optional */
+    @media (max-width: 600px) {
+        .container-edit-akun {
+            padding: 20px;
+        }
+
+        input,
+        button {
+            font-size: 14px;
         }
     }
-    .input-group-text {
-        justify-content: right;
-        align-items: right;
-        display: flex;
-        margin: 0 auto;
-        margin-left: 0;
-        margin-right: 10px;
-    }
+
     .logout:hover {
         color:rgb(255, 0, 0);
     }
@@ -117,6 +178,7 @@
         color: #d3d3d3;
         border: 2px solid #d3d3d3;
     }
+
     </style>
 </head>
 <body>
@@ -204,76 +266,93 @@
 
     <div class="main-content" id="mainContent">
         <div class="container">
-            <h2>Pengaturan Akun</h2>
 
-            <?php if(session()->getFlashdata('error')): ?>
+            
+            <div class="container-edit-akun">
+                <?php if(session()->getFlashdata('error')): ?>
                 <div class="message error"><?= session()->getFlashdata('error') ?></div>
-            <?php endif; ?>
-            <?php if(session()->getFlashdata('success')): ?>
-                <div class="message success"><?= session()->getFlashdata('success') ?></div>
-            <?php endif; ?>
+                <?php endif; ?>
+                <?php if(session()->getFlashdata('success')): ?>
+                    <div class="message success"><?= session()->getFlashdata('success') ?></div>
+                <?php endif; ?>
+    
+                <?php if(session()->getFlashdata('success_email')): ?>
+                    <div class="message success"><?= session()->getFlashdata('success_email') ?></div>
+                <?php endif; ?>
+                <?php if(session()->getFlashdata('success_pass')): ?>
+                    <div class="message success"><?= session()->getFlashdata('success_pass') ?></div>
+                <?php endif; ?>
+                <?php if(session()->getFlashdata('error_pass')): ?>
+                    <div class="message error"><?= session()->getFlashdata('error_pass') ?></div>
+                <?php endif; ?>
+                <?php if(session()->getFlashdata('success_username')): ?>
+                    <div class="message success"><?= session()->getFlashdata('success_username') ?></div>
+                <?php endif; ?>
+    
+                <?php if (session()->getFlashdata('error_password')) : ?>
+                    <div class="message error"><?= session()->getFlashdata('error_password') ?></div>
+                <?php elseif (session()->getFlashdata('success_password')) : ?>
+                    <div class="message success"><?= session()->getFlashdata('success_password') ?></div>
+                <?php endif; ?>
 
-            <?php if(session()->getFlashdata('success_email')): ?>
-                <div class="message success"><?= session()->getFlashdata('success_email') ?></div>
-            <?php endif; ?>
-            <?php if(session()->getFlashdata('success_pass')): ?>
-                <div class="message success"><?= session()->getFlashdata('success_pass') ?></div>
-            <?php endif; ?>
-            <?php if(session()->getFlashdata('error_pass')): ?>
-                <div class="message error"><?= session()->getFlashdata('error_pass') ?></div>
-            <?php endif; ?>
-            <?php if(session()->getFlashdata('success_username')): ?>
-                <div class="message success"><?= session()->getFlashdata('success_username') ?></div>
-            <?php endif; ?>
+                <div class="edit-akun">
+                    <h2>Pengaturan Akun</h2>
 
-            <?php if (session()->getFlashdata('error_password')) : ?>
-                <div class="message error"><?= session()->getFlashdata('error_password') ?></div>
-            <?php elseif (session()->getFlashdata('success_password')) : ?>
-                <div class="message success"><?= session()->getFlashdata('success_password') ?></div>
-            <?php endif; ?>
+                    <form action="<?= base_url('/account/update-username') ?>" method="post">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required value="<?= session()->get('username') ?>">
+                        </div>
+                        <button type="submit">Update</button>
+                    </form>
 
-            <div style="margin-top: 40px;">
-                <form action="<?= base_url('/account/update-username') ?>" method="post">
-                    <label for="username">Username</label>
-                    <input type="username" name="username" required value="<?= session()->get('username') ?>">
-                    <button type="submit">Update</button>
-                </form>
+                    <hr>
 
-                <hr style="margin: 30px 0;">
+                    <form action="<?= base_url('/account/update-email') ?>" method="post">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" required value="<?= session()->get('email') ?>">
+                        </div>
+                        <button type="submit">Update</button>
+                    </form>
 
-                <form action="<?= base_url('/account/update-email') ?>" method="post">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" required value="<?= session()->get('email') ?>">
-                    <button type="submit">Update</button>
-                </form>
+                    <hr>
 
-                <hr style="margin: 30px 0;">
+                    <form action="<?= base_url('/account/update-password') ?>" method="post">
+                        <div class="form-group password-group">
+                            <label for="currentPassword">Password Lama:</label>
+                            <div class="input-wrapper">
+                                <input type="password" name="current_password" placeholder="Password Lama" id="currentPassword">
+                                <span onclick="togglePassword('currentPassword', this)">
+                                    <i class="bi bi-eye-slash"></i>
+                                </span>
+                            </div>
+                        </div>
 
-                <form action="<?= base_url('/account/update-password') ?>" method="post">
-                    <div class="input-group mb-3">
-                        <label for="currentPassword">Password Lama:</label>
-                        <input type="password" name="current_password" class="form-control" placeholder="Password Lama" id="currentPassword" style="width: 98%;">
-                        <span class="input-group-text" onclick="togglePassword('currentPassword', this)">
-                            <i class="bi bi-eye-slash"></i>
-                        </span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label for="newPassword">Password Baru:</label>
-                        <input type="password" name="new_password" class="form-control" placeholder="Password Baru" id="newPassword" style="width: 98%;">
-                        <span class="input-group-text" onclick="togglePassword('newPassword', this)">
-                            <i class="bi bi-eye-slash"></i>
-                        </span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label for="confirmPassword">Confirmasi Password:</label>
-                        <input type="password" name="confirm_password" class="form-control" placeholder="Konfirmasi Password" id="confirmPassword" style="width: 98%;">
-                        <span class="input-group-text" onclick="togglePassword('confirmPassword', this)">
-                            <i class="bi bi-eye-slash"></i>
-                        </span>
-                    </div>
+                        <div class="form-group password-group">
+                            <label for="newPassword">Password Baru:</label>
+                            <div class="input-wrapper">
+                                <input type="password" name="new_password" placeholder="Password Baru" id="newPassword">
+                                <span onclick="togglePassword('newPassword', this)">
+                                    <i class="bi bi-eye-slash"></i>
+                                </span>
+                            </div>
+                        </div>
 
-                    <button type="submit">Update</button>
-                </form>
+                        <div class="form-group password-group">
+                            <label for="confirmPassword">Konfirmasi Password:</label>
+                            <div class="input-wrapper">
+                                <input type="password" name="confirm_password" placeholder="Konfirmasi Password" id="confirmPassword">
+                                <span onclick="togglePassword('confirmPassword', this)">
+                                    <i class="bi bi-eye-slash"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <button type="submit">Update</button>
+                        <a href="<?= base_url('account/setting') ?>" class="btn-kembali">← Kembali ke halaman identitas akun</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

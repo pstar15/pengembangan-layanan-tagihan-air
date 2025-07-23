@@ -171,6 +171,8 @@ a {
     margin: 0 auto;
     margin-right: 10px;
     text-align: end;
+    user-select: none;
+    white-space: nowrap;
 }
 
 .profile-dropdown {
@@ -387,6 +389,29 @@ body.sidebar-collapsed .main-content {
     color: #fff !important;
     border-radius: 6px;
 }
+.sidebar-dropdown .submenu {
+    display: none;
+    list-style: none;
+    margin-top: 5px;
+}
+
+.sidebar-dropdown.active .submenu {
+    display: block;
+}
+
+.submenu-link {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 6px 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+.submenu-link:hover {
+    color: #ddd;
+}
+
 .logout::after {
     content: '';
     position: absolute;
@@ -454,7 +479,6 @@ body.sidebar-collapsed .main-content {
 .card-left .card-icon {
     text-align: center;
     font-size: 30px;
-    color: #000;
 }
 
 .card-right {
@@ -532,6 +556,14 @@ body.sidebar-collapsed .main-content {
     margin-right: 0;
     gap: 10px;
     margin-top: 7px;
+    color: #fff;
+    font-size: 25px;
+}
+
+.card-icon .detail-row-tagihan {
+    background: #0064cf;
+    padding: 10px;
+    border-radius: 5px;
     color: #fff;
     font-size: 25px;
 }
@@ -862,10 +894,122 @@ body.sidebar-collapsed .main-content {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+/* End Css Filter Status **/
+.toolbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+.toolbar-left,
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/*End Css button Add**/
+.form-select option {
+    background-color: #fff;
+    color: #000;
+    padding: 9px 20px;
+} 
+/* Css menu search */
+.search-form {
+    margin-top: 70px;
+}
+.search-form .search-input {
+    padding-left: 2.5rem;
+    border-radius: 25px;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.search-form input {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.search-form button {
+    padding: 6px 10px;
+    width: 40px;
+    border: none;
+    background: none;
+    color: #007bff;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.search-form button i {
+    font-size: 16px;
+}
+/* button Add **/
+.btn-addtagihan {
+    width: 35px;
+    display: flex;
+    position: absolute;
+    justify-content: right;
+    align-items: right;
+    margin: 0 auto;
+    margin-left: 220px;
+    margin-top: 23px;
+    padding: 1px 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+.btn-addtagihan a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #4087f1;
+}
+.btn-addtagihan a:hover {
+    color: #1f5e8e;
+}
 
+.button-add-group {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.label-add-hover {
+    position: absolute;
+    top: 60px;
+    left: 235px;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 999;
+}
+
+.button-add-group:hover .label-add-hover {
+    opacity: 1;
+}
+.label-add-hover {
+    transform: translateX(-50%) translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.button-add-group:hover .label-add-hover {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+/* END CSS MENU FORM SEARCH**/
 /*CSS tombol filter Status*/
 .filter-form select.form-select {
-    width: 65px;
     display: flex;
     position: inherit;
     justify-content: flex-end;
@@ -876,7 +1020,7 @@ body.sidebar-collapsed .main-content {
     color: #ffffff;
     background-color:rgb(64, 135, 241);
     padding: 5px 7px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
@@ -922,120 +1066,6 @@ body.sidebar-collapsed .main-content {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
 }
-/* End Css Filter Status **/
-.toolbar-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px 15px;
-    border-radius: 8px;
-}
-.toolbar-left,
-.toolbar-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-/* button Add **/
-.btn-addtagihan {
-    width: 35px;
-    display: flex;
-    position: absolute;
-    justify-content: right;
-    align-items: right;
-    margin: 0 auto;
-    margin-left: 220px;
-    margin-top: 23px;
-    padding: 1px 4px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    background: none;
-}
-.btn-addtagihan a {
-    text-decoration: none;
-    font-size: 20px;
-    color: rgb(64, 135, 241);
-}
-.btn-addtagihan a:hover {
-    color: #1f5e8e;
-}
-
-.button-add-group {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-
-.label-add-hover {
-    position: absolute;
-    top: 60px;
-    left: 235px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-
-.button-add-group:hover .label-add-hover {
-    opacity: 1;
-}
-.label-add-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.button-add-group:hover .label-add-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/*End Css button Add**/
-.form-select option {
-    background-color: #fff;
-    color: #000;
-    padding: 9px 20px;
-}
-/* Css menu search */
-.search-form {
-    margin-top: 70px;
-}
-.search-form .search-input {
-    padding-left: 2.5rem;
-    border-radius: 25px;
-}
-.search-form {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.search-form input {
-    padding: 6px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.search-form button {
-    padding: 6px 10px;
-    width: 40px;
-    border: none;
-    background: none;
-    color: #007bff;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.search-form button i {
-    font-size: 16px;
-}
-/* END CSS MENU FORM SEARCH**/
 /* Css Button Reset **/
 #filterBtn {
     transition: all 0.3s ease;

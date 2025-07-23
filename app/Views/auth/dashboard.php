@@ -145,8 +145,10 @@
             <div class="card-container">
                 <div class="card-left">
                     <div class="card pendapatan">
-                        <div class="card-icon">
-                            <i class="bi bi-currency-dollar"></i>
+                        <div class="card-icon cart-text-info">
+                            <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-row-tagihan">
+                                <i class="bi bi-currency-dollar"></i>
+                            </a>
                             <hr>
                         </div>
                         <div class="card-text-pendapatan">

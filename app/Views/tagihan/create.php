@@ -133,9 +133,12 @@
     <div class="main-content" id="mainContent">
         <div class="container-create">
             <div class="form-tagihan">
-                <!-- app/Views/tagihan/create.php -->
-                <h2>Tambah Data Tagihan</h2>
-                <form id="formAddTagihan" action="<?= base_url('/tagihan/store') ?>" method="post">
+                <div class="img-create-tagihan">
+                    <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="logo-BUMDesa">
+                </div>
+                <h3 style="text-align: center; color: #000; margin-top: 20px;">Tambah Data Tagihan</h3>
+                <hr>
+                <form id="formAddTagihan" action="<?= base_url('/tagihan/store') ?>" method="post" style="margin-top: 20px;">
                     <?= csrf_field() ?>
                     <div class="form-group">
                         <label>Nama</label>
@@ -154,7 +157,7 @@
 
                     <div class="form-group">
                         <label>Jumlah Meter</label>
-                        <input type="number" name="jumlah_meter" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
+                        <input type="number" name="jumlah_meter" pattern="\d{8}" maxlength="8" title="Harus 8 digit angka" value="<?= old('jumlah_meter', $data['jumlah_meter'] ?? '') ?>" required>
                     </div>
 
                     <div class="form-group">
@@ -163,19 +166,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Jumlah Tagihan</label>
-                        <input type="number" name="jumlah_tagihan" value="<?= old('jumlah_tagihan', $data['jumlah_tagihan'] ?? '') ?>" required>
+                        <label>Total Tagihan</label>
+                        <input type="number" name="jumlah_tagihan" value="<?= old('jumlah_tagihan', $data['jumlah_tagihan'] ?? '') ?>">
                     </div>
 
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" required>
+                        <select name="status" style="margin-top: 10px;">
                             <option value="Lunas" <?= (old('status', $data['status'] ?? '') == 'Lunas') ? 'selected' : '' ?>>Lunas</option>
                             <option value="Belum Lunas" <?= (old('status', $data['status'] ?? '') == 'Belum Lunas') ? 'selected' : '' ?>>Belum Lunas</option>
                             <option value="Tidak Ada" <?= (old('status', $data['status'] ?? '') == 'Tidak Ada') ? 'selected' : '' ?>>Tidak Ada</option>
                         </select>
                     </div>
-
+                    <hr style="margin-top: 20px;">
                     <button type="submit" id="btnAddTagihan" class="btn-simpan">Simpan</button>
                 </form>
                 <a href="<?= base_url('/tagihan') ?>" class="btn-kembali">← Kembali ke Daftar Tagihan</a>

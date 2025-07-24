@@ -463,7 +463,9 @@ body.sidebar-collapsed .main-content {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin-bottom:30px;
+    margin-bottom:20px;
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.5s ease;
 }
 
 .card-left {
@@ -851,13 +853,27 @@ body.sidebar-collapsed .main-content {
     border-radius: 6px;
     font-size: 15px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 15px;
     transition: background-color 0.3s ease;
     width: 100%;
 }
 
 .form-tagihan .btn-simpan:hover {
     background-color: #1f5e8e;
+}
+
+.img-create-tagihan img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+}
+
+.img-edit-tagihan img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
 }
 
 /* Tombol Kembali */
@@ -895,134 +911,82 @@ body.sidebar-collapsed .main-content {
     to { opacity: 1; }
 }
 /* End Css Filter Status **/
+/* Wrapper Flex Horizontal */
 .toolbar-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px 15px;
-    border-radius: 8px;
-}
-.toolbar-left,
-.toolbar-right {
-    display: flex;
+    gap: 20px;
     align-items: center;
-    gap: 10px;
+    height: 30px;
 }
-/*End Css button Add**/
-.form-select option {
-    background-color: #fff;
-    color: #000;
-    padding: 9px 20px;
-} 
-/* Css menu search */
-.search-form {
-    margin-top: 70px;
-}
-.search-form .search-input {
-    padding-left: 2.5rem;
-    border-radius: 25px;
-}
-.search-form {
+
+/* Tombol & Form Horizontal */
+.toolbar-left {
     display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     align-items: center;
-    gap: 5px;
 }
-.search-form input {
-    padding: 6px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.search-form button {
-    padding: 6px 10px;
-    width: 40px;
-    border: none;
-    background: none;
-    color: #007bff;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.search-form button i {
-    font-size: 16px;
-}
-/* button Add **/
-.btn-addtagihan {
-    width: 35px;
-    display: flex;
+
+/* Tombol Tambah */
+.button-add-group {
     position: absolute;
-    justify-content: right;
-    align-items: right;
-    margin: 0 auto;
-    margin-left: 220px;
-    margin-top: 23px;
-    padding: 1px 4px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    background: none;
+    margin-left: 180px;
 }
-.btn-addtagihan a {
-    text-decoration: none;
+.btn-addtagihan {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
     font-size: 20px;
     color: #4087f1;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-.btn-addtagihan a:hover {
+.btn-addtagihan:hover {
     color: #1f5e8e;
 }
 
-.button-add-group {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-
-.label-add-hover {
+.label-add-hover,
+.label-Fstatus-hover,
+.label-FSearch-hover {
     position: absolute;
-    top: 60px;
-    left: 235px;
-    transform: translateX(-50%);
-    margin-top: 6px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
     background-color: #a8a8a8;
     color: #fff;
     padding: 4px 8px;
     border-radius: 5px;
     font-size: 11px;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
     white-space: nowrap;
-    z-index: 999;
+    transition: 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
 }
-
-.button-add-group:hover .label-add-hover {
+.button-add-group:hover .label-add-hover,
+.Filter-Status:hover .label-Fstatus-hover,
+.form-search:hover .label-FSearch-hover {
     opacity: 1;
-}
-.label-add-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.button-add-group:hover .label-add-hover {
     transform: translateX(-50%) translateY(0);
-    opacity: 1;
 }
-/* END CSS MENU FORM SEARCH**/
-/*CSS tombol filter Status*/
+
+/* Form Select */
 .filter-form select.form-select {
-    display: flex;
-    position: inherit;
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin: 0 auto;
-    margin-right: 0;
-    margin-top: 0;
-    color: #ffffff;
-    background-color:rgb(64, 135, 241);
-    padding: 5px 7px;
-    border-radius: 6px;
+    background-color: rgb(64, 135, 241);
+    color: #fff;
     border: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 5px 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .filter-form select.form-select option {
@@ -1030,176 +994,127 @@ body.sidebar-collapsed .main-content {
     color: #000;
 }
 
-.filter-form select.form-select:hover {
-    background-color: #1f5e8e;
-}
-.Filter-Status {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-.label-Fstatus-hover {
-    position: absolute;
-    top: 38px;
-    left: 27px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.Filter-Status:hover .label-Fstatus-hover {
-    opacity: 1;
-}
-.label-Fstatus-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.Filter-Status:hover .label-Fstatus-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* Css Button Reset **/
-#filterBtn {
-    transition: all 0.3s ease;
-}
-.button-reset {
-    position: absolute;
+/* Search */
+.search-form {
     display: flex;
-    justify-content: right;
-    align-items: right;
-    margin: 0 auto;
-    margin-left: 240px;
+    gap: 8px;
+    align-items: center;
 }
-.label-resetTagihan-hover {
-    position: absolute;
-    top: 38px;
-    left: 15px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
+.form-search input {
+    padding: 7px 12px;
     border-radius: 5px;
-    font-size: 10px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
+    border: 1px solid #ccc;
 }
-.button-reset:hover .label-resetTagihan-hover {
-    opacity: 1;
+.button-search button {
+    border: none;
+    background: none;
+    color: #4087f1;
+    font-size: 16px;
+    cursor: pointer;
 }
-.label-resetTagihan-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.button-reset:hover .label-resetTagihan-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* End Css button Reset **/
-.input-with-icon {
-    position: relative;
-    max-width: 200px;
+@media (max-width: 768px) {
+    .toolbar-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .toolbar-left {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 10px;
+    }
 }
 
-.search-input {
-    width: 100%;
-    padding: 10px 10px 10px 15px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-.form-search {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-.button-search {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-.label-FSearch-hover {
-    position: absolute;
-    top: 49px;
-    left: 49%;
-    transform: translateX(-50%);
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.label-search-hover {
-    position: absolute;
-    top: 50px;
-    left: 40%;
-    transform: translateX(-50%);
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 10px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.form-search:hover .label-FSearch-hover {
-    opacity: 1;
-}
-.label-FSearch-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.form-search:hover .label-FSearch-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-.button-search:hover .label-search-hover {
-    opacity: 1;
-}
-.label-search-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.button-search:hover .label-search-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
 /* end css menu search*/
-.btn-simpandata {
-    width: 216px;
-    justify-content: right;
-    align-items: right;
-    align-content: right;
-    margin: 0 auto;
-    margin-right: 0;
-    margin-top: 70px;
-    padding: 6px 8px;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
+.menu-filter-riwayat {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
+
+.form-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Input month */
+.input-riwayat {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 150px;
+}
+
+/* Tooltip saat hover */
+.form-filter-riwayat {
+    position: relative;
+}
+.tooltip {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+.form-filter-riwayat:hover .tooltip {
+    opacity: 1;
+}
+
+/* Ikon Button */
+.btn-icon {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #2980b9;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.btn-icon:hover {
+    background: #e6f0fa;
+    color: #1f5e8e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-filter {
+        justify-content: center;
+    }
+
+    .input-riwayat {
+        width: 100%;
+        max-width: 180px;
+    }
+}
+/* END CSS button Export riwayat **/
 /* CSS Button Pilih Data Riwayat **/
+.btn-keloladata {
+    margin: 0 auto;
+    margin-left:250px;
+    margin-top: 18px;
+}
 .pilih-data {
     position: absolute;
     margin: 0 auto;
@@ -1468,254 +1383,4 @@ body.sidebar-collapsed .main-content {
 /* End CSS Hapus Data Riwayat */
 .checkbox-col {
     display: none;
-}
-.btns-riwayat {
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin: 0 auto;
-    margin-right: 0;
-    width: 25%;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-.input-riwayat {
-    position: absolute;
-    margin: 0 auto;
-    margin-top: 0;
-    width: 150px;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-.from-input-riwayat {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-.label-Finput-hover {
-    position: absolute;
-    top: 41px;
-    left: 90px;
-    transform: translateX(-50%);
-    margin-top: 0;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.from-input-riwayat:hover .label-Finput-hover {
-    opacity: 1;
-}
-.label-Finput-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}.from-input-riwayat:hover .label-Finput-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* Css Button Filter Riwayat **/
-.filter-datariwayat {
-    display: flex;
-    position: absolute;
-    width: 35px;
-    font-size: 20px;
-    padding: 6px 7px;
-    margin: 0 auto;
-    margin-top: 11px;
-    margin-left: 195px;
-    border-radius: 6px;
-    background: none;
-}
-.filter-datariwayat a {
-    color: #2980b9;
-}
-.filter-datariwayat:hover {
-    color: #1f5e8e;
-}
-.btn-filter-riwayat {
-    position: absolute;
-	display: flex;
-}
-.label-filter-hover {
-    position: absolute;
-    top: 45px;
-    left: 213px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.btn-filter-riwayat:hover .label-filter-hover {
-    opacity: 1;
-}
-.label-filter-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.btn-filter-riwayat:hover .label-filter-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* END CSS Filter Riwayat **/
-/* Css button Reset Filter Riwayat **/
-.reset-riwayat {
-    position: absolute;
-    margin: 0 auto;
-    margin-top: 3px;
-    margin-left: 115px;
-    font-size: 20px;
-    padding: 6px 5px;
-    background: none;
-}
-.reset-datariwayat {
-    position: absolute;
-    margin: 0 auto;
-    font-size: 23px;
-    background: none;
-    color: #a3a3a3;
-    border-radius: 6px;
-}
-.reset-datariwayat:hover {
-    color: #666666;
-}
-
-.btn-reset-riwayat {
-    position: absolute;
-    display: flex;
-}
-.label-reset-hover {
-    position: absolute;
-    top: 45px;
-    left: 250px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.btn-reset-riwayat:hover .label-reset-hover {
-    opacity: 1;
-}
-.label-reset-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.btn-reset-riwayat:hover .label-reset-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* End Css button Reset Filter Riwayat **/
-/* Css button Export riwayat **/
-.export-riwayat {
-    position: absolute;
-    margin: 0 auto;
-    margin-left: 800px;
-    margin-top: -12px;
-    padding: 7px 5px;
-    transition: transform 0.3s ease;
-    animation: fadeIn 0.5s ease;
-}
-.export {
-    font-size: 20px;
-    border-radius: 6px;
-    color:#2980b9;
-}
-.btn-export-riwayat {
-    position: absolute;
-	display: flex;
-}
-.label-export-hover {
-    position: absolute;
-    top: 22px;
-    left: 574px;
-    transform: translateX(-50%);
-    margin-top: 6px;
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    z-index: 999;
-}
-.btn-export-riwayat:hover .label-export-hover {
-    opacity: 1;
-}
-.label-export-hover {
-    transform: translateX(-50%) translateY(5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.btn-export-riwayat:hover .label-export-hover {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-/* END CSS button Export riwayat **/
-/* Chart */
-.chart-container {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.5s ease;
-}
-
-.chart-wrapper {
-    width: 100%;
-    max-width: 1000px;
-    padding: 10px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-canvas.chart-line {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 550px;
-}
-
-/* Responsif di ukuran tablet */
-@media (max-width: 768px) {
-    canvas.chart-line {
-        max-height: 350px;
-    }
-}
-
-/* Responsif di ukuran HP */
-@media (max-width: 480px) {
-    canvas.chart-line {
-        max-height: 250px;
-    }
-}
-
-/* Animasi masuk */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
 }

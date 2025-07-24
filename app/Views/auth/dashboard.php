@@ -226,71 +226,74 @@
                 </div>
             </div>
 
-            <!--Chart-->
-            <div class="chart-container">
-                <div class="chart-wrapper">
-                    <canvas id="chartKurva" class="chart-line"></canvas>
-                </div>
-            </div>
-
-            <div class="table-wrapper">
-                <div class="table-scroll">
-                    <div class="table-box akun">
-                        <table class="table-da-akun">
-                            <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th>Terakhir Online</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($akun_android as $akun): ?>
-                                    <tr>
-                                        <td><?= esc($akun['username']) ?></td>
-                                        <td><?= esc($akun['email']) ?></td>
-                                        <td>
-                                            <?php if ($akun['is_online']): ?>
-                                                <span style="color:green;">Aktif</span>
-                                            <?php else: ?>
-                                                <span style="color:red;">Offline</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td><?= esc($akun['last_online']) ?: '-' ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+            <div class="dashboard-container">
+                <!--Chart-->
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="chartKurva" class="chart-line"></canvas>
                     </div>
+                </div>
 
-                    <div class="table-box tagihan">
-                        <table class="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>No.Meter</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (!empty($tagihan)) : ?>
-                                    <?php foreach ($tagihan as $i => $row) : ?>
-                                        <tr>
-                                            <td><?= $i + 1 ?></td>
-                                            <td><?= esc($row['nama_pelanggan']) ?></td>
-                                            <td><?= esc($row['alamat']) ?></td>
-                                            <td><?= esc($row['nomor_meter']) ?></td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                <?php else : ?>
+                <div class="table-container">
+                    <div class="table-box akun">
+                        <div class="scroll-wrapper" style="height: 60px;">
+                            <table class="table-da-akun">
+                                <thead>
                                     <tr>
-                                        <td colspan="4" class="text-center">Belum ada data tagihan</td>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Terakhir Online</th>
                                     </tr>
-                                <?php endif ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($akun_android as $akun): ?>
+                                        <tr>
+                                            <td style="text-align: left;"><?= esc($akun['username']) ?></td>
+                                            <td><?= esc($akun['email']) ?></td>
+                                            <td>
+                                                <?php if ($akun['is_online']): ?>
+                                                    <span style="color:green;">Aktif</span>
+                                                <?php else: ?>
+                                                    <span style="color:red;">Offline</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?= esc($akun['last_online']) ?: '-' ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="table-box tagihan">
+                        <div class="scroll-wrapper" style="height: 150px;">
+                            <table class="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>No.Meter</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($tagihan)) : ?>
+                                        <?php foreach ($tagihan as $i => $row) : ?>
+                                            <tr>
+                                                <td><?= $i + 1 ?></td>
+                                                <td style="text-align: left;"><?= esc($row['nama_pelanggan']) ?></td>
+                                                <td><?= esc($row['alamat']) ?></td>
+                                                <td><?= esc($row['nomor_meter']) ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td colspan="4" class="text-center">Belum ada data tagihan</td>
+                                        </tr>
+                                    <?php endif ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

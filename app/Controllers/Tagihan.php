@@ -48,7 +48,7 @@ class Tagihan extends BaseController
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
         return $db->table('notifikasi_tagihan')
-            ->where('dilihat', 0) // hanya notifikasi baru
+            ->where('dilihat', 0)
             ->orderBy('waktu', 'DESC')
             ->limit(10)
             ->get()
@@ -75,17 +75,16 @@ class Tagihan extends BaseController
         $validation->setRules([
             'nama_pelanggan' => 'required',
             'alamat'         => 'required',
-            'nomor_meter'    => 'required',
-            'jumlah_meter'   => 'required',
+            'nomor_meter'    => 'required|exact_length[8]',
+            'jumlah_meter'   => 'required|numeric',
             'periode'        => 'required',
-            'jumlah_tagihan' => 'required|numeric',
-            'status'         => 'required|in_list[Lunas,Belum Lunas, Tidak Ada]',
+            'status'         => 'required|in_list[Lunas,Belum Lunas,Tidak Ada]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Silakan isi semua data dengan benar.');
+                ->with('error', 'Silakan isi semua data dengan benar. Pastikan No. Meter berisi 8 karakter.');
         }
 
         $model = new \App\Models\TagihanModel();
@@ -95,11 +94,10 @@ class Tagihan extends BaseController
             'nomor_meter'    => $this->request->getPost('nomor_meter'),
             'jumlah_meter'   => $this->request->getPost('jumlah_meter'),
             'periode'        => $this->request->getPost('periode'),
-            'jumlah_tagihan' => $this->request->getPost('jumlah_tagihan'),
             'status'         => $this->request->getPost('status'),
         ]);
 
-        return redirect()->to('/tagihan')->with('success', 'Tagihan berhasil ditambahkan!');
+        return redirect()->to('/tagihan')->with('success', 'Selamat, Data Tagihan berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -125,12 +123,12 @@ class Tagihan extends BaseController
         ];
 
         if (empty($data['nama_pelanggan']) || empty($data['nomor_meter'])) {
-            return redirect()->back()->withInput()->with('error', 'Data tidak boleh kosong.');
+            return redirect()->back()->withInput()->with('error', 'Mohon maaf, data tidak boleh kosong.');
         }
 
         $model->update($id, $data);
 
-        return redirect()->to('/tagihan')->with('success', 'Tagihan berhasil diupdate!');
+        return redirect()->to('/tagihan')->with('success', 'Selamat, Data tagihan berhasil diupdate!');
     }
 
     public function delete($id)
@@ -138,7 +136,7 @@ class Tagihan extends BaseController
         $model = new TagihanModel();
         $model->delete($id);
 
-        return redirect()->to('/tagihan')->with('success', 'Data tagihan berhasil dihapus.');
+        return redirect()->to('/tagihan')->with('success', 'Selamat, Data tagihan berhasil dihapus.');
     }
     public function lunas()
     {
@@ -152,46 +150,6 @@ class Tagihan extends BaseController
         $model = new TagihanModel();
         $data['tagihan'] = $model->where('status', 'Belum Lunas', 'Tidak Ada')->findAll();
         return view('tagihan/index', $data);
-    }
-    public function simpanSemua()
-    {
-        $tagihanModel = new \App\Models\TagihanModel();
-        $riwayatModel = new \App\Models\RiwayatTagihanModel();
-
-        // Ambil semua data tagihan
-        $dataTagihan = $tagihanModel->findAll();
-
-        if (empty($dataTagihan)) {
-            return redirect()->back()->with('error', 'Tidak ada data tagihan yang tersedia.');
-        }
-
-        foreach ($dataTagihan as $tagihan) {
-            // Cek apakah data sudah lengkap
-            if (
-                !empty($tagihan['periode']) &&
-                !empty($tagihan['jumlah_tagihan']) &&
-                !empty($tagihan['status'])
-            ) {
-                // Simpan ke riwayat
-                $riwayatModel->save([
-                    'nama_pelanggan' => $tagihan['nama_pelanggan'],
-                    'alamat'         => $tagihan['alamat'],
-                    'nomor_meter'    => $tagihan['nomor_meter'],
-                    'jumlah_meter'   => $tagihan['jumlah_meter'],
-                    'periode'        => $tagihan['periode'],
-                    'jumlah_tagihan' => $tagihan['jumlah_tagihan'],
-                    'status'         => $tagihan['status'],
-                ]);
-
-                // Kosongkan kolom tertentu di tabel tagihan untuk penagihan berikutnya
-                $tagihanModel->update($tagihan['id'], [
-                    'jumlah_tagihan' => null,
-                    'status'         => null,
-                ]);
-            }
-        }
-
-        return redirect()->to('/tagihan')->with('success', 'Data berhasil dipindahkan ke riwayat. Data kosong tetap berada di tabel tagihan.');
     }
 
     public function riwayat()
@@ -217,7 +175,7 @@ class Tagihan extends BaseController
         $data = $tagihanModel->find($id);
 
         if (!$data) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            return redirect()->back()->with('error', 'Mohon maaf, data tidak ditemukan.');
         }
 
         $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
@@ -229,7 +187,7 @@ class Tagihan extends BaseController
             ->getRow();
 
         if ($cek) {
-            return redirect()->back()->with('warning', 'Data ini sudah pernah dikirim.');
+            return redirect()->back()->with('warning', 'Mohon maaf, data ini sudah pernah dikirim.');
         }
 
         $dbAplikasi->table('tagihanaplikasi')->insert([
@@ -237,7 +195,7 @@ class Tagihan extends BaseController
             'alamat' => $data['alamat'],
             'nomor_meter' => $data['nomor_meter'],
             'jumlah_meter' => $data['jumlah_meter'],
-            'periode' => $data['periode'], // tetap dikirim
+            'periode' => $data['periode'],
             'jumlah_tagihan' => $data['jumlah_tagihan'],
             'status' => $data['status'],
         ]);
@@ -247,6 +205,6 @@ class Tagihan extends BaseController
             'status' => 'Tidak Ada'
         ]);
 
-        return redirect()->back()->with('success', 'Data berhasil dikirim dan disiapkan untuk periode berikutnya.');
+        return redirect()->back()->with('success', 'Selamat, data berhasil dikirim dan disiapkan untuk periode berikutnya.');
     }
 }

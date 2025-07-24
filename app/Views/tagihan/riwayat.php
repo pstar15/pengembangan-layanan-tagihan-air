@@ -11,14 +11,16 @@
     <style>
         .container {
             width: 100%;
-            margin-top: 80px;
+            margin-top: 60px;
         }
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 22px;
             margin-left: 0;
+            margin-top: 18px;
             color: #000;
+            user-select: none;
+            white-space: nowrap;
         }
         h5 {
             color: #a3a3a3;
@@ -28,12 +30,6 @@
             background-color: #2980b9;
             color: #fff;
             text-align: center;
-        }
-        .btn-keloladata {
-            display: flex;
-            position: inherit;
-            margin: 0 auto;
-            margin-left:250px;
         }
 
         .no-copy {
@@ -145,86 +141,81 @@
         <div class="container">
 
             <h2>Riwayat Tagihan Air</h2>
-            <!-- Filter data tagihan -->
-            <div class="btns-riwayat">
-                <form action="<?= site_url('/riwayat-tagihan') ?>" method="get">
-                    <div class="btn-filter-riwayat">
-                        <button type="submit" class="filter-datariwayat btn btn-primary">
-                            <i class="bi bi-funnel"></i>
-                        </button>
-                        <h5 class="label-filter-hover">Filter</h5>
-                    </div>
-                    <div class="btn-reset-riwayat" id="resetBtn" style="display: none;">
-                        <button  class="reset-riwayat" >
-                            <i class="bi bi-arrow-clockwise reset-riwayat"></i>
-                        </button>
-                        <h5 class="label-reset-hover">Resets</h5>
-                    </div>
-                    <div class="from-input-riwayat">
-                        <div class="form-filter-riwayat">
-                            <input type="month" id="filterInput" name="periode" class="input-riwayat" value="<?= esc($periode ?? '') ?>">
-                        </div>
-                        <h5 class="label-Finput-hover">Pilih Periode Tagihan</h5>
-                    </div>
-                </form>
-            </div>
-            <div class="btn-export-riwayat">
-                <div id="exportBtn" class="export-riwayat">
-                    <a href="<?= site_url('riwayat/export/excel?periode=' . ($periode ?? '')) ?>" id="btnExportExcel" class="export btn btn-success">
-                        <i class="bi bi-filetype-exe"></i>
-                    </a>
-                </div>
-                <h5 class="label-export-hover">export</h5>
-            </div>
 
             <!-- button menu keloladata -->
-            <div id="kontrol-aksi" class="btn-keloladata mb-3">
-                <div class="btn-pilih-riwayat">
-                    <div class="pilih-data">
-                        <button id="btnPilih" class="pilih btn btn-primary">
-                            <a href="#" style="color: #fff;">Pilih</a>
-                        </button>
+            
+            <!-- Filter data tagihan -->
+            <div class="menu-filter-riwayat">
+                <div id="kontrol-aksi" class="btn-keloladata mb-3">
+                    <div class="btn-pilih-riwayat">
+                        <div class="pilih-data">
+                            <button id="btnPilih" class="pilih btn btn-primary">
+                                <a href="#" style="color: #fff;">Pilih</a>
+                            </button>
+                        </div>
+                        <h5 class="label-pilih-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Pilih Data</h5>
                     </div>
-                    <h5 class="label-pilih-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Pilih Data</h5>
-                </div>
-                <div class="btn-batal-riwayat">
-                    <div class="batal-data">
-                        <button id="btnBatal" class="batal btn btn-danger d-none">
-                            <a href="#" style="color: #fff;">Batal</a>
-                        </button>
+                    <div class="btn-batal-riwayat">
+                        <div class="batal-data">
+                            <button id="btnBatal" class="batal btn btn-danger d-none">
+                                <a href="#" style="color: #fff;">Batal</a>
+                            </button>
+                        </div>
+                        <h5 class="label-batal-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Batal</h5>
                     </div>
-                    <h5 class="label-batal-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Batal</h5>
-                </div>
-                <div class="btn-kembalikan-riwayat">
-                    <div class="kembalikan-data">
-                        <button id="btnKembalikan" class="kembalikan btn btn-warning" style="display: none;">
-                            <a href="#" style="color: #1f5e8e;">
-                                <i class="bi bi-folder-symlink"></i>
-                            </a>
-                        </button>
+                    <div class="btn-kembalikan-riwayat">
+                        <div class="kembalikan-data">
+                            <button id="btnKembalikan" class="kembalikan btn btn-warning" style="display: none;">
+                                <a href="#" style="color: #1f5e8e;">
+                                    <i class="bi bi-folder-symlink"></i>
+                                </a>
+                            </button>
+                        </div>
+                        <h5 class="label-kembalikan-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Return</h5>
                     </div>
-                    <h5 class="label-kembalikan-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Return</h5>
-                </div>
-                <div class="btn-hapus-riwayat">
-                    <div class="hapus-data">
-                        <button id="btnHapus" class="hapus btn btn-danger d-none">
-                            <a href="#" style="color: rgb(184, 40, 40);">
-                                <i class="bi bi-trash3"></i>
-                            </a>
-                        </button>
+                    <div class="btn-hapus-riwayat">
+                        <div class="hapus-data">
+                            <button id="btnHapus" class="hapus btn btn-danger d-none">
+                                <a href="#" style="color: rgb(184, 40, 40);">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </button>
+                        </div>
+                        <h5 class="label-hapus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Hapus</h5>
                     </div>
-                    <h5 class="label-hapus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Hapus</h5>
-                </div>
-                <div class="btn-smeua-riwayat">
-                    <div class="semua-data">
-                        <button id="btnSemua" class="semua btn btn-success d-none">
-                            <a href="#">
-                                <i class="bi bi-check-all"></i>
-                            </a>
-                        </button>
+                    <div class="btn-smeua-riwayat">
+                        <div class="semua-data">
+                            <button id="btnSemua" class="semua btn btn-success d-none">
+                                <a href="#">
+                                    <i class="bi bi-check-all"></i>
+                                </a>
+                            </button>
+                        </div>
+                        <h5 class="label-semua-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Semua</h5>
                     </div>
-                    <h5 class="label-semua-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Semua</h5>
                 </div>
+                <form action="<?= site_url('/riwayat-tagihan') ?>" method="get" class="form-filter">
+                    <div class="filter-group">
+                        <div class="form-filter-riwayat">
+                            <input type="month" id="filterInput" name="periode" class="input-riwayat"
+                                value="<?= esc($periode ?? '') ?>" required>
+                            <span class="tooltip">Pilih Periode</span>
+                        </div>
+
+                        <button type="submit" class="btn-icon filter-btn" title="Filter">
+                            <i class="bi bi-funnel"></i>
+                        </button>
+
+                        <button type="button" id="resetBtn" class="btn-icon reset-btn" title="Reset" style="display:none;">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+
+                        <a href="<?= site_url('riwayat/export/excel?periode=' . ($periode ?? '')) ?>" 
+                        class="btn-icon export-btn" title="Export Excel">
+                            <i class="bi bi-filetype-exe"></i>
+                        </a>
+                    </div>
+                </form>
             </div>
 
             <div class="table-container">
@@ -237,9 +228,9 @@
                                 <th>No.Meter</th>
                                 <th>Jumlah Meter</th>
                                 <th>Periode</th>
-                                <th>Tagihan</th>
+                                <th>Total Tagihan</th>
                                 <th>Status</th>
-                                <th>Tanggal Simpan</th>
+                                <th>Date</th>
                                 <th class="checkbox-col" style="display: none;">Pilih</th>
                             </tr>
                         </thead>
@@ -439,42 +430,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    btnExport.addEventListener("click", function () {
-        const tanggal = document.getElementById("tanggal")?.value || "";
-        const bulan = document.getElementById("bulan")?.value || "";
-
-        Swal.fire({
-            title: 'Export Data?',
-            text: tanggal || bulan ? 
-                `Data akan difilter berdasarkan ${tanggal ? 'tanggal ' + tanggal : 'bulan ' + bulan}` : 
-                'Semua data akan di-export.',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Export Sekarang',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById("inputTanggal").value = tanggal;
-                document.getElementById("inputBulan").value = bulan;
-                document.getElementById("exportForm").submit();
-            }
-        });
-    });
-    btnExportExcel.addEventListener("click", function () {
-        Swal.fire({
-            title: 'Export ke Excel?',
-            text: 'Data riwayat akan di-export sebagai Excel.',
-            icon: 'info',
-            showCancelButton: true,
-            confirmButtonText: 'Export',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const periode = document.getElementById('filterPeriode')?.value || '';
-                window.location.href = "<?= site_url('riwayat/export/excel') ?>?periode=" + encodeURIComponent(periode);
-            }
-        });
-    })
 });
 </script>
 <script>

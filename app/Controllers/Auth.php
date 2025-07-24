@@ -205,7 +205,7 @@ class Auth extends BaseController
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
         return $db->table('notifikasi_tagihan')
-        ->where('dilihat', 0) // hanya notifikasi baru
+        ->where('dilihat', 0)
         ->orderBy('waktu', 'DESC')
             ->limit(10)
             ->get()

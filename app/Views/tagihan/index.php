@@ -13,14 +13,16 @@
     <style>
         .container {
             width: 100%;
-            margin-top: -10px;
+            margin-top: 60px;
         }
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 105px;
+            margin-top: 18px;
             margin-left: 0;
             color: #000;
+            user-select: none;
+            white-space: nowrap;
         }
         .toolbar-wrapper {
             display: flex;
@@ -40,7 +42,6 @@
             margin: 0 auto;
             margin-left: 240px;
             margin-bottom: 10px;
-            margin-top: 80px;
         }
         .no-copy {
             user-select: none;
@@ -149,47 +150,41 @@
             <h2>Daftar Tagihan Air</h2>
             <div class="toolbar-wrapper">
                 <div class="toolbar-left">
+                    <!-- Tombol Tambah -->
                     <div class="button-add-group">
-                        <button class="btn-addtagihan">
-                            <a href="<?= base_url('/tagihan/create') ?>">
-                                <i class="bi bi-folder-plus"></i>
-                            </a>
-                        </button>
-                        <h5 class="label-add-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Tambah Data Tagihan</h5>
-                    </div>
+                        <a href="<?= base_url('/tagihan/create') ?>" class="btn-addtagihan">
+                            <i class="bi bi-folder-plus"></i>
+                        </a>
+                    <div class="label-add-hover">Tambah Data Tagihan</div>
+                </div>
 
+                    <!-- Filter Status -->
                     <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form">
                         <div class="Filter-Status">
                             <select name="status" class="form-select" onchange="this.form.submit()">
-                                <option value="">
-                                    Opsi
-                                </option>
-                                <option value="Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Lunas') ? 'selected' : '' ?>>
-                                    Lunas
-                                </option>
-                                <option value="Belum Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Belum Lunas') ? 'selected' : '' ?>>
-                                    Belum Lunas
-                                </option>
+                                <option value="">Pilih Status</option>
+                                <option value="Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Lunas') ? 'selected' : '' ?>>Lunas</option>
+                                <option value="Belum Lunas" <?= (isset($_GET['status']) && $_GET['status'] == 'Belum Lunas') ? 'selected' : '' ?>>Belum Lunas</option>
                             </select>
-                            <h5 class="label-Fstatus-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Filter Status</h5>
+                            <div class="label-Fstatus-hover">Filter Status</div>
                         </div>
                     </form>
 
-                    <div class="toolbar-rihght">
-                        <form method="get" action="<?= base_url('tagihan') ?>" id="filterForm" class="search-form">
-                            <div class="form-search">
-                                <input type="text" id="keywordInput" name="keyword" placeholder="Cari nama / nomor meter..." value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
-                                <h5 class="label-FSearch-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Ketik Nama/Nomor Meter</h5>
-                            </div>
-                            <div class="button-search">
-                                <button type="submit" id="filterBtn">
-                                    <i class="bi bi-search" id="filterIcon"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <!-- Form Pencarian -->
+                    <form method="get" action="<?= base_url('tagihan') ?>" id="filterForm" class="search-form">
+                        <div class="form-search">
+                            <input type="text" id="keywordInput" name="keyword" placeholder="Cari nama / nomor meter..." value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
+                            <div class="label-FSearch-hover">Ketik Nama/Nomor Meter</div>
+                        </div>
+                        <div class="button-search">
+                            <button type="submit" id="filterBtn">
+                            <i class="bi bi-search" id="filterIcon"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
+
 
             <!-- Tabel data tagihan -->
             <div id="resultContainer" class="table-container">
@@ -201,7 +196,7 @@
                             <th>No.Meter</th>
                             <th>Jumlah Meter</th>
                             <th>Periode</th>
-                            <th>Jumlah Tagihan</th>
+                            <th>Total Tagihan</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>

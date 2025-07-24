@@ -27,7 +27,7 @@
             border-radius: 6px;
             font-size: 15px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 15px;
             transition: background-color 0.3s ease;
             width: 100%;
         }
@@ -146,9 +146,12 @@
     <div class="main-content" id="mainContent">
         <div class="container-edit-tagihan">
             <div class="form-tagihan">
-                <h2>Edit Data Tagihan</h2>
-
-                <form id="formUpdateTagihan" action="<?= base_url('/tagihan/update/' . $tagihan['id']) ?>" method="post">
+                <div class="img-edit-tagihan">
+                    <img src="<?= base_url('img/logo-bumdes.png') ?>" alt="logo-BUMDesa">
+                </div>
+                <h3 style="text-align: center; color: #000; margin-top: 20px; font-weight: default;">Edit Data Tagihan</h3>
+                <hr>
+                <form id="formUpdateTagihan" action="<?= base_url('/tagihan/update/' . $tagihan['id']) ?>" method="post" style="margin-top: 20px;">
                     <?= csrf_field() ?>
 
                     <div class="form-group">
@@ -189,7 +192,7 @@
                             <option value="Tidak Ada" <?= $tagihan['status'] === 'Tidak Ada' ? 'selected' : '' ?>>Tidak Ada</option>
                         </select>
                     </div>
-
+                    <hr style="margin-top: 20px;">
                     <button class="btn-updatetagihan" id="btnUpdatetagihan" type="submit">Update</button>
                 </form>
                 <a href="<?= base_url('/tagihan') ?>" class="btn-kembali">← Kembali ke Daftar Tagihan</a>

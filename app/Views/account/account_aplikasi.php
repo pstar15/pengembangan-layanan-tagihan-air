@@ -154,7 +154,7 @@
                             <td><?= $a['last_online'] ?></td>
                             <td>
                                 <a href="/account_app/edit/<?= $a['id'] ?>" class="btn btn-edit">Edit</a>
-                                <a href="/account_app/delete/<?= $a['id'] ?>" class="btn btn-hapus" onclick="return confirm('Yakin hapus akun ini?')">Hapus</a>
+                                <a href="account_app/delete/<?= $a['id'] ?>" class="btn btn-hapus" onclick="return confirm('Yakin hapus akun ini?')">Hapus</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

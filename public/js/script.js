@@ -47,27 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 // END SCRIPT SIDEBAR
-// SCRIPT TOGGLE PASSWORD
-document.addEventListener("DOMContentLoaded", function () {
-    const toggles = document.querySelectorAll(".toggle-password");
-
-    toggles.forEach(function (toggle) {
-        toggle.addEventListener("click", function () {
-            const targetSelector = toggle.getAttribute("data-target");
-            const input = document.querySelector(targetSelector);
-            const icon = toggle.querySelector("i");
-
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.replace("bi-eye-slash", "bi-eye");
-            } else {
-                input.type = "password";
-                icon.classList.replace("bi-eye", "bi-eye-slash");
-            }
-        });
-    });
-});
-//END SCRIPT TOGGLE PASSWORD
 // SCRIPT NOTIFIKASI POPUP
 const icon = document.getElementById('notificationIcon');
 const popup = document.getElementById('notificationPopup');

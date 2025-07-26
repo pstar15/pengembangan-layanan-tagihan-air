@@ -44,29 +44,24 @@
             font-size: 0.9rem;
         }
 
-        .bi-eye-slash {
-            position: absolute;
-            margin: 0 auto;
-            margin-top: -45px;
-            margin-left: 190px;
-            color: #000;
-        }
-        .bi-eye {
-            position: absolute;
-            margin: 0 auto;
-            margin-top: -45px;
-            margin-left: 190px;
-            color: #000;
+        .input-password-login {
+            position: relative;
         }
 
         .toggle-password {
             position: absolute;
-            right: 0;
-            margin-top: 7px;
-            margin-right: 220px;
+            top: 50%;
+            right: 15px;
             transform: translateY(-50%);
             cursor: pointer;
+            color: #000;
+            z-index: 10;
         }
+
+        .toggle-password i {
+            font-size: 1.2rem; /* bisa disesuaikan */
+        }
+
 
     </style>
 </head>
@@ -100,20 +95,17 @@
 
                         <h3 class="text-left mb-4 text-black">Login</h3>
 
-                        <?php if(session()->getFlashdata('error')): ?>
-                            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-                        <?php endif; ?>
-
                         <form action="<?= base_url('/login') ?>" method="post">
                             <div class="mb-3">
                                 <input type="email" name="email" class="form-control" placeholder="Email" required value="<?= old('email') ?>">
                             </div>
-                            <div class="mb-3 position-relative input-password-login">
+                            <div class=" mb-3 position-relative input-password-login">
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                                <span class="toggle-password" type="button">
-                                    <i class="bi bi-eye-slash" id="togglePasswordIcon"></i>
+                                <span class="toggle-password" data-target="#password">
+                                    <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>
+
                             <div class="mb-3 d-flex align-items-center">
                                 <input class="form-check-input me-2" type="checkbox" name="remember" value="1" id="remember">
                                 <label class="form-check-label text-black" for="remember">Remember Me</label>
@@ -155,5 +147,20 @@
     </div>
 
 <script src="<?= base_url('js/script.js') ?>" defer></script>
+<script>
+    document.querySelector('.toggle-password').addEventListener('click', function () {
+        const target = document.querySelector(this.getAttribute('data-target'));
+        const icon = this.querySelector('i');
+        if (target.type === 'password') {
+            target.type = 'text';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        } else {
+            target.type = 'password';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        }
+    });
+</script>
 </body>
 </html>

@@ -140,18 +140,46 @@
             max-width: 100%;
             padding: 12px 20px;
             border-radius: 10px;
-            border: 1px solid #a8a8a8ff;
             background-color: none;
-            color: #a8a8a8ff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-decoration: none;
             transition: background-color 0.3s, transform 0.2s;
             cursor: pointer;
         }
 
-        .button-setting  a:hover {
-            background-color: #0064cf;
+        .button-setting .login-activity {
+            border: 1px solid #a8a8a8ff;
+            color: #a8a8a8ff;
+        }
+
+        .button-setting .login-activity:hover {
+            border: 1px solid #727272ff;
+            color: #727272ff;
+            transform: scale(1.01);
+        }
+
+        .button-setting  .account-app {
+            background: #0064cf;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             color: #ffffff;
+        }
+
+        .button-setting  .account-app:hover {
+            background-color: #0155adff;
+            color: #ffffff;
+            transform: scale(1.01);
+        }
+
+        .button-setting .delete-account {
+            background: #ff4a4aff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+            border: none;
+        }
+
+        .button-setting .delete-account:hover {
+            background: #dd4a4aff;
+            color: #ffffff;
+            border: none;
             transform: scale(1.01);
         }
 
@@ -267,13 +295,18 @@
                 </div>
                 <hr style="margin-top: 20px;">
                 <div class="button-setting">
-                    <a href="<?= base_url('account/login-activity') ?>">
+                    <a href="<?= base_url('account/login-activity') ?>" class="login-activity">
                         Aktifitas Login
                     </a>
                 </div>
                 <div class="button-setting">
-                    <a href="<?= base_url('/account_app') ?>">
+                    <a href="<?= base_url('/account_app') ?>" class="account-app">
                         Account App
+                    </a>
+                </div>
+                <div class="button-setting">
+                    <a href="<?= base_url('/account_app') ?>" class="delete-account">
+                        Hapus Akun
                     </a>
                 </div>
             </div>

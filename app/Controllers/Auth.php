@@ -6,6 +6,7 @@ use App\Models\UserModel;
 use App\Models\TagihanModel;
 use App\Models\NotifikasiTagihan;
 use App\Controllers\BaseController;
+use App\Models\RiwayatLoginModel;
 use App\Models\RiwayatTagihanModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -95,7 +96,7 @@ class Auth extends BaseController
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
         ];
         $userModel->save($data);
-        return redirect()->to('/login')->with('success', 'Registrasi berhasil! Silakan login untuk masuk ke akun Anda.');
+        return redirect()->to('/login')->with('success', 'Registrasi berhasil! Silakan masukkan email dan password untuk login.');
     }
 
     public function loginProcess()
@@ -103,9 +104,12 @@ class Auth extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         $remember = $this->request->getPost('remember');
-
         $userModel = new \App\Models\UserModel();
+        $loginModel = new RiwayatLoginModel(); // MODEL UNTUK LOGIN ACTIVITY
+
         $user = $userModel->where('email', $email)->first();
+        $status = 'Gagal';
+        $userId = $user['id'] ?? null;
 
         if ($user && password_verify($password, $user['password'])) {
             session()->set([
@@ -115,20 +119,37 @@ class Auth extends BaseController
                 'logged_in' => true
             ]);
 
-            if ($remember && isset($user['id'])) {
+            $status = 'Sukses';
+
+            if ($remember) {
                 $token = bin2hex(random_bytes(32));
-                $data = ['remember_token' => $token];
+                $userModel->update($user['id'], ['remember_token' => $token]);
+                setcookie('remember_me', $token, time() + (86400 * 30), "/");
+            }
 
-                if (!empty($data)) {
-                    $userModel->update($user['id'], $data);
-                }
-
-            setcookie('remember_me', $token, time() + (86400 * 30), "/");
-        }
+            $loginModel->insert([
+                'user_id'    => $user['id'],
+                'waktu'      => date('Y-m-d H:i:s'),
+                'ip_address' => $this->request->getIPAddress(),
+                'lokasi'     => $this->getGeoLocation($this->request->getIPAddress()), // optional
+                'perangkat'  => $this->request->getUserAgent()->getAgentString(),
+                'status'     => $status
+            ]);
 
             return redirect()->to('/auth/dashboard');
         } else {
-            return redirect()->back()->withInput()->with('error', 'Email atau password salah.');
+            if ($userId) {
+                $loginModel->insert([
+                    'user_id'    => $userId,
+                    'waktu'      => date('Y-m-d H:i:s'),
+                    'ip_address' => $this->request->getIPAddress(),
+                    'lokasi'     => $this->getGeoLocation($this->request->getIPAddress()), // optional
+                    'perangkat'  => $this->request->getUserAgent()->getAgentString(),
+                    'status'     => 'Gagal'
+                ]);
+            }
+
+            return redirect()->back()->withInput()->with('error', 'Email atau password yang anda masukkan salah.');
         }
     }
 
@@ -291,6 +312,25 @@ class Auth extends BaseController
         }
 
         return view('auth/reset_password', ['token' => $token]);
+    }
+
+    private function getGeoLocation($ip)
+    {
+        if ($ip === '127.0.0.1' || $ip === '::1') {
+            return 'Localhost';
+        }
+
+        $json = @file_get_contents("http://ip-api.com/json/{$ip}");
+        if ($json) {
+            $data = json_decode($json, true);
+            if (isset($data['status']) && $data['status'] === 'success') {
+                $city = $data['city'] ?? '';
+                $country = $data['country'] ?? '';
+                return trim("{$city}, {$country}");
+            }
+        }
+
+        return 'Unknown';
     }
 
 }

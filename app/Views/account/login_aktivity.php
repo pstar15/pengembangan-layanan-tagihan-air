@@ -90,7 +90,7 @@
                                 <tr>
                                     <td><?= date('d/m/Y H:i:s', strtotime($log['waktu'])) ?></td>
                                     <td><?= esc($log['ip_address']) ?></td>
-                                    <td><?= esc($log['lokasi']) ?></td>
+                                    <td><?= esc($log['lokasi'] ?? 'unknown') ?></td>
                                     <td><?= esc($log['perangkat']) ?></td>
                                     <td class="<?= $log['status'] == 'Sukses' ? 'status-sukses' : 'status-gagal' ?>">
                                         <?= esc($log['status']) ?>

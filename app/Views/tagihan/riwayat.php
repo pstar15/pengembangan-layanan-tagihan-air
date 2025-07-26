@@ -194,7 +194,7 @@
                         <h5 class="label-semua-hover" style="position: absolute;margin-top: -3px;margin-left: 6px;">Semua</h5>
                     </div>
                 </div>
-                <form action="<?= site_url('/riwayat-tagihan') ?>" method="get" class="form-filter">
+                <form action="<?= site_url('/riwayat-tagihan') ?>" method="get" class="form-filter" id="filterForm">
                     <div class="filter-group">
                         <div class="form-filter-riwayat">
                             <input type="month" id="filterInput" name="periode" class="input-riwayat"
@@ -258,7 +258,6 @@
                     </table>
                 </div>
             </div>
-            <h5>Data Tagihan Air</h5>
         </div>
     </div>
 
@@ -273,10 +272,24 @@
     document.addEventListener('DOMContentLoaded', function () {
         const filterInput = document.getElementById('filterInput');
         const resetBtn = document.getElementById('resetBtn');
+        const form = document.getElementById('filterForm');
 
         if (filterInput.value !== '') {
             resetBtn.style.display = 'inline-block';
         }
+
+        resetBtn.addEventListener('click', function () {
+            filterInput.value = '';
+            form.submit();
+        });
+
+        filterInput.addEventListener('input', function () {
+            if (filterInput.value !== '') {
+                resetBtn.style.display = 'inline-block';
+            } else {
+                resetBtn.style.display = 'none';
+            }
+        });
     });
 </script>
 <script>

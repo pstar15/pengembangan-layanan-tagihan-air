@@ -37,21 +37,8 @@
             position: relative;
         }
 
-        .profile-icon {
-            font-size: 100px;
-            margin: 0 auto;
-            color: #000;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .profile-name {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: left;
             font-size: 20px;
             color: #000;
             user-select: none;
@@ -78,16 +65,30 @@
             margin-bottom: 15px;
         }
 
-        .form-set input {
+        .label-title {
             position: inherit;
             justify-content: center;
             align-items: center;
-            margin-left: 10px;
+            margin: 0 auto;
+            top: 10px;
+            font-size: 20px;
+            border-radius: 8px;
+            color: #8f8f8fff;
+        }
+
+        .form-set .input {
+            position: inherit;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 8px;
             background-color: #fff;
-            color: #000;
+        }
+
+        .input {
+            color: #8f8f8fff;
         }
 
         .label-input {
@@ -97,48 +98,61 @@
             align-items: center;
             color: #000;
             margin-left: 10px;
+            top: 10px;
+        }
+
+        .button-edit-account {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0 auto;
+            margin-right: 0;
         }
 
         .button-edit-account a {
-            display: flex;
+            display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin: 30px auto;
-            width: 80%;
-            padding: 12px 24px;
-            border-radius: 10px;
-            background-color: #007BFF;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.2s;
             cursor: pointer;
+            padding: 6px 10px;
+            max-width: 120px;
+            height: 15px;
+            border-radius: 10px;
+            font-size: 11px;
+            text-align: center;
+            color: #a8a8a8ff;
+            border: 1px solid #a8a8a8ff;
+            transition: background-color 0.3s, transform 0.2s;
+            transform: scale(1.05);
+            white-space: nowrap;
         }
 
         .button-edit-account a:hover {
-            background-color: #0064cf;
-            transform: scale(1.05);
+            color: #727272ff;
+            border: 1px solid #727272ff;
+            transform: scale(1.01);
         }
 
-        .button-set-acount-aplikasi  a {
+        .button-setting  a {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 30px auto;
-            width: 40%;
-            padding: 12px 24px;
+            margin: 10px auto;
+            max-width: 100%;
+            padding: 12px 20px;
             border-radius: 10px;
-            background-color: #007BFF;
-            color: #fff;
+            border: 1px solid #a8a8a8ff;
+            background-color: none;
+            color: #a8a8a8ff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-decoration: none;
             transition: background-color 0.3s, transform 0.2s;
             cursor: pointer;
         }
 
-        .button-set-acount-aplikasi  a:hover {
+        .button-setting  a:hover {
             background-color: #0064cf;
-            transform: scale(1.05);
+            color: #ffffff;
+            transform: scale(1.01);
         }
 
     </style>
@@ -229,33 +243,39 @@
     <div class="main-content" id="mainContent">
         <div class="container">
             <div oncontextmenu="return false;" class="form-setting no-copy">
-                <div class="profile-icon">
-                    <i class="bi bi-person-circle"></i>
-                </div>
                 <div class="profile-name">
                     <p>Identitas Akun</p>
                 </div>
+                <hr>
                 <div class="container-form-setting">
                     <div class="form-set">
-                        <label for="username" class="label-input">Username</label>
-                        <input type="username" name="username" required value="<?= session()->get('username') ?>" readonly>
+                        <span class="label-title">
+                            Welcome, <?= session()->get('username') ?>
+                        </span>
                     </div>
                     <div class="form-set">
                         <label for="email" class="label-input">Email</label>
-                        <input type="email" name="email" required value="<?= session()->get('email') ?>" readonly>
+                        <div class="input">
+                            <?= session()->get('email') ?>
+                        </div>
                     </div>
                     <div class="button-edit-account">
                         <a href="<?= base_url('account/setting_account') ?>">
-                            Edit Akun
+                            Change Account
                         </a>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="button-set-acount-aplikasi">
-                <a href="<?= base_url('/account_app') ?>" class="button-edit-account-aplikasi">
-                    Daftar Account Aplikasi
-                </a>
+                <hr style="margin-top: 20px;">
+                <div class="button-setting">
+                    <a href="<?= base_url('account/login-activity') ?>">
+                        Aktifitas Login
+                    </a>
+                </div>
+                <div class="button-setting">
+                    <a href="<?= base_url('/account_app') ?>">
+                        Account App
+                    </a>
+                </div>
             </div>
         </div>
     </div>

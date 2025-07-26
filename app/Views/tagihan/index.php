@@ -153,7 +153,7 @@
                     <!-- Tombol Tambah -->
                     <div class="button-add-group">
                         <a href="<?= base_url('/tagihan/create') ?>" class="btn-addtagihan">
-                            <i class="bi bi-folder-plus"></i>
+                            <p>Add</p>
                         </a>
                     <div class="label-add-hover">Tambah Data Tagihan</div>
                 </div>
@@ -178,7 +178,7 @@
                         </div>
                         <div class="button-search">
                             <button type="submit" id="filterBtn">
-                            <i class="bi bi-search" id="filterIcon"></i>
+                                <i class="bi bi-search" id="filterIcon"></i>
                             </button>
                         </div>
                     </form>
@@ -237,7 +237,6 @@
                     </tbody>
                 </table>
             </div>
-            <h5>Data Tagihan Air</h5>
         </div>
     </div>
 

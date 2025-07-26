@@ -350,7 +350,7 @@
                         </div>
 
                         <button type="submit">Update</button>
-                        <a href="<?= base_url('account/setting') ?>" class="btn-kembali">← Kembali ke halaman identitas akun</a>
+                        <a href="<?= base_url('account/setting') ?>" class="btn-kembali">← Kembali ke identitas akun</a>
                     </form>
                 </div>
             </div>

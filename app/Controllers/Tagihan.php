@@ -232,7 +232,6 @@ class Tagihan extends BaseController
             'status' => 'Tidak Ada'
         ]);
 
-
         return redirect()->back()->with('success', 'Selamat, data berhasil dikirim dan disiapkan untuk periode berikutnya.');
     }
 }

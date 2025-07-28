@@ -41,8 +41,8 @@
     .container-edit-akun {
         margin: 30px auto;
         padding: 24px;
-        max-width: 500px; /* Tetap */
-        width: 100%;       /* Responsif */
+        max-width: 500px;
+        width: 100%;
         border: 1px solid #ccc;
         border-radius: 12px;
         background-color: #fff;

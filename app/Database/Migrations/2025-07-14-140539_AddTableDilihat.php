@@ -14,7 +14,7 @@ class AddTableDilihat extends Migration
                 'type'       => 'TINYINT',
                 'constraint' => 1,
                 'default'    => 0,
-                'after'      => 'waktu', // Letakkan setelah kolom `waktu`
+                'after'      => 'waktu',
             ],
         ]);
     }

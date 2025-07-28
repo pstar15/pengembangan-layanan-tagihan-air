@@ -13,7 +13,7 @@ class AddNomorMeterToTagihan extends Migration
             'nomor_meter' => [
                 'type' => 'VARCHAR',
                 'constraint' => 20,
-                'after' => 'nama_pelanggan' // opsional
+                'after' => 'nama_pelanggan'
             ]
         ]);
     }

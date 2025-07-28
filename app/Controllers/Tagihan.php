@@ -25,6 +25,9 @@ class Tagihan extends BaseController
         $model = new TagihanModel();
         $keyword = $this->request->getGet('keyword');
         $status  = $this->request->getGet('status');
+        $userId  = session()->get('user_id');
+        
+        $query = $model->where('user_id', $userId);
 
         $query = $model;
 
@@ -89,6 +92,7 @@ class Tagihan extends BaseController
 
         $model = new \App\Models\TagihanModel();
         $model->save([
+            'user_id'        => session()->get('user_id'),
             'nama_pelanggan' => $this->request->getPost('nama_pelanggan'),
             'alamat'         => $this->request->getPost('alamat'),
             'nomor_meter'    => $this->request->getPost('nomor_meter'),
@@ -102,15 +106,26 @@ class Tagihan extends BaseController
 
     public function edit($id)
     {
+        $userId = session()->get('user_id');
         $model = new TagihanModel();
-        $data['tagihan'] = $model->find($id);
+        $data['tagihan'] = $model->where('user_id', $userId)->find($id);
+
+        if (!$data['tagihan']) {
+            return redirect(`/tagihan`)->with('error', 'Mohon maaf, data anda tidak ditemukan.');
+        }
 
         return view('/tagihan/edit', $data);
     }
 
     public function update($id)
     {
+        $userId = session()->get('user_id');
         $model = new TagihanModel();
+
+        $tagihan = $model->where('user_id', $userId)->find($id);
+        if (!$tagihan) {
+            return redirect(`/tagihan`)->with('error', 'Mohon maaf, data anda tidak ditemukan.');
+        }
 
         $data = [
             'nama_pelanggan' => $this->request->getPost('nama_pelanggan'),
@@ -128,27 +143,38 @@ class Tagihan extends BaseController
 
         $model->update($id, $data);
 
+        $data['tagihan'] = $model->where('user_id', $userId)->find($id);
+
         return redirect()->to('/tagihan')->with('success', 'Selamat, Data tagihan berhasil diupdate!');
     }
 
     public function delete($id)
     {
+        $userId = session()->get('user_id');
         $model = new TagihanModel();
+
+        $tagihan = $model->where('user_id', $userId)->find($id);
+        if (!$tagihan) {
+            return redirect()->to('/tagihan')->with('error', 'Mohon maaf, data anda tidak ditemukan.');
+        }
+
         $model->delete($id);
 
         return redirect()->to('/tagihan')->with('success', 'Selamat, Data tagihan berhasil dihapus.');
     }
     public function lunas()
     {
+        $userId = session()->get('user_id');
         $model = new TagihanModel();
-        $data['tagihan'] = $model->where('status', 'Lunas')->findAll();
+        $data['tagihan'] = $model->where('user_id', $userId)->where('status', 'Lunas')->findAll();
         return view('tagihan/index', $data);
     }
 
     public function belumLunas()
     {
+        $userId = session()->get('user_id');
         $model = new TagihanModel();
-        $data['tagihan'] = $model->where('status', 'Belum Lunas', 'Tidak Ada')->findAll();
+        $data['tagihan'] = $model->where('user_id', $userId)->where('status', 'Belum Lunas')->findAll();
         return view('tagihan/index', $data);
     }
 
@@ -171,8 +197,9 @@ class Tagihan extends BaseController
 
     public function kirimData($id = null)
     {
+        $userId = session()->get('user_id');
         $tagihanModel = new \App\Models\TagihanModel();
-        $data = $tagihanModel->find($id);
+        $data = $tagihanModel->where('user_id', $userId)->find($id);
 
         if (!$data) {
             return redirect()->back()->with('error', 'Mohon maaf, data tidak ditemukan.');
@@ -204,6 +231,7 @@ class Tagihan extends BaseController
             'jumlah_tagihan' => null,
             'status' => 'Tidak Ada'
         ]);
+
 
         return redirect()->back()->with('success', 'Selamat, data berhasil dikirim dan disiapkan untuk periode berikutnya.');
     }

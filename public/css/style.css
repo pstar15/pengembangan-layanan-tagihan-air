@@ -636,31 +636,81 @@ body.sidebar-collapsed .main-content {
     }
 }
 /* Tombol Edit dan Hapus */
-.btn-edit, .btn-delete {
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.action-buttons .btn,
+.action-buttons form {
+    margin: 0;
+}
+
+.btn-edit {
+    width: 30px;
+    color: #ffffff;
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 6px;
     text-decoration: none;
     color: #fff;
     display: inline-block;
+    text-align: center;
+}
+
+.btn-delete {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    min-width: 50px;
 }
 
 .btn-edit {
     background-color: #2980b9;
-    margin-right: 5px;
-}
-
-.btn-delete {
-    background-color: #e74c3c;
 }
 
 .btn-edit:hover {
     background-color: #1f5e8e;
 }
 
+.btn-delete {
+    background-color: #e74c3c;
+}
+
 .btn-delete:hover {
     background-color: #c0392b;
 }
+
+/* Tombol kirim dengan ikon */
+.btn-kirim {
+    background: none;
+    border: none;
+    color: #2980b9;
+    font-size: 16px;
+    padding: 6px 12px;
+    width: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-kirim i {
+    font-size: 16px;
+}
+
+.btn-kirim:hover {
+    color: #1f5e8e;
+}
+
 
 /* PR Tombol Tambah Tagihan 
 .add-button {

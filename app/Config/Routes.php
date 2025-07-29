@@ -45,7 +45,7 @@ $routes->get('/tagihan/create', 'Tagihan::create');
 $routes->post('/tagihan/store', 'Tagihan::store');
 $routes->get('/tagihan/edit/(:num)', 'Tagihan::edit/$1');
 $routes->post('/tagihan/update/(:num)', 'Tagihan::update/$1');
-$routes->get('tagihan/delete/(:num)', 'Tagihan::delete/$1');
+$routes->post('tagihan/delete/(:num)', 'Tagihan::delete/$1');
 //Route Filter Data Tagihan lunas dan Belum Lunas
 $routes->get('/tagihan/lunas', 'Tagihan::lunas');
 $routes->get('/tagihan/belum-lunas', 'Tagihan::belumLunas');
@@ -60,7 +60,7 @@ $routes->get('riwayat/filter', 'Riwayat::filter');
 $routes->get('riwayat/export/(:any)', 'Riwayat::export/$1');
 //Controller Api
 //send data ke aplikasi
-$routes->get('Tagihan/kirim/(:num)', 'Tagihan::kirimData/$1');
+$routes->post('Tagihan/kirimMultiUser', 'Tagihan::kirimMultiUser');
 $routes->post('TagihanApi/simpanRiwayat', 'TagihanApi::simpanKeRiwayat');
 //Route card android
 $routes->get('TagihanApi/cardData', 'Api\TagihanApi::cardData');

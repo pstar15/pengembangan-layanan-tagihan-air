@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class PhoneUser extends Model
 {
+    protected $DBGroup          = 'db_tagihanaplikasi'; 
     protected $table            = 'userphone';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;

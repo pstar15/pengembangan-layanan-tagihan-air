@@ -36,7 +36,7 @@ class Riwayat extends BaseController
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
         return $db->table('notifikasi_tagihan')
-            ->where('dilihat', 0) // hanya notifikasi baru
+            ->where('dilihat', 0)
             ->orderBy('waktu', 'DESC')
             ->limit(10)
             ->get()
@@ -69,7 +69,6 @@ class Riwayat extends BaseController
 
             if (!$riwayat) continue;
 
-            // Cek apakah data tagihan dengan identitas yang sama sudah ada
             $existing = $tagihanModel->where([
                 'nama_pelanggan' => $riwayat['nama_pelanggan'],
                 'alamat'         => $riwayat['alamat'],
@@ -78,7 +77,6 @@ class Riwayat extends BaseController
             ])->first();
 
             if ($existing) {
-                // Update hanya jika data kosong
                 $updateData = [];
                 if (empty($existing['periode'])) {
                     $updateData['periode'] = $riwayat['periode'];
@@ -94,7 +92,6 @@ class Riwayat extends BaseController
                     $tagihanModel->update($existing['id'], $updateData);
                 }
             } else {
-                // Tambahkan data baru jika tidak ada yang cocok
                 $tagihanModel->insert([
                     'nama_pelanggan' => $riwayat['nama_pelanggan'],
                     'alamat'         => $riwayat['alamat'],
@@ -106,7 +103,6 @@ class Riwayat extends BaseController
                 ]);
             }
 
-            // Hapus dari riwayat setelah dipindahkan
             $riwayatModel->delete($id);
         }
 
@@ -131,7 +127,7 @@ class Riwayat extends BaseController
     }
     public function filter()
     {
-        $periode = $this->request->getGet('periode'); // Format: YYYY-MM
+        $periode = $this->request->getGet('periode');
         $RiwayatTagihanModel = new \App\Models\RiwayatTagihanModel();
 
         if ($periode) {
@@ -162,7 +158,6 @@ class Riwayat extends BaseController
             $sheet = $spreadsheet->getActiveSheet();
             $sheet->setTitle('Data Tagihan');
 
-            // Header
             $sheet->fromArray(['No', 'Nama Pelanggan', 'alamat', 'Nomor Meter', 'jumlah Meter', 'Periode', 'Jumlah Tagihan', 'Status'], NULL, 'A1');
 
             $rowIndex = 2;

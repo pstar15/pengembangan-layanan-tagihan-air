@@ -13,6 +13,7 @@ class RiwayatTagihanModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+                                    'user_id',
                                     'nama_pelanggan',
                                     'alamat', 'nomor_meter',
                                     'jumlah_meter',

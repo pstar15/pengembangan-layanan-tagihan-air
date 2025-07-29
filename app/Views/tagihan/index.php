@@ -50,6 +50,40 @@
             -ms-user-select: none;
         }
 
+        .akun-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .akun-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-size: 14px;
+            gap: 10px;
+        }
+
+        .akun-text {
+            flex: 1;
+            text-align: left;
+            word-break: break-word;
+        }
+
+        .akun-checkbox {
+            width: 10px;
+            height: 10px;
+        }
+
+        #list-akun {
+            padding-bottom: 15px;
+        }
+
+        /* Tombol SweetAlert rapi */
+        .swal2-html-container button {
+            width: 100%;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -185,8 +219,6 @@
                 </div>
             </div>
 
-
-            <!-- Tabel data tagihan -->
             <div id="resultContainer" class="table-container">
                 <table border="1" cellpadding="10" cellspacing="0" width="100%" class="tagihan-striped">
                     <thead>
@@ -221,13 +253,18 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="<?= base_url('tagihan/edit/' . $row['id']) ?>" class="btn btn-edit">Edit</a>
-                                        <a href="<?= base_url('tagihan/delete/' . $row['id']) ?>" id="btnhapus" class="btn btn-delete">Hapus</a>
-                                        <a href="<?= base_url('Tagihan/kirim/' . $row['id']) ?>" 
-                                            class="btn btn-link text-primary btn-kirim kirim-data"
-                                            title="Kirim Data">
+                                        <div class="action-buttons">
+                                            <a href="<?= base_url('tagihan/edit/' . $row['id']) ?>" class="btn btn-edit">Edit</a>
+
+                                            <form id="formDeleteTagihan_<?= $row['id'] ?>" action="<?= base_url('tagihan/delete/' . $row['id']) ?>" method="post" class="form-delete-tagihan">
+                                                <?= csrf_field() ?>
+                                                <button type="button" class="btn btn-delete btn-konfirmasi-hapus" data-id="<?= $row['id'] ?>">Hapus</button>
+                                            </form>
+
+                                            <button class="btn btn-kirim" data-id="<?= $row['id'] ?>" title="Kirim">
                                                 <i class="fas fa-paper-plane"></i>
-                                            </a>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -236,66 +273,158 @@
                         <?php endif ?>
                     </tbody>
                 </table>
+                <div id="modal-kirim-data" style="display: none;">
+                    <form id="formKirimData">
+                        <div id="list-akun" style="margin-bottom: 15px;">
+                            <?php foreach ($akun_android as $akun): ?>
+                                <div class="akun-item">
+                                    <span class="akun-text"><?= esc($akun['username']) ?> (<?= esc($akun['email']) ?>)</span>
+                                    <input type="checkbox" class="akun-checkbox" name="user_ids[]" value="<?= $akun['id'] ?>" style="display: none;">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="button-group">
+                            <button type="button" id="pilihSemua" class="btn btn-secondary">Pilih Semua</button>
+                            <button type="button" id="batalPilih" class="btn btn-warning" style="display: none;">Batal</button>
+                            <button type="submit" class="btn btn-primary">Kirim</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?= base_url('js/script.js') ?>" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="<?= base_url('js/script.js') ?>" defer></script>
 <?php if (session()->getFlashdata('success')): ?>
     <script>
         Swal.fire({
             icon: 'success',
             title: 'Berhasil',
-            text: '<?= session()->getFlashdata('success') ?>'
+            text: <?= json_encode(session()->getFlashdata('success')) ?>,
+            showConfirmButton: false,
+            timer: 2000
         });
     </script>
-    <?php elseif (session()->getFlashdata('error')): ?>
+<?php elseif (session()->getFlashdata('error')): ?>
     <script>
         Swal.fire({
             icon: 'error',
             title: 'Gagal',
-            text: '<?= session()->getFlashdata('error') ?>'
+            text: <?= json_encode(session()->getFlashdata('error')) ?>,
+            showConfirmButton: true
         });
     </script>
 <?php endif; ?>
 <script>
-    document.getElementById('btnhapus').addEventListener('click', function (e) {
+    document.querySelectorAll('.btn-konfirmasi-hapus').forEach(function(button) {
+        button.addEventListener('click', function (e) {
             e.preventDefault();
 
+            const tagihanId = this.getAttribute('data-id');
+            const form = document.getElementById('formDeleteTagihan_' + tagihanId);
+
             Swal.fire({
-                title: 'Yakin ingin menyimpan data ini?',
+                title: 'Yakin ingin menghapus data ini?',
                 text: "Pastikan data sudah sesuai.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Ya, simpan!',
+                confirmButtonText: 'Ya, hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('formUpdateTagihan').submit();
+                    form.submit();
                 }
             });
         });
-        document.querySelectorAll('.kirim-data').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const url = this.href;
+    });
+    document.querySelectorAll('.btn-kirim').forEach(button => {
+        button.addEventListener('click', function () {
+            const tagihanId = this.getAttribute('data-id');
+            const templateHTML = document.getElementById('modal-kirim-data').innerHTML;
 
-                Swal.fire({
-                    title: 'Kirim Data?',
-                    text: 'Data ini akan dikirim ke aplikasi.',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ya, kirim!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = url; // lanjut GET
-                    }
-                });
+            Swal.fire({
+                title: 'Pilih Akun Tujuan',
+                html: templateHTML,
+                showConfirmButton: false,
+                didOpen: () => {
+                    const container = Swal.getHtmlContainer();
+                    const form = container.querySelector('#formKirimData');
+                    const checkboxes = container.querySelectorAll('.akun-checkbox');
+                    const btnPilih = container.querySelector('#pilihSemua');
+                    const btnBatal = container.querySelector('#batalPilih');
+
+                    // Checkbox disembunyikan default — hanya muncul setelah klik "Pilih Semua"
+                    checkboxes.forEach(cb => cb.style.display = 'none');
+
+                    btnPilih.addEventListener('click', () => {
+                        checkboxes.forEach(cb => {
+                            cb.checked = true;
+                            cb.style.display = 'inline-block';
+                        });
+                        btnPilih.style.display = 'none';
+                        btnBatal.style.display = 'inline-block';
+                    });
+
+                    btnBatal.addEventListener('click', () => {
+                        checkboxes.forEach(cb => {
+                            cb.checked = false;
+                            cb.style.display = 'none';
+                        });
+                        btnPilih.style.display = 'inline-block';
+                        btnBatal.style.display = 'none';
+                    });
+
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        const selected = [...checkboxes].filter(cb => cb.checked).map(cb => cb.value);
+
+                        if (selected.length === 0) {
+                            Swal.fire('Peringatan', 'Silakan pilih setidaknya satu akun!', 'warning');
+                            return;
+                        }
+
+                        Swal.fire({
+                            title: 'Konfirmasi',
+                            text: 'Apakah Anda yakin ingin mengirim data ini ke akun terpilih?',
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: 'Ya, Kirim!',
+                            cancelButtonText: 'Batal'
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                fetch(`<?= base_url('Tagihan/kirimMultiUser') ?>`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+                                    },
+                                    body: JSON.stringify({
+                                        tagihan_id: tagihanId,
+                                        user_ids: selected
+                                    })
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire('Sukses', data.message, 'success').then(() => {
+                                            location.reload();
+                                        });
+                                    } else {
+                                        Swal.fire('Gagal', data.message, 'error');
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
             });
         });
+    });
+
+
 </script>
 
 </body>

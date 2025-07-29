@@ -13,14 +13,12 @@ class LoginActifityController extends BaseController
         //
         $loginModel = new RiwayatLoginModel();
 
-        // Ambil riwayat login berdasarkan user yang sedang login
         $userId = session()->get('user_id');
 
         $riwayat = $loginModel->where('user_id', $userId)
             ->orderBy('waktu', 'DESC')
             ->findAll(50);
 
-        // Ambil notifikasi jika kamu ingin tampilkan
         $data['riwayat_login'] = $riwayat;
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();

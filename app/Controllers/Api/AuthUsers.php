@@ -22,16 +22,14 @@ class AuthUsers extends ResourceController
             ], 400);
         }
 
-        // Cek apakah email sudah ada
         $existingUser = $model->where('email', $json->email)->first();
         if ($existingUser) {
             return $this->respond([
                 'status' => false,
                 'message' => 'Email sudah terdaftar.'
-            ], 409); // 409 Conflict
+            ], 409);
         }
 
-        // Simpan data
         $data = [
             'username' => $json->username,
             'email'    => $json->email,

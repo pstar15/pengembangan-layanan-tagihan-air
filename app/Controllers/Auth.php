@@ -105,7 +105,7 @@ class Auth extends BaseController
         $password = $this->request->getPost('password');
         $remember = $this->request->getPost('remember');
         $userModel = new \App\Models\UserModel();
-        $loginModel = new RiwayatLoginModel(); // MODEL UNTUK LOGIN ACTIVITY
+        $loginModel = new RiwayatLoginModel();
 
         $user = $userModel->where('email', $email)->first();
         $status = 'Gagal';
@@ -159,15 +159,17 @@ class Auth extends BaseController
             return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $TagihanModel = new TagihanModel();
+        $userId              = session()->get('user_id');
+        $TagihanModel        = new TagihanModel();
         $RiwayatTagihanModel = new RiwayatTagihanModel();
-        $PhoneUser       = new \App\Models\PhoneUser();
-        $totalTagihan    = $RiwayatTagihanModel->getTotalTagihan();
-        $totalAkun       = $PhoneUser->countAll();
-        $totalAktif      = $PhoneUser->where('is_online', 'Aktif')->countAllResults();
-        $totalNonAktif   = $PhoneUser->where('is_online', 'Aktif')->countAllResults();
+        $PhoneUser           = new \App\Models\PhoneUser();
+        $totalTagihan        = $RiwayatTagihanModel->getTotalTagihan();
+        $totalAkun           = $PhoneUser->countAll();
+        $totalAktif          = $PhoneUser->where('is_online', 'Aktif')->countAllResults();
+        $totalNonAktif       = $PhoneUser->where('is_online', 'Aktif')->countAllResults();
 
         $riwayat = $RiwayatTagihanModel->select('periode, SUM(jumlah_tagihan) as total')
+                                    ->where('user_id', $userId)
                                     ->groupBy('periode')
                                     ->findAll();
 
@@ -189,13 +191,13 @@ class Auth extends BaseController
         $data['periode'] = json_encode($periode);
         $data['total'] = json_encode($total);
 
-        $data['total_tagihan'] = $TagihanModel->countAll();
-        $data['total_lunas'] = $TagihanModel->where('status', 'Lunas')->countAllResults();
-        $data['total_belum_lunas'] = $TagihanModel->where('status', 'Belum Lunas')->countAllResults();
+        $data['total_tagihan'] = $TagihanModel->where('user_id', $userId)->countAllResults();
+        $data['total_lunas'] = $TagihanModel->where(['user_id' => $userId, 'status' => 'Lunas'])->countAllResults();
+        $data['total_belum_lunas'] = $TagihanModel->where(['user_id' => $userId, 'status' => 'Belum Lunas'])->countAllResults();
 
         $data['username'] = session()->get('username');
 
-        $data['tagihan'] = $TagihanModel->findAll();
+        $data['tagihan'] = $TagihanModel->where('user_id', $userId)->findAll();
 
         $data['akun_android'] = $PhoneUser->findAll();
 
@@ -317,20 +319,35 @@ class Auth extends BaseController
     private function getGeoLocation($ip)
     {
         if ($ip === '127.0.0.1' || $ip === '::1') {
-            return 'Localhost';
-        }
-
-        $json = @file_get_contents("http://ip-api.com/json/{$ip}");
-        if ($json) {
-            $data = json_decode($json, true);
-            if (isset($data['status']) && $data['status'] === 'success') {
-                $city = $data['city'] ?? '';
-                $country = $data['country'] ?? '';
-                return trim("{$city}, {$country}");
+            $lokasi = 'Localhost';
+        } else {
+            $json = @file_get_contents("http://ip-api.com/json/{$ip}");
+            if ($json) {
+                $data = json_decode($json, true);
+                if (isset($data['status']) && $data['status'] === 'success') {
+                    $city = $data['city'] ?? '';
+                    $country = $data['country'] ?? '';
+                    $lokasi = trim("{$city}, {$country}");
+                } else {
+                    $lokasi = 'Unknown';
+                }
+            } else {
+                $lokasi = 'Unknown';
             }
         }
 
-        return 'Unknown';
+        if (session()->get('isLoggedIn')) {
+            $userId = session()->get('user_id');
+            $db = \Config\Database::connect();
+            $builder = $db->table('user_locations');
+            $builder->insert([
+                'user_id' => $userId,
+                'ip_address' => $ip,
+                'location' => $lokasi
+            ]);
+        }
+
+        return $lokasi;
     }
 
 }

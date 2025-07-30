@@ -9,9 +9,17 @@ use App\Controllers\BaseController;
 use App\Models\RiwayatLoginModel;
 use App\Models\RiwayatTagihanModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use Google\Client as GoogleClient;
+use Google\Service\Oauth2;
+use Google_Client;
+use Google_Service_Oauth2;
+
+require_once ROOTPATH . 'vendor/autoload.php';
+
 
 class Auth extends BaseController
 {
+
     protected $userModel;
 
     public function __construct()
@@ -221,6 +229,112 @@ class Auth extends BaseController
         delete_cookie('remember_me');
 
         return redirect()->to('/login')->with('success', 'Anda berhasil logout.');
+    }
+
+    public function registerGoogle()
+    {
+        return view('auth/register_google');
+    }
+
+    public function registerGoogleProcess()
+    {
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'username' => 'required',
+            'password' => 'required|min_length[6]',
+            'confirm_password' => 'required|matches[password]'
+        ], [
+            'confirm_password' => [
+                'matches' => 'Konfirmasi password tidak sesuai dengan password.'
+            ]
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $userModel = new \App\Models\UserModel();
+
+        $data = [
+            'username' => $this->request->getPost('username'),
+            'email'    => session()->get('google_email'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+        ];
+
+        if ($userModel->save($data)) {
+            $user = $userModel->where('email', $data['email'])->first();
+
+            session()->set([
+                'user_id'   => $user['id'],
+                'username'  => $user['username'],
+                'email'     => $user['email'],
+                'logged_in' => true
+            ]);
+
+            return redirect()->to('/auth/dashboard');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $userModel->errors());
+        }
+    }
+
+    public function googleLogin()
+    {
+        $client = new Google_Client();
+        $client->setClientId(env('GOOGLE_CLIENT_ID'));
+        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+        $client->addScope("email");
+        $client->addScope("profile");
+
+        $authUrl = $client->createAuthUrl();
+        return redirect()->to($authUrl);
+    }
+
+    public function googleCallback()
+    {
+        require_once ROOTPATH . 'vendor/autoload.php';
+
+        $client = new Google_Client();
+        $client->setClientId(env('GOOGLE_CLIENT_ID'));
+        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
+        $client->addScope("email");
+        $client->addScope("profile");
+
+        $code = $this->request->getGet('code');
+
+        if ($code) {
+            $token = $client->fetchAccessTokenWithAuthCode($code);
+
+            if (isset($token['error'])) {
+                return redirect()->to('/login')->with('error', 'Token tidak valid dari Google.');
+            }
+
+            $client->setAccessToken($token);
+            $oauth2 = new Oauth2($client);
+            $googleUser = $oauth2->userinfo->get();
+
+            $email = $googleUser->email;
+            $userModel = new \App\Models\UserModel();
+            $user = $userModel->where('email', $email)->first();
+
+            if ($user) {
+                // Auto-login
+                session()->set([
+                    'user_id'   => $user['id'],
+                    'username'  => $user['username'],
+                    'email'     => $user['email'],
+                    'logged_in' => true
+                ]);
+                return redirect()->to('/auth/dashboard');
+            } else {
+                // Belum terdaftar, redirect ke form registerGoogle
+                session()->set('google_email', $email);
+                return redirect()->to('/auth/registerGoogle');
+            }
+        }
+
+        return redirect()->to('/login')->with('error', 'Gagal login dengan Google.');
     }
 
     private function getNotifikasiTagihan()

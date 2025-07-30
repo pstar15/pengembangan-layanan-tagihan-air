@@ -19,6 +19,8 @@
         .card-login {
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .form-control:focus {
@@ -59,7 +61,7 @@
         }
 
         .toggle-password i {
-            font-size: 1.2rem; /* bisa disesuaikan */
+            font-size: 1rem; /* bisa disesuaikan */
         }
 
 
@@ -123,6 +125,10 @@
                             <a href="<?= base_url('/forgot') ?>" class="btn btn-link text-decoration-none">
                                 <i class="bi bi-shield-lock-fill me-1"></i> Lupa Password?
                             </a>
+                        </div>
+
+                        <div>
+                            <a href="<?= base_url('/auth/googleLogin') ?>" class="btn btn-danger">Login dengan Google</a>
                         </div>
 
                     </div>

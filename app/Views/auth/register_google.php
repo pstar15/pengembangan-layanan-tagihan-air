@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register | Aplikasi Tagihan Air BUMDesa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
-
+    <title>Register | Aplikasi Tagihan Air BUMDesa</title>
     <style>
         body {
             background: linear-gradient(135deg, #006dccff, #4facfe);
@@ -75,21 +76,10 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
-
     </style>
 </head>
 <body class="animated">
-    <?php if(session()->getFlashdata('success')): ?>
-        <div class="alert alert-success custom-alert" id="alertBox">
-            <?= session()->getFlashdata('success') ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if(session()->getFlashdata('error')): ?>
-        <div class="alert alert-danger custom-alert" id="alertBox">
-            <?= session()->getFlashdata('error') ?>
-        </div>
-    <?php endif; ?>
+    
     <div class="container">
         <div class="row justify-content-center ">
             <div class="col-md-5 col-lg-4">
@@ -102,32 +92,38 @@
 
                         <h3 class="text-left mb-4 text-black">Register</h3>
 
-                        <form action="<?= base_url('/register') ?>" method="post">
+                        <?php if (session()->getFlashdata('errors')) : ?>
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    <?php foreach (session()->getFlashdata('errors') as $error) : ?>
+                                        <li><?= esc($error) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
+
+
+                        <form action="<?= base_url('/auth/registerGoogleProcess') ?>" method="post">
                             <div class="mb-3">
                                 <input type="text" name="username" class="form-control" placeholder="Username" required value="<?= old('username') ?>">
                             </div>
-                            <div class="mb-3">
-                                <input type="email" name="email" class="form-control" placeholder="Email" required value="<?= old('email') ?>">
-                            </div>
-
                             <div class="mb-3 position-relative">
-                                <input type="password" class="form-control password-register" id="password" name="password" placeholder="Password" required>
+                                <input type="password" name="password" class="form-control password-register" id="password" placeholder="Password" required>
                                 <span class="input-group-text toggle-password" data-target="#password">
                                     <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>
-
                             <div class="mb-3 position-relative">
-                                <input type="password" class="form-control password-register" id="confirm_password" name="confirm_password" placeholder="Konfirmasi Password" required>
+                                <input type="password" name="confirm_password" class="form-control password-register" id="confirm_password" placeholder="Konfirmasi Password" required>
                                 <span class="input-group-text toggle-password" data-target="#confirm_password">
                                     <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>
-
                             <div class="d-grid mb-3">
                                 <button type="submit" class="btn btn-success">Register</button>
                             </div>
                         </form>
+
 
                         <div class="text-center login-link text-black">
                             Sudah punya akun? <a href="<?= base_url('/login') ?>">Login</a>

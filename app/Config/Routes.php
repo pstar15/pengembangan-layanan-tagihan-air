@@ -16,6 +16,11 @@ $routes->post('/login', 'Auth::loginProcess');
 $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::registerProcess');
 $routes->get('/logout', 'Auth::logout');
+//Route Login Google
+$routes->get('auth/googleLogin', 'Auth::googleLogin');
+$routes->get('auth/googleCallback', 'Auth::googleCallback');
+$routes->get('auth/registerGoogle', 'Auth::registerGoogle');
+$routes->post('auth/registerGoogleProcess', 'Auth::registerGoogleProcess');
 //Route Reset Password
 $routes->get('/forgot', 'Auth::forgot');
 $routes->post('/auth/forgotProcess', 'Auth::forgotProcess');

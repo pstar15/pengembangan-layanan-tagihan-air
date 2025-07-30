@@ -79,7 +79,17 @@
     </style>
 </head>
 <body class="animated">
-    
+
+    <?php if (session()->getFlashdata('errors')) : ?>
+        <div class="alert alert-danger custom-alert" id="alertBox">
+            <ul class="mb-0">
+                <?php foreach (session()->getFlashdata('errors') as $error) : ?>
+                    <li><?= esc($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
     <div class="container">
         <div class="row justify-content-center ">
             <div class="col-md-5 col-lg-4">
@@ -91,17 +101,6 @@
                         </div>
 
                         <h3 class="text-left mb-4 text-black">Register</h3>
-
-                        <?php if (session()->getFlashdata('errors')) : ?>
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    <?php foreach (session()->getFlashdata('errors') as $error) : ?>
-                                        <li><?= esc($error) ?></li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        <?php endif; ?>
-
 
                         <form action="<?= base_url('/auth/registerGoogleProcess') ?>" method="post">
                             <div class="mb-3">

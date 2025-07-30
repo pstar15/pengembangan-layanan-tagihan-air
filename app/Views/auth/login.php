@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login | Aplikasi Tagihan Air</title>
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
-
+    <title>Login | Aplikasi Tagihan Air BUMDesa</title>
     <style>
         body {
             background: linear-gradient(135deg, #006dccff, #4facfe);
@@ -62,6 +61,28 @@
 
         .toggle-password i {
             font-size: 1rem; /* bisa disesuaikan */
+        }
+
+        .btn-google {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            color: #444;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .btn-google:hover {
+            background-color: #f5f5f5;
+            color: #222;
+            border-color: #999;
+            text-decoration: none;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
         }
 
 
@@ -127,9 +148,10 @@
                             </a>
                         </div>
 
-                        <div>
-                            <a href="<?= base_url('/auth/googleLogin') ?>" class="btn btn-danger">Login dengan Google</a>
-                        </div>
+                        <a href="<?= base_url('/auth/googleLogin') ?>" class="btn btn-google w-100 d-flex align-items-center justify-content-center">
+                            <img src="<?= base_url('img/google-icon.png') ?>" alt="Google Icon" class="google-icon me-2">
+                            Login dengan Google
+                        </a>
 
                     </div>
                 </div>

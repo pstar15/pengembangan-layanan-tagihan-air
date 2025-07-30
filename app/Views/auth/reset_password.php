@@ -71,7 +71,7 @@
             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
         <?php endif; ?>
 
-        <form action="<?= base_url('auth/resetProcess') ?>" method="post">
+        <form action="<?= base_url('/auth/resetProcess') ?>" method="post">
             <input type="hidden" name="token" value="<?= esc($token) ?>">
 
             <div class="mb-3 position-relative">
@@ -89,7 +89,7 @@
             </div>
 
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Reset Password</button>
+                <button type="submit" class="btn btn-primary w-100">Reset Password</button>
             </div>
         </form>
 

@@ -369,19 +369,44 @@ class Auth extends BaseController
         $user = $this->userModel->where('email', $email)->first();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Email anda tidak ditemukan.');
+            return redirect()->back()->with('error', 'Email Anda tidak ditemukan.');
         }
 
+        // Generate token dan waktu kadaluarsa
         $token = bin2hex(random_bytes(32));
+        $expired = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+        // Simpan token ke database
         $this->userModel->update($user['id'], [
             'reset_token'      => $token,
-            'token_expired_at' => date('Y-m-d H:i:s', strtotime('+1 hour'))
+            'token_expired_at' => $expired
         ]);
 
-        session()->setFlashdata('reset_token', $token);
-        session()->setFlashdata('success', 'Klik notifikasi di sebelah kanan bawah untuk mereset password.');
+        // Kirim email ke pengguna
+        $resetLink = base_url('/auth/resetPassword/' . $token);
 
-        return redirect()->to('/login');
+        $emailService = \Config\Services::email();
+        $emailService->setTo($email);
+        $emailService->setFrom('akunemail@gmail.com', 'Sistem Notifikasi');
+        $emailService->setSubject('Permintaan Reset Password');
+        $emailService->setMailType('html');
+        $emailService->setMessage("
+            <p>Hai <b>{$user['username']}</b>,</p>
+            <p>Kami menerima permintaan untuk mereset password Anda.</p>
+            <p>Klik link berikut ini untuk mengatur ulang password Anda:</p>
+            <p><a href='{$resetLink}'>{$resetLink}</a></p>
+            <p>Link ini hanya berlaku selama 1 jam.</p>
+            <br>
+            <p>Jika Anda tidak meminta reset ini, abaikan email ini.</p>
+            <p><b>Sistem Notifikasi</b></p>
+        ");
+
+        if ($emailService->send()) {
+            return redirect()->to('/login')->with('success', 'Link reset telah dikirim ke email Anda.');
+        } else {
+            log_message('error', 'Gagal mengirim email: ' . $emailService->printDebugger(['headers']));
+            return redirect()->back()->with('error', 'Gagal mengirim email. Coba lagi.');
+        }
     }
 
     public function resetPassword($token)

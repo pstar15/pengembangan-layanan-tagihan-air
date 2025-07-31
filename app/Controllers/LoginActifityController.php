@@ -14,6 +14,10 @@ class LoginActifityController extends BaseController
         $loginModel = new RiwayatLoginModel();
 
         $userId = session()->get('user_id');
+        
+        if (!$userId) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
         $riwayat = $loginModel->where('user_id', $userId)
             ->orderBy('waktu', 'DESC')

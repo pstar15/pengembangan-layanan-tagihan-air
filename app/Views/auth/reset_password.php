@@ -71,7 +71,7 @@
             <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
         <?php endif; ?>
 
-        <form action="<?= base_url('/auth/forgotProcess') ?>" method="post">
+        <form action="<?= base_url('/auth/resetProcess') ?>" method="post">
             <input type="hidden" name="token" value="<?= esc($token) ?>">
 
             <div class="mb-3 position-relative">

@@ -23,18 +23,22 @@ class Tagihan extends BaseController
     public function index()
     {
         //
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth/login');
+        }
+
         $model = new TagihanModel();
         $keyword = $this->request->getGet('keyword');
         $status  = $this->request->getGet('status');
         $userId  = session()->get('user_id');
         $PhoneUser = new PhoneUser();
-        
+
         $query = $model->where('user_id', $userId);
 
         $query = $model;
 
         if ($keyword) {
-            $query = $query->like('nama_pelanggan', $keyword)->orLike('nomor_meter', $keyword);
+            $query = $query->like('nama_pelanggan', $keyword)->orLike('nomor_meter', $keyword)->groupEnd();
         }
 
         if ($status) {
@@ -45,6 +49,7 @@ class Tagihan extends BaseController
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
         $data['akun_android'] = $PhoneUser->findAll();
+        $data['tagihan'] = $this->$model->where('user_id', $userId)->findAll();
 
         return view('tagihan/index', $data);
     }
@@ -72,11 +77,19 @@ class Tagihan extends BaseController
 
     public function create()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login') ->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         return view('tagihan/create');
     }
 
     public function store()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/auth/login');
+        }
+
         $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_pelanggan' => 'required',

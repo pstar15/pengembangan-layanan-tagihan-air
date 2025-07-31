@@ -11,6 +11,12 @@ class SettingAccountApp extends BaseController
     public function index()
     {
         //
+        $userId = session()->get('user_id');
+        
+        if (!$userId) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         $model = new PhoneUser();
         $data['akun'] = $model->findAll();
 
@@ -19,6 +25,12 @@ class SettingAccountApp extends BaseController
 
     public function edit($id)
     {
+        $userId = session()->get('user_id');
+        
+        if (!$userId) {
+            return redirect()->to('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         $model = new PhoneUser();
         $data['akun'] = $model->find($id);
 

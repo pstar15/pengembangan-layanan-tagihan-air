@@ -231,112 +231,6 @@ class Auth extends BaseController
         return redirect()->to('/login')->with('success', 'Anda berhasil logout.');
     }
 
-    public function registerGoogle()
-    {
-        return view('auth/register_google');
-    }
-
-    public function registerGoogleProcess()
-    {
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'username' => 'required',
-            'password' => 'required|min_length[6]',
-            'confirm_password' => 'required|matches[password]'
-        ], [
-            'confirm_password' => [
-                'matches' => 'Konfirmasi password tidak sesuai dengan password.'
-            ]
-        ]);
-
-        if (!$this->validate($validation->getRules())) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
-
-        $userModel = new \App\Models\UserModel();
-
-        $data = [
-            'username' => $this->request->getPost('username'),
-            'email'    => session()->get('google_email'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-        ];
-
-        if ($userModel->save($data)) {
-            $user = $userModel->where('email', $data['email'])->first();
-
-            session()->set([
-                'user_id'   => $user['id'],
-                'username'  => $user['username'],
-                'email'     => $user['email'],
-                'logged_in' => true
-            ]);
-
-            return redirect()->to('/auth/dashboard');
-        } else {
-            return redirect()->back()->withInput()->with('errors', $userModel->errors());
-        }
-    }
-
-    public function googleLogin()
-    {
-        $client = new Google_Client();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->addScope("email");
-        $client->addScope("profile");
-
-        $authUrl = $client->createAuthUrl();
-        return redirect()->to($authUrl);
-    }
-
-    public function googleCallback()
-    {
-        require_once ROOTPATH . 'vendor/autoload.php';
-
-        $client = new Google_Client();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-        $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-        $client->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
-        $client->addScope("email");
-        $client->addScope("profile");
-
-        $code = $this->request->getGet('code');
-
-        if ($code) {
-            $token = $client->fetchAccessTokenWithAuthCode($code);
-
-            if (isset($token['error'])) {
-                return redirect()->to('/login')->with('error', 'Token tidak valid dari Google.');
-            }
-
-            $client->setAccessToken($token);
-            $oauth2 = new Oauth2($client);
-            $googleUser = $oauth2->userinfo->get();
-
-            $email = $googleUser->email;
-            $userModel = new \App\Models\UserModel();
-            $user = $userModel->where('email', $email)->first();
-
-            if ($user) {
-                // Auto-login
-                session()->set([
-                    'user_id'   => $user['id'],
-                    'username'  => $user['username'],
-                    'email'     => $user['email'],
-                    'logged_in' => true
-                ]);
-                return redirect()->to('/auth/dashboard');
-            } else {
-                // Belum terdaftar, redirect ke form registerGoogle
-                session()->set('google_email', $email);
-                return redirect()->to('/auth/registerGoogle');
-            }
-        }
-
-        return redirect()->to('/login')->with('error', 'Gagal login dengan Google.');
-    }
-
     private function getNotifikasiTagihan()
     {
         $db = \Config\Database::connect('db_rekapitulasi_tagihan_air');
@@ -369,65 +263,20 @@ class Auth extends BaseController
         $user = $this->userModel->where('email', $email)->first();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Email Anda tidak ditemukan.');
+            return redirect()->back()->with('error', 'Email anda tidak ditemukan.');
         }
 
-        // Generate token dan waktu kadaluarsa
         $token = bin2hex(random_bytes(32));
-        $expired = date('Y-m-d H:i:s', strtotime('+1 hour'));
-
-        // Simpan token ke database
         $this->userModel->update($user['id'], [
             'reset_token'      => $token,
-            'token_expired_at' => $expired
+            'token_expired_at' => date('Y-m-d H:i:s', strtotime('+1 hour'))
         ]);
 
-        // Kirim email ke pengguna
-        $resetLink = base_url('/auth/resetPassword/' . $token);
+        session()->setFlashdata('reset_token', $token);
+        session()->setFlashdata('success', 'Klik notifikasi di sebelah kanan bawah untuk mereset password.');
 
-        $emailService = \Config\Services::email();
-        $emailService->setTo($email);
-        $emailService->setFrom(getenv('email.fromEmail'), getenv('email.fromName'));
-        $emailService->setSubject('Permintaan Reset Password');
-        $emailService->setMailType('html');
-        $emailService->setMessage("
-            <p>Hai <b>{$user['username']}</b>,</p>
-            <p>Kami menerima permintaan untuk mereset password Anda.</p>
-            <p>Klik link berikut ini untuk mengatur ulang password Anda:</p>
-            <p><a href='{$resetLink}'>{$resetLink}</a></p>
-            <p>Link ini hanya berlaku selama 1 jam.</p>
-            <br>
-            <p>Jika Anda tidak meminta reset ini, abaikan email ini.</p>
-            <p><b>Sistem Notifikasi</b></p>
-        ");
-
-        if ($emailService->send()) {
-            return redirect()->to('/login')->with('success', 'Link reset telah dikirim ke email Anda.');
-        } else {
-            log_message('error', 'Gagal mengirim email: ' . print_r($emailService->printDebugger(['headers', 'subject', 'body', 'to']), true));
-            return redirect()->back()->with('error', 'Gagal mengirim email. Coba lagi.');
-        }
-
+        return redirect()->to('/login');
     }
-
-    public function testEmail()
-    {
-        $email = \Config\Services::email();
-
-        $email->setTo('alamat-email-tujuan@gmail.com');
-        $email->setFrom(getenv('email.fromEmail'), getenv('email.fromName'));
-        $email->setSubject('Tes Email dari CodeIgniter');
-        $email->setMessage('<p>Email ini adalah uji coba dari aplikasi CodeIgniter</p>');
-
-        if ($email->send()) {
-            echo 'Email berhasil dikirim!';
-        } else {
-            echo 'Gagal mengirim email: <pre>';
-            print_r($email->printDebugger(['headers', 'subject', 'body']));
-            echo '</pre>';
-        }
-    }
-
 
     public function resetPassword($token)
     {

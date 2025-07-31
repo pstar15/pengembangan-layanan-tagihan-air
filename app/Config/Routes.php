@@ -26,6 +26,7 @@ $routes->get('/forgot', 'Auth::forgot');
 $routes->post('/auth/forgotProcess', 'Auth::forgotProcess');
 $routes->get('/auth/reset-password/(:any)', 'Auth::resetPassword/$1');
 $routes->post('/auth/resetProcess', 'Auth::resetProcess');
+$routes->get('/test-email', 'Auth::testEmail');
 //Route Dashboard
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/auth/dashboard', 'Auth::dashboard');

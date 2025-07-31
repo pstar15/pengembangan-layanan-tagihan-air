@@ -387,7 +387,7 @@ class Auth extends BaseController
 
         $emailService = \Config\Services::email();
         $emailService->setTo($email);
-        $emailService->setFrom('akunemail@gmail.com', 'Sistem Notifikasi');
+        $emailService->setFrom(getenv('email.fromEmail'), getenv('email.fromName'));
         $emailService->setSubject('Permintaan Reset Password');
         $emailService->setMailType('html');
         $emailService->setMessage("
@@ -404,10 +404,30 @@ class Auth extends BaseController
         if ($emailService->send()) {
             return redirect()->to('/login')->with('success', 'Link reset telah dikirim ke email Anda.');
         } else {
-            log_message('error', 'Gagal mengirim email: ' . $emailService->printDebugger(['headers']));
+            log_message('error', 'Gagal mengirim email: ' . print_r($emailService->printDebugger(['headers', 'subject', 'body', 'to']), true));
             return redirect()->back()->with('error', 'Gagal mengirim email. Coba lagi.');
         }
+
     }
+
+    public function testEmail()
+    {
+        $email = \Config\Services::email();
+
+        $email->setTo('alamat-email-tujuan@gmail.com');
+        $email->setFrom(getenv('email.fromEmail'), getenv('email.fromName'));
+        $email->setSubject('Tes Email dari CodeIgniter');
+        $email->setMessage('<p>Email ini adalah uji coba dari aplikasi CodeIgniter</p>');
+
+        if ($email->send()) {
+            echo 'Email berhasil dikirim!';
+        } else {
+            echo 'Gagal mengirim email: <pre>';
+            print_r($email->printDebugger(['headers', 'subject', 'body']));
+            echo '</pre>';
+        }
+    }
+
 
     public function resetPassword($token)
     {

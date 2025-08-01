@@ -79,7 +79,16 @@ class SettingAccountApp extends BaseController
     public function delete($id)
     {
         $model = new PhoneUser();
-        $model->delete($id);
-        return redirect()->to('/account')->with('success', 'Selamat, akun berhasil dihapus.');
+
+        $akun = $model->find($id);
+        if (!$akun) {
+            return redirect()->to('/account')->with('error', 'Akun anda tidak ditemukan');
+        }
+
+        if ($model->delete($id)) {
+            return redirect()->to('/account')->with('success', 'Selamat, akun berhasil dihapus.');
+        } else {
+            return redirect()->to('/account')->with('error', 'Gagal menghapus akun, silahkan coba lagi.');
+        }
     }
 }

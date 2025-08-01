@@ -5,12 +5,19 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use Google\Service\CloudSearch\UserId;
 
 class Account extends BaseController
 {
     public function index()
     {
         //
+        $userId = session()->get('user_id');
+
+        if (!$userId) {
+            return redirect()->to('/auth/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
         return view('account/index', $data);
@@ -39,12 +46,20 @@ class Account extends BaseController
 
     public function setting()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login') ->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         $data['username'] = session()->get('username');
         return view('account/setting', $data);
     }
 
     public function settingAccount()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/login') ->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         return view('account/set_account');
     }
 
@@ -53,6 +68,10 @@ class Account extends BaseController
         $userModel = new \App\Models\UserModel();
         $userId = session()->get('user_id');
         $user = $userModel->find($userId);
+
+        if (!$userId) {
+            return redirect()->to('/auth/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
         $oldPassword = $this->request->getPost('current_password');
 
@@ -67,8 +86,12 @@ class Account extends BaseController
     public function updateUsername()
     {
         $userModel = new \App\Models\UserModel();
-        $userId = session()->get('user_id');
         $newUsername = $this->request->getPost('username');
+        $userId = session()->get('user_id');
+
+        if (!$userId) {
+            return redirect()->to('/auth/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
         $userModel->update($userId, ['username' => $newUsername]);
 
@@ -84,6 +107,10 @@ class Account extends BaseController
         $newEmail = $this->request->getPost('email');
         $userId = session()->get('user_id');
 
+        if (!$userId) {
+            return redirect()->to('/auth/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         $userModel->update($userId, ['email' => $newEmail]);
 
         return redirect()->back()->with('success_email', 'Selamat, email anda berhasil diperbarui!');
@@ -93,7 +120,11 @@ class Account extends BaseController
     {
         $userModel = new \App\Models\UserModel();
         $userId = session()->get('user_id');
-        
+
+        if (!$userId) {
+            return redirect()->to('/auth/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         $currentPassword = $this->request->getPost('current_password');
         $newPassword     = $this->request->getPost('new_password');
         $confirmPassword = $this->request->getPost('confirm_password');

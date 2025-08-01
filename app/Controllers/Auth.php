@@ -314,16 +314,6 @@ class Auth extends BaseController
         return redirect()->to('/login')->with('success', 'Password berhasil direset. Silakan login.');
     }
 
-    public function resetKataSandi($token)
-    {
-        $user = $this->userModel->where('reset_token', $token)->first();
-        if (!$user || strtotime($user['token_expired_at']) < time()) {
-            return redirect()->to('/login')->with('error', 'Token tidak valid atau kadaluarsa.');
-        }
-
-        return view('auth/reset_password', ['token' => $token]);
-    }
-
     private function getGeoLocation($ip)
     {
         if ($ip === '127.0.0.1' || $ip === '::1') {

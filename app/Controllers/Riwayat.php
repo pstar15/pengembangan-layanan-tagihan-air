@@ -25,9 +25,22 @@ class Riwayat extends BaseController
 
     public function index()
     {
+        $periode = $this->request->getGet('periode');
+        $model = new RiwayatTagihanModel();
+            $periode = $this->request->getGet('periode');
+
+            if ($periode && preg_match('/^\d{4}-\d{2}$/', $periode)) {
+                $data['riwayat'] = $model->like('periode', $periode)->findAll();
+            } else {
+                $data['riwayat'] = $model->findAll();
+            }
+
+            $data['periode'] = $periode;
+
         $data['riwayat'] = $this->RiwayatTagihanModel->findAll();
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
+
         return view('tagihan/riwayat', $data);
     }
 

@@ -266,7 +266,7 @@
                     <div class="right-actions">
                         <a href="<?= base_url('/account_app') ?>" class="btn btn-account">Account App</a>
                         <a href="<?= base_url('account/login-activity') ?>" class="btn btn-activity">Aktivitas Login</a>
-                        <a href="<?= base_url('/account_app') ?>" class="btn btn-delete-akun">Hapus Akun</a>
+                        <a href="<?= base_url('/account/delete') ?>" class="btn btn-delete-akun">Hapus Akun</a>
                     </div>
                 </div>
 

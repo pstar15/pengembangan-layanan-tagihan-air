@@ -25,8 +25,14 @@ $routes->get('/test-email', 'Auth::testEmail');
 //Route Dashboard
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/auth/dashboard', 'Auth::dashboard');
+    //Route Tagihan
     $routes->get('/tagihan', 'Tagihan::index');
-    $routes->get('/riwayat', 'Tagihan::index');
+    //Route Riwayat Tagihan
+    $routes->get('/riwayat-tagihan', 'Riwayat::index');
+    //Route Aktifitas Login
+    $routes->get('account/login-activity', 'LoginActifityController::index');
+    //Route Setting Akun
+    $routes->get('/account_app', 'SettingAccountApp::index');
 });
 //Account Seting
 $routes->get('/account/setting', 'Account::setting', ['filter' => 'auth']);
@@ -35,10 +41,7 @@ $routes->post('/account/update-username', 'Account::updateUsername', ['filter' =
 $routes->post('/account/update-email', 'Account::updateEmail', ['filter' => 'auth']);
 $routes->post('/account/check-old-password', 'Account::checkOldPassword', ['filter' => 'auth']);
 $routes->post('/account/update-password', 'Account::updatePassword', ['filter' => 'auth']);
-//Route Aktifitas Login
-$routes->get('account/login-activity', 'LoginActifityController::index');
 //Account Setting App
-$routes->get('/account_app', 'SettingAccountApp::index');
 $routes->get('/account_app/edit/(:num)', 'SettingAccountApp::edit/$1');
 $routes->post('/account_app/update/(:num)', 'SettingAccountApp::update/$1');
 $routes->get('/account_app/delete/(:num)', 'SettingAccountApp::delete/$1');
@@ -52,9 +55,7 @@ $routes->post('tagihan/delete/(:num)', 'Tagihan::delete/$1');
 $routes->get('/tagihan/lunas', 'Tagihan::lunas');
 $routes->get('/tagihan/belum-lunas', 'Tagihan::belumLunas');
 //route riwayat tagihan
-$routes->get('/tagihan/simpan-semua', 'Tagihan::simpanSemua');
 $routes->get('/riwayat-tagihan', 'Tagihan::riwayat');
-$routes->get('riwayat', 'Riwayat::index');
 $routes->post('riwayat/kembalikan', 'Riwayat::kembalikan');
 $routes->post('riwayat/hapus', 'Riwayat::hapus');
 $routes->get('riwayat/filter', 'Riwayat::filter');

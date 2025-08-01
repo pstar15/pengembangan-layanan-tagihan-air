@@ -35,8 +35,6 @@ class Tagihan extends BaseController
 
         $query = $model->where('user_id', $userId);
 
-        $query = $model;
-
         if ($keyword) {
             $query = $query->like('nama_pelanggan', $keyword)->orLike('nomor_meter', $keyword)->groupEnd();
         }
@@ -49,7 +47,6 @@ class Tagihan extends BaseController
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
         $data['akun_android'] = $PhoneUser->findAll();
-        $data['tagihan'] = $this->$model->where('user_id', $userId)->findAll();
 
         return view('tagihan/index', $data);
     }
@@ -196,23 +193,6 @@ class Tagihan extends BaseController
         $model = new TagihanModel();
         $data['tagihan'] = $model->where('user_id', $userId)->where('status', 'Belum Lunas')->findAll();
         return view('tagihan/index', $data);
-    }
-
-    public function riwayat()
-    {
-        $periode = $this->request->getGet('periode');
-        $model = new RiwayatTagihanModel();
-            $periode = $this->request->getGet('periode');
-
-            if ($periode && preg_match('/^\d{4}-\d{2}$/', $periode)) {
-                $data['riwayat'] = $model->like('periode', $periode)->findAll();
-            } else {
-                $data['riwayat'] = $model->findAll();
-            }
-
-            $data['periode'] = $periode;
-
-            return view('tagihan/riwayat', $data);
     }
 
     public function kirimMultiUser()

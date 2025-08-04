@@ -156,8 +156,21 @@
                         </div>
                         <div class="card-footer">
                             <hr>
-                            <h3 style="margin-left: 20px;">Total Pendapatan</h3>
+                            <div style="margin-left: 20px;">
+                                <h3>Total Pendapatan</h3>
+                                <form id="periodeForm" method="get" action="<?= base_url('dashboard') ?>">
+                                    <label for="periode">Pilih Bulan / Tahun</label>
+                                    <select name="periode" id="periode" onchange="document.getElementById('periodeForm').submit();">
+                                        <?php foreach ($listPeriode as $key => $label): ?>
+                                            <option value="<?= $key ?>" <?= $key == $selectedPeriode ? 'selected' : '' ?>>
+                                                <?= $label ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
+
                         <a href="<?= base_url('riwayat-tagihan') ?>" class="detail-card">
                             Detail
                         </a>

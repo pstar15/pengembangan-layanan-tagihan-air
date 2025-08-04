@@ -168,8 +168,42 @@ class Auth extends BaseController
         }
 
         $userId              = session()->get('user_id');
-        $TagihanModel        = new TagihanModel();
         $RiwayatTagihanModel = new RiwayatTagihanModel();
+
+        $semuaPeriode = $RiwayatTagihanModel
+            ->select('periode')
+            ->where('user_id', $userId)
+            ->groupBy('periode')
+            ->orderBy('periode', 'DESC')
+            ->findAll();
+
+        function formatPeriode($periode) {
+            $bulanIndo = [
+                '01' => 'Januari', '02' => 'Februari', '03' => 'Maret',
+                '04' => 'April', '05' => 'Mei', '06' => 'Juni',
+                '07' => 'Juli', '08' => 'Agustus', '09' => 'September',
+                '10' => 'Oktober', '11' => 'November', '12' => 'Desember'
+            ];
+            [$tahun, $bulan] = explode('-', $periode);
+            return $bulanIndo[$bulan] . '-' . $tahun;
+        }
+
+        $listPeriode = [];
+        foreach ($semuaPeriode as $item) {
+            $periode = $item['periode'];
+            $listPeriode[$periode] = formatPeriode($periode);
+        }
+
+        $selectedPeriode = $this->request->getGet('periode') ?? ($listPeriode[0] ?? null);
+
+        session()->set('periode_terakhir', $selectedPeriode);
+
+        $totalTagihan = $RiwayatTagihanModel
+            ->where('user_id', $userId)
+            ->where('periode', $selectedPeriode)
+            ->selectSum('jumlah_tagihan') ?? 0;
+
+        $TagihanModel        = new TagihanModel();
         $PhoneUser           = new \App\Models\PhoneUser();
         $totalTagihan        = $RiwayatTagihanModel->getTotalTagihan();
         $totalAkun           = $PhoneUser->countAll();
@@ -212,6 +246,8 @@ class Auth extends BaseController
         $data['notifikasi'] = $this->getNotifikasiTagihan();
         $data['notifikasi_baru'] = $this->getNotifikasiBaruCount();
 
+        $data['listPeriode'] = $listPeriode;
+        $data['selectedPeriode'] = $selectedPeriode;
         $data['totalTagihan'] = $totalTagihan;
 
         $data['totalAkun'] = $totalAkun;

@@ -154,14 +154,28 @@
 
             <h2>Daftar Tagihan Air</h2>
             <div class="toolbar-wrapper">
-                <div class="toolbar-left">
+                <div class="toolbar-buttons">
+
+                    <!-- Tombol Export Opsi -->
+                    <div class="export-menu-wrapper">
+                        <button class="btn-export-custom" onclick="toggleExportMenu()">
+                            Export <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="export-menu" id="exportMenu">
+                            <a href="<?= base_url('tagihan/exportExcel') ?>"><i class="bi bi-file-earmark-excel"></i> Export ke Excel</a>
+                            <a href="<?= base_url('tagihan/exportWord') ?>"><i class="bi bi-file-earmark-word"></i> Export ke Word</a>
+                            <a href="<?= base_url('tagihan/exportPDF') ?>" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Export ke PDF</a>
+                        </div>
+                    </div>
+
                     <!-- Tombol Tambah -->
                     <div class="button-add-group">
                         <a href="<?= base_url('/tagihan/create') ?>" class="btn-addtagihan">
-                            <p>Add</p>
+                            <i class="bi bi-plus" style="font-size: 1rem;"></i>
+                            <span>Add</span>
                         </a>
                     <div class="label-add-hover">Tambah Data Tagihan</div>
-                </div>
+                    </div>
 
                     <!-- Filter Status -->
                     <form method="get" action="<?= base_url('tagihan') ?>" class="filter-form">
@@ -394,9 +408,25 @@
             });
         });
     });
-
-
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menu = document.getElementById("exportMenu");
+        const button = document.querySelector(".btn-export-custom");
+
+        button.addEventListener("click", function(e) {
+            e.stopPropagation();
+            menu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function(e) {
+            if (!button.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove("show");
+            }
+        });
+    });
+</script>
+<script>
 
 </body>
 </html>

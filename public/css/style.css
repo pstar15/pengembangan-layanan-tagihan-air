@@ -964,44 +964,77 @@ body.sidebar-collapsed .main-content {
 /* Wrapper Flex Horizontal */
 .toolbar-wrapper {
     display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
+    justify-content: flex-end;
     align-items: center;
-    height: 30px;
+    padding: 10px;
 }
 
-/* Tombol & Form Horizontal */
-.toolbar-left {
+.toolbar-buttons {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.export-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-export-custom  {
+    background-color: #198754;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.export-menu {
+    position: absolute;
+    top: 100%; /* langsung di bawah tombol */
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    min-width: 160px;
+    z-index: 1000;
+    display: none;
+}
+
+.export-menu a {
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.export-menu a:hover {
+    background-color: #e9ecef;
+}
+
+#exportMenu.show {
+    display: block;
 }
 
 /* Tombol Tambah */
-.button-add-group {
-    position: absolute;
-    margin-left: 180px;
-}
-.btn-addtagihan {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 30px;
+.button-add-group a {
+    background-color: white;
+    color: #5592ee;
+    border: 1px solid #5592ee;
     border-radius: 5px;
-    border: none;
-    background: transparent;
-    border: 1px solid #4087f1;
-    font-size: 15px;
-    color: #4087f1;
-    cursor: pointer;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-.btn-addtagihan:hover {
-    color: #1f5e8e;
+.button-add-group a:hover {
+    color: #0066ff;
+    border: 1px solid #0066ff;
 }
 
 .label-add-hover,
@@ -1046,7 +1079,12 @@ body.sidebar-collapsed .main-content {
 }
 
 /* Form Select */
-.filter-form select.form-select {
+.filter-form select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.filter-form select .form-select {
     background-color: rgb(64, 135, 241);
     color: #fff;
     border: none;
@@ -1068,18 +1106,22 @@ body.sidebar-collapsed .main-content {
     gap: 8px;
     align-items: center;
 }
+
 .form-search input {
-    padding: 7px 12px;
-    border-radius: 5px;
+    padding: 5px 10px;
     border: 1px solid #ccc;
+    border-radius: 5px;
 }
+
 .button-search button {
+    background-color: #198754;
+    color: white;
     border: none;
-    background: none;
-    color: #4087f1;
-    font-size: 16px;
+    border-radius: 5px;
+    padding: 5px 8px;
     cursor: pointer;
 }
+
 @media (max-width: 768px) {
     .toolbar-wrapper {
         flex-direction: column;

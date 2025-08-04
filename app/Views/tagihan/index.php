@@ -426,7 +426,5 @@
         });
     });
 </script>
-<script>
-
 </body>
 </html>

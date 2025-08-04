@@ -8,6 +8,11 @@ use App\Models\PhoneUser;
 use App\Models\RiwayatTagihanModel;
 use App\Models\TagihanAplikasiModel;
 use Config\Database;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Dompdf\Dompdf;
+use PhpOffice\PhpWord\PhpWord;
+use Dompdf\Options;
 
 class Tagihan extends BaseController
 {
@@ -248,6 +253,72 @@ class Tagihan extends BaseController
             'success' => true,
             'message' => "Berhasil mengirim ke $inserted akun."
         ]);
+    }
+
+    public function exportExcel()
+    {
+        $model = new TagihanModel();
+        $data = $model->where('user_id', session()->get('user_id'))->findAll();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama');
+        $sheet->setCellValue('C1', 'No Meter');
+        $sheet->setCellValue('D1', 'Periode');
+        $sheet->setCellValue('E1', 'Jumlah');
+        $sheet->setCellValue('F1', 'Status');
+
+        $row = 2;
+        foreach ($data as $key => $item) {
+            $sheet->setCellValue('A' . $row, $key + 1);
+            $sheet->setCellValue('B' . $row, $item['nama']);
+            $sheet->setCellValue('C' . $row, $item['no_meter']);
+            $sheet->setCellValue('D' . $row, $item['periode']);
+            $sheet->setCellValue('E' . $row, $item['jumlah']);
+            $sheet->setCellValue('F' . $row, $item['status']);
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'Data_Tagihan.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        $writer->save("php://output");
+        exit;
+    }
+
+    public function exportWord()
+    {
+        $model = new TagihanModel();
+        $data = $model->where('user_id', session()->get('user_id'))->findAll();
+
+        $html = view('tagihan/export_word', ['data' => $data]);
+
+        header("Content-type: application/vnd.ms-word");
+        header("Content-Disposition: attachment; filename=Data_Tagihan.doc");
+        echo $html;
+        exit;
+    }
+
+    public function exportPDF()
+    {
+        $model = new TagihanModel();
+        $data = $model->where('user_id', session()->get('user_id'))->findAll();
+
+        $html = view('tagihan/export_pdf', ['data' => $data]);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream('Data_Tagihan.pdf', ["Attachment" => true]);
+        exit;
     }
 
 }

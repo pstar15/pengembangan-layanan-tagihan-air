@@ -24,25 +24,6 @@
             user-select: none;
             white-space: nowrap;
         }
-        .toolbar-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-            animation: fadeIn 0.5s ease;
-        }
-        .filter-form {
-            display: flex;
-            position: inherit;
-            justify-content: right;
-            align-items: right;
-            margin: 0 auto;
-            margin-left: 240px;
-            margin-bottom: 10px;
-        }
         .no-copy {
             user-select: none;
             -webkit-user-select: none;
@@ -87,16 +68,6 @@
     </style>
 </head>
 <body>
-    <!--
-
-        PR css button search data,add, Pilih Status, and simpan data
-        (PR button simpan konfirmasi data tagihan ke riwayat tagihan
-        Tombol Kirim ke aplikasi and dropdown notifikasi pesan tagihan dari pengguna),
-        di dalam halaman add data tagihan, form data tagihan harus terisi sebelum klik simpan
-        (tambahkan autentikasi agar tidak terjadi kesalahan),
-
-    -->
-
     <div class="navbar">
         <span class="menu-toggle" id="sidebarToggle">
             <i class="bi bi-list"></i>

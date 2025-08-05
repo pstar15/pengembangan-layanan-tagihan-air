@@ -18,7 +18,7 @@
         h2 {
             position: absolute;
             text-align: left;
-            margin-top: 18px;
+            margin-top: 20px;
             margin-left: 0;
             color: #000;
             user-select: none;
@@ -155,13 +155,12 @@
             <h2>Daftar Tagihan Air</h2>
             <div class="toolbar-wrapper">
                 <div class="toolbar-buttons">
-
                     <!-- Tombol Tambah -->
                     <div class="button-add-group">
-                        <a href="<?= base_url('/tagihan/create') ?>" class="btn-addtagihan">
+                        <button onclick="openModal('modalCreate')" class="btn-addtagihan">
                             <i class="bi bi-plus" style="font-size: 1rem;"></i>
                             <span style="font-size: 12px;">Add</span>
-                        </a>
+                        </button>
                         <div class="label-add-hover">Tambah Data</div>
                     </div>
 
@@ -203,6 +202,12 @@
                     </form>
                 </div>
             </div>
+            <div id="modalCreate" class="modal-tagihan">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('modalCreate')">&times;</span>
+                    <?= view('tagihan/modal/form_create') ?>
+                </div>
+            </div>
 
             <div id="resultContainer" class="table-container">
                 <table border="1" cellpadding="10" cellspacing="0" width="100%" class="tagihan-striped">
@@ -239,7 +244,7 @@
                                     </td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="<?= base_url('tagihan/edit/' . $row['id']) ?>" class="btn btn-edit">Edit</a>
+                                            <a href="javascript:void(0)" onclick="loadEditModal(<?= $row['id'] ?>)" class="btn btn-edit">Edit</a>
 
                                             <form id="formDeleteTagihan_<?= $row['id'] ?>" action="<?= base_url('tagihan/delete/' . $row['id']) ?>" method="post" class="form-delete-tagihan">
                                                 <?= csrf_field() ?>
@@ -258,6 +263,14 @@
                         <?php endif ?>
                     </tbody>
                 </table>
+                <!-- Modal Edit -->
+                <div id="modalEdit" class="modal-tagihan">
+                    <div class="modal-content" id="modalEditContent">
+                        <span class="close-modal" onclick="closeModal('modalEdit')">&times;</span>
+                        <!-- Konten form edit akan dimuat via AJAX -->
+                    </div>
+                </div>
+
                 <div id="modal-kirim-data" style="display: none;">
                     <form id="formKirimData">
                         <div id="list-akun" style="margin-bottom: 15px;">
@@ -283,6 +296,35 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<?= base_url('js/script.js') ?>" defer></script>
+<script>
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal-tagihan');
+    modals.forEach(modal => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+
+function loadEditModal(id) {
+    fetch(`<?= base_url('tagihan/edit') ?>/${id}`)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('modalEditContent').innerHTML = `<span class="close-modal" onclick="closeModal('modalEdit')">&times;</span>` + html;
+            openModal('modalEdit');
+        })
+        .catch(err => alert("Gagal memuat form edit"));
+}
+</script>
+
 <?php if (session()->getFlashdata('success')): ?>
     <script>
         Swal.fire({

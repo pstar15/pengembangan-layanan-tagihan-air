@@ -137,7 +137,7 @@ class Tagihan extends BaseController
             return redirect(`/tagihan`)->with('error', 'Mohon maaf, data anda tidak ditemukan.');
         }
 
-        return view('/tagihan/edit', $data);
+        return view('tagihan/modal/form_edit', $data);
     }
 
     public function update($id)

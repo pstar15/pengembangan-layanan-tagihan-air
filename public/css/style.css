@@ -839,29 +839,64 @@ body.sidebar-collapsed .main-content {
 .table-row:hover {
     background-color: #f1f1f1;
 }
-
 /* CSS Tambah data tagihan dan Edit data Tagihan */
-
 /* Container Form */
-.form-tagihan {
-    max-width: 600px;
+.modal-tagihan {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+    background-color: #fff;
     margin: 30px auto;
-    background: #fff;
-    padding: 50px;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 3px;
+    width: 30%;
+    max-width: 600px;
+    position: relative;
     animation: fadeSlideIn 0.6s ease;
 }
-
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+.img-create-tagihan img {
+    width: 90px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+}
+.img-edit-tagihan img {
+    width: 90px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+}
+.form-tagihan {
+    max-width: 600px;
+    margin: 10px auto;
+    background: none;
+    padding: 20px;
+}
 /* Heading */
-.form-tagihan h2 {
-    text-align: center;
+.form-tagihan h5 {
+    text-align: left;
     color: #2c3e50;
 }
 
 .form-tagihan label {
     display: block;
-    font-weight: 600;
+    font-weight: 400;
     color: #34495e;
     text-align: left;
 }
@@ -871,17 +906,17 @@ body.sidebar-collapsed .main-content {
     text-align: left;
     color: #34495e;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     margin: auto;
 }
 
 .form-tagihan input,
 .form-tagihan select {
     width: 100%;
-    padding: 10px 14px;
+    padding: 3px 6px;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 15px;
+    border-radius: 3px;
+    font-size: 14px;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -911,21 +946,21 @@ body.sidebar-collapsed .main-content {
 .form-tagihan .btn-simpan:hover {
     background-color: #1f5e8e;
 }
-
-.img-create-tagihan img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    display: block;
+.btn-updatetagihan{
+    background-color: #2980b9;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    width: 100%;
 }
-
-.img-edit-tagihan img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    display: block;
+.btn-updatetagihan:hover {
+    background-color: #1f5e8e;
 }
-
 /* Tombol Kembali */
 .btn-kembali {
     display: inline-block;
@@ -977,7 +1012,7 @@ body.sidebar-collapsed .main-content {
     position: relative;
     display: inline-block;
 }
-.button-add-group a {
+.button-add-group .btn-addtagihan {
     background-color: white;
     color: #5592ee;
     border: 1px solid #5592ee;
@@ -987,7 +1022,7 @@ body.sidebar-collapsed .main-content {
     align-items: center;
     text-decoration: none;
 }
-.button-add-group a:hover {
+.button-add-group .btn-addtagihan:hover {
     color: #0066ff;
     border: 1px solid #0066ff;
 }
@@ -995,7 +1030,6 @@ body.sidebar-collapsed .main-content {
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-top: 10px;
     transform: translateX(-50%);
     background-color: #a8a8a8;
     color: #fff;

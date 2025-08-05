@@ -14,7 +14,7 @@ class AuthUsers extends ResourceController
         $json = $this->request->getJSON();
         $model = new PhoneUser();
 
-        // Validasi jika data tidak lengkap
+        // Validasi data
         if (!isset($json->username) || !isset($json->email) || !isset($json->password)) {
             return $this->respond([
                 'status' => false,

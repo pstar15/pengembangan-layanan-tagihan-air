@@ -102,13 +102,11 @@ class TagihanApi extends ResourceController
     {
         $model = new \App\Models\TagihanAplikasiModel();
 
-        // Cek apakah data dengan ID tersebut ada
         $tagihan = $model->find($id);
         if (!$tagihan) {
             return $this->failNotFound("Data dengan ID $id tidak ditemukan");
         }
 
-        // Hapus data
         if ($model->delete($id)) {
             return $this->respond([
                 'status' => true,
@@ -116,7 +114,6 @@ class TagihanApi extends ResourceController
             ], 200);
         }
 
-        // Jika gagal menghapus
         return $this->failServerError("Gagal menghapus data");
     }
 
@@ -131,25 +128,48 @@ class TagihanApi extends ResourceController
             return $this->respond(['status' => false, 'message' => 'Data tidak valid'], 400);
         }
 
-        if (
-            !isset($data['nama_pelanggan']) ||
-            !isset($data['nomor_meter']) ||
-            !isset($data['periode']) ||
-            !isset($data['jumlah_tagihan'])
-        ) {
-            return $this->respond(['status' => false, 'message' => 'Field wajib tidak lengkap'], 400);
+        // Validasi field
+        $required = ['nama_pelanggan', 'nomor_meter', 'periode', 'jumlah_tagihan', 'user_id'];
+        foreach ($required as $field) {
+            if (empty($data[$field])) {
+                return $this->respond([
+                    'status' => false,
+                    'message' => "Field '$field' wajib diisi"
+                ], 400);
+            }
         }
 
         try {
-            // Simpan ke database aplikasi
             $dbAplikasi = \Config\Database::connect('db_tagihanaplikasi');
-            $dbAplikasi->table('riwayataplikasi')->insert($data);
+            $dbRekap = \Config\Database::connect('db_rekapitulasi_tagihan_air');
 
-            // Simpan ke database pusat
-            $dbPusat = \Config\Database::connect('db_rekapitulasi_tagihan_air');
-            $dbPusat->table('riwayat_tagihan')->insert($data);
+            // Simpan ke table riwayat aplikasi
+            $dbAplikasi->table('riwayataplikasi')->insert([
+                'user_id' => $data['user_id'],
+                'nama_pelanggan' => $data['nama_pelanggan'],
+                'alamat' => $data['alamat'] ?? null,
+                'nomor_meter' => $data['nomor_meter'],
+                'jumlah_meter' => $data['jumlah_meter'] ?? null,
+                'periode' => $data['periode'],
+                'jumlah_tagihan' => $data['jumlah_tagihan'],
+                'status' => $data['status'] ?? 'Belum Lunas',
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
 
-            // Format judul dan deskripsi notifikasi
+            // Simpan ke table riwayat_tagian
+            $dbRekap->table('riwayat_tagihan')->insert([
+                'user_id' => $data['user_id'],
+                'nama_pelanggan' => $data['nama_pelanggan'],
+                'alamat' => $data['alamat'] ?? null,
+                'nomor_meter' => $data['nomor_meter'],
+                'jumlah_meter' => $data['jumlah_meter'] ?? null,
+                'periode' => $data['periode'],
+                'jumlah_tagihan' => $data['jumlah_tagihan'],
+                'status' => $data['status'] ?? 'Belum Lunas',
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+            // Notifikasi
             $judul = sprintf(
                 "Tagihan atas nama %s (%s) periode %s sebesar Rp%s telah dikirim",
                 $data['nama_pelanggan'],
@@ -161,8 +181,8 @@ class TagihanApi extends ResourceController
             $waktu = date('Y-m-d H:i:s');
             $deskripsi = "Pengiriman berhasil dilakukan pada $waktu.";
 
-            // Simpan ke tabel notifikasi
-            $dbPusat->table('notifikasi_tagihan')->insert([
+            $dbRekap->table('notifikasi_tagihan')->insert([
+                'user_id' => $data['user_id'],
                 'judul' => $judul,
                 'deskripsi' => $deskripsi,
                 'waktu' => $waktu
@@ -183,18 +203,14 @@ class TagihanApi extends ResourceController
 
     public function show($id = null)
     {
-        // Ambil model
         $model = new TagihanAplikasiModel();
 
-        // Cek apakah data dengan ID tersedia
         $data = $model->find($id);
 
-        // Jika tidak ditemukan
         if (!$data) {
             return $this->failNotFound("Data dengan ID $id tidak ditemukan.");
         }
 
-        // Jika ditemukan
         return $this->respond([
             'status' => true,
             'data' => $data

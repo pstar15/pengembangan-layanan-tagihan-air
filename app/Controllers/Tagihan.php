@@ -245,7 +245,9 @@ class Tagihan extends BaseController
                 'periode' => $tagihan['periode'],
                 'jumlah_tagihan' => $tagihan['jumlah_tagihan'],
                 'status' => $tagihan['status'],
+                'created_at' => date('Y-m-d H:i:s')
             ]);
+
             $inserted++;
         }
 

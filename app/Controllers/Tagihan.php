@@ -41,8 +41,11 @@ class Tagihan extends BaseController
         $query = $model->where('user_id', $userId);
 
         if ($keyword) {
-            $query = $query->like('nama_pelanggan', $keyword)->orLike('nomor_meter', $keyword)->groupEnd();
-        }
+        $query = $query->groupStart()
+                    ->like('nama_pelanggan', $keyword)
+                    ->orLike('nomor_meter', $keyword)
+                    ->groupEnd();
+    }
 
         if ($status) {
             $query = $query->where('status', $status);

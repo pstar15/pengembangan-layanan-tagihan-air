@@ -940,7 +940,6 @@ body.sidebar-collapsed .main-content {
 .btn-kembali:hover {
     color: #2c3e50;
 }
-/* END CSS CREATE DATA TAGIHAN **/
 /* Alert Error */
 .alert-error {
     padding: 10px;
@@ -960,29 +959,63 @@ body.sidebar-collapsed .main-content {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-/* End Css Filter Status **/
-/* Wrapper Flex Horizontal */
+/* CSS BUTTON MENU TAGIHAN AND FORM SEARCH TAGIHAN */
 .toolbar-wrapper {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
 }
-
 .toolbar-buttons {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
 }
-
+/* CSS ADD DATA TAGIHAN */
+.button-add-group {
+    position: relative;
+    display: inline-block;
+}
+.button-add-group a {
+    background-color: white;
+    color: #5592ee;
+    border: 1px solid #5592ee;
+    border-radius: 5px;
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.button-add-group a:hover {
+    color: #0066ff;
+    border: 1px solid #0066ff;
+}
+.label-add-hover {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 10px;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+/* END CSS ADD DATA TAGIHAN */
+/* CSS BUTTON EXPORT TAGIHAN */
 .export-menu-wrapper {
     position: relative;
     display: inline-block;
 }
-
 .btn-export-custom  {
-    background-color: #198754;
+    background-color: #4087f1;
     color: white;
     border: none;
     padding: 6px 12px;
@@ -991,10 +1024,9 @@ body.sidebar-collapsed .main-content {
     display: flex;
     align-items: center;
 }
-
 .export-menu {
     position: absolute;
-    top: 100%; /* langsung di bawah tombol */
+    top: 100%;
     left: 0;
     background-color: white;
     border: 1px solid #ddd;
@@ -1004,7 +1036,6 @@ body.sidebar-collapsed .main-content {
     z-index: 1000;
     display: none;
 }
-
 .export-menu a {
     padding: 10px 15px;
     display: block;
@@ -1012,7 +1043,6 @@ body.sidebar-collapsed .main-content {
     color: #333;
     font-size: 14px;
 }
-
 .export-menu a:hover {
     background-color: #e9ecef;
 }
@@ -1020,30 +1050,11 @@ body.sidebar-collapsed .main-content {
 #exportMenu.show {
     display: block;
 }
-
-/* Tombol Tambah */
-.button-add-group a {
-    background-color: white;
-    color: #5592ee;
-    border: 1px solid #5592ee;
-    border-radius: 5px;
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-.button-add-group a:hover {
-    color: #0066ff;
-    border: 1px solid #0066ff;
-}
-
-.label-add-hover,
-.label-FSearch-hover {
+.label-export-hover {
     position: absolute;
     top: 100%;
-    margin-top: 10px;
     left: 50%;
-    transform: translateX(-50%) translateY(5px);
+    transform: translateX(-50%);
     background-color: #a8a8a8;
     color: #fff;
     padding: 4px 8px;
@@ -1055,38 +1066,20 @@ body.sidebar-collapsed .main-content {
     pointer-events: none;
     z-index: 10;
 }
-.label-Fstatus-hover {
-    position: absolute;
-    margin-top: 10px;
-    left: 76%;
-    transform: translateX(-50%) translateY(5px);
-    background-color: #a8a8a8;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    opacity: 0;
-    white-space: nowrap;
-    transition: 0.3s ease;
-    pointer-events: none;
-    z-index: 10;
+/* END CSS EXPORT TAGIHAN */
+/* CSS OPSI FILTER TAGIHAN */
+.filter-form {
+    position: relative;
+    display: inline-block;
 }
-.button-add-group:hover .label-add-hover,
-.Filter-Status:hover .label-Fstatus-hover,
-.form-search:hover .label-FSearch-hover {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* Form Select */
 .filter-form select {
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 .filter-form select .form-select {
-    background-color: rgb(64, 135, 241);
-    color: #fff;
+    background-color: none;
+    color: #ccc;
     border: none;
     border-radius: 5px;
     margin-top: 11px;
@@ -1094,34 +1087,88 @@ body.sidebar-collapsed .main-content {
     height: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
 .filter-form select.form-select option {
     background-color: #fff;
     color: #000;
 }
-
-/* Search */
+.label-Fstatus-hover {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 9px;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+/* CSS FORM SEARCH AND BTN SEARCH */
 .search-form {
+    position: relative;
     display: flex;
     gap: 8px;
     align-items: center;
 }
-
+.form-search {
+    position: relative;
+}
 .form-search input {
     padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
+.label-FSearch-hover {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+.button-search {
+    position: relative;
+}
 .button-search button {
-    background-color: #198754;
-    color: white;
+    background-color: transparent;
+    color: #797979;
     border: none;
     border-radius: 5px;
     padding: 5px 8px;
     cursor: pointer;
 }
+.label-cari-hover {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 1px;
+    transform: translateX(-50%);
+    background-color: #a8a8a8;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
 
+/* END CSS FORM SEARCH AND BTN SEARCH*/
 @media (max-width: 768px) {
     .toolbar-wrapper {
         flex-direction: column;
@@ -1134,8 +1181,15 @@ body.sidebar-collapsed .main-content {
         gap: 10px;
     }
 }
-
-/* end css menu search*/
+.button-add-group:hover .label-add-hover,
+.export-menu-wrapper:hover .label-export-hover,
+.Filter-Status:hover .label-Fstatus-hover,
+.form-search:hover .label-FSearch-hover,
+.button-search:hover .label-cari-hover {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+/* END CSS BUTTON MENU TAGIHAN */
 .menu-filter-riwayat {
     width: 100%;
     display: flex;

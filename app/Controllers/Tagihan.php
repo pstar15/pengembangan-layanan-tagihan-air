@@ -327,13 +327,13 @@ class Tagihan extends BaseController
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
         $filename = 'Data-Tagihan-' . date('F-Y') . '.pdf';
         $filename = str_replace([' ', ','], '-', $filename);
 
-        $dompdf->stream('$filename', ["Attachment" => true]);
+        $dompdf->stream($filename, ["Attachment" => true]);
         exit;
     }
 

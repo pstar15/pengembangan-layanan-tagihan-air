@@ -290,7 +290,9 @@ class Tagihan extends BaseController
         }
 
         $writer = new Xlsx($spreadsheet);
-        $filename = 'Data_Tagihan.xlsx';
+
+        $filename = 'Data_Tagihan-' . date('F-Y') . '.xlsx';
+        $filename = str_replace([' ', ','], '-', $filename);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header("Content-Disposition: attachment; filename=\"$filename\"");
@@ -305,8 +307,11 @@ class Tagihan extends BaseController
 
         $html = view('tagihan/export/export_word', ['data' => $data]);
 
+        $filename = 'Data_Tagihan-' . date('F-Y') . '.doc';
+        $filename = str_replace([' ', ','], '-', $filename);
+
         header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment; filename=Data_Tagihan.doc");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
         echo $html;
         exit;
     }
@@ -324,7 +329,11 @@ class Tagihan extends BaseController
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        $dompdf->stream('Data_Tagihan.pdf', ["Attachment" => true]);
+
+        $filename = 'Data_Tagihan-' . date('F-Y') . '.pdf';
+        $filename = str_replace([' ', ','], '-', $filename);
+
+        $dompdf->stream('$filename', ["Attachment" => true]);
         exit;
     }
 

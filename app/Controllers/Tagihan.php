@@ -182,7 +182,7 @@ class Tagihan extends BaseController
         }
 
         if ($model->delete($id)) {
-            return redirect()->to('/tagihan')->with('seccess', 'Selamat, Data tagihan anda berhasil dihapus.');
+            return redirect()->to('/tagihan')->with('success', 'Selamat, Data tagihan anda berhasil dihapus.');
         } else {
             return redirect()->to('/tagihan')->with('error', 'Gagal menghapus data tagihan, silahkan coba lagi.');
         }

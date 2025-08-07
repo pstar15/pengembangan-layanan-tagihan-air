@@ -51,6 +51,10 @@ $routes->post('/tagihan/store', 'Tagihan::store');
 $routes->get('/tagihan/edit/(:num)', 'Tagihan::edit/$1');
 $routes->post('/tagihan/update/(:num)', 'Tagihan::update/$1');
 $routes->post('tagihan/delete/(:num)', 'Tagihan::delete/$1');
+//Route Export Data Tagihan
+$routes->get('/tagihan/export-excel', 'Tagihan::exportExcel');
+$routes->get('/tagihan/export-word', 'Tagihan::exportWord');
+$routes->get('/tagihan/export-pdf', 'Tagihan::exportPDF');
 //Route Filter Data Tagihan lunas dan Belum Lunas
 $routes->get('/tagihan/lunas', 'Tagihan::lunas');
 $routes->get('/tagihan/belum-lunas', 'Tagihan::belumLunas');

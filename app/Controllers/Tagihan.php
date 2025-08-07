@@ -270,20 +270,22 @@ class Tagihan extends BaseController
 
         // Header kolom
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Nama');
-        $sheet->setCellValue('C1', 'No Meter');
-        $sheet->setCellValue('D1', 'Periode');
-        $sheet->setCellValue('E1', 'Jumlah');
-        $sheet->setCellValue('F1', 'Status');
+        $sheet->setCellValue('B1', 'Nama Pelanggan');
+        $sheet->setCellValue('C1', 'Alamat');
+        $sheet->setCellValue('D1', 'No Meter');
+        $sheet->setCellValue('E1', 'Jumlah Meter');
+        $sheet->setCellValue('F1', 'Periode');
+        $sheet->setCellValue('G1', 'Total Tagihan');
 
         $row = 2;
         foreach ($data as $key => $item) {
             $sheet->setCellValue('A' . $row, $key + 1);
-            $sheet->setCellValue('B' . $row, $item['nama']);
-            $sheet->setCellValue('C' . $row, $item['no_meter']);
-            $sheet->setCellValue('D' . $row, $item['periode']);
-            $sheet->setCellValue('E' . $row, $item['jumlah']);
-            $sheet->setCellValue('F' . $row, $item['status']);
+            $sheet->setCellValue('B' . $row, $item['nama_pelanggan']);
+            $sheet->setCellValue('C' . $row, $item['alamat']);
+            $sheet->setCellValue('D' . $row, $item['nomor_meter']);
+            $sheet->setCellValue('E' . $row, $item['jumlah_meter']);
+            $sheet->setCellValue('F' . $row, $item['periode']);
+            $sheet->setCellValue('G' . $row, $item['jumlah_tagihan']);
             $row++;
         }
 
@@ -301,7 +303,7 @@ class Tagihan extends BaseController
         $model = new TagihanModel();
         $data = $model->where('user_id', session()->get('user_id'))->findAll();
 
-        $html = view('tagihan/export_word', ['data' => $data]);
+        $html = view('tagihan/export/export_word', ['data' => $data]);
 
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment; filename=Data_Tagihan.doc");
@@ -314,7 +316,7 @@ class Tagihan extends BaseController
         $model = new TagihanModel();
         $data = $model->where('user_id', session()->get('user_id'))->findAll();
 
-        $html = view('tagihan/export_pdf', ['data' => $data]);
+        $html = view('tagihan/export/export_pdf', ['data' => $data]);
 
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);

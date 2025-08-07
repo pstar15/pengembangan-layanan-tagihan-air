@@ -170,9 +170,9 @@
                             Export &nbsp<i class="bi bi-chevron-down"></i>
                         </button>
                         <div class="export-menu" id="exportMenu">
-                            <a href="<?= base_url('tagihan/exportExcel') ?>"><i class="bi bi-file-earmark-excel"></i> Export ke Excel</a>
-                            <a href="<?= base_url('tagihan/exportWord') ?>"><i class="bi bi-file-earmark-word"></i> Export ke Word</a>
-                            <a href="<?= base_url('tagihan/exportPDF') ?>" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Export ke PDF</a>
+                            <a href="<?= base_url('tagihan/export-excel') ?>"><i class="bi bi-file-earmark-excel"></i> Export ke Excel</a>
+                            <a href="<?= base_url('tagihan/export-word') ?>"><i class="bi bi-file-earmark-word"></i> Export ke Word</a>
+                            <a href="<?= base_url('tagihan/export-pdf') ?>" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Export ke PDF</a>
                         </div>
                         <div class="label-export-hover">Export Data</div>
                     </div>
